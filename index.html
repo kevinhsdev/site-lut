@@ -1,0 +1,808 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#072a73">
+<script>document.documentElement.classList.add('js')</script>
+<title>Instituto Educacional Luterano | Ferraz de Vasconcelos</title>
+<meta name="description" content="Escola confessional luterana em Ferraz de Vasconcelos (SP), desde 1981. Educação Infantil, Ensino Fundamental I e II e Ensino Médio. Matrículas 2027 abertas.">
+<meta property="og:title" content="Instituto Educacional Luterano">
+<meta property="og:description" content="Ensino de qualidade que supera fronteiras. Da Educação Infantil ao Ensino Médio.">
+<meta property="og:image" content="img/infra3.jpg">
+<link rel="icon" href="img/logo-escura.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"School","name":"Instituto Educacional Luterano","url":"https://ieluterano.com.br","logo":"https://ieluterano.com.br/img/logo.png","telephone":"+55-11-4678-1461","email":"contato@ieluterano.com.br","foundingDate":"1981","address":{"@type":"PostalAddress","streetAddress":"Av. Herman Teles Ribeiro, 162","addressLocality":"Ferraz de Vasconcelos","addressRegion":"SP","addressCountry":"BR"},"sameAs":["https://www.facebook.com/InstitutoEducacionalLuterano/"]}
+</script>
+<style>
+:root{
+  --blue:#0b3a9a; --blue-d:#072a73; --blue-l:#eaf0fc;
+  --lime:#dfe000; --lime-d:#c9ca00; --red:#c20f2b;
+  --ink:#141a2e; --muted:#566079; --line:#e4e8f0; --bg:#fff; --soft:#f6f8fc;
+  --r:20px; --r-sm:12px;
+  /* sombras em camadas: contato + ambiente, nunca uma mancha só */
+  --shadow:0 1px 2px rgba(7,42,115,.06),0 8px 24px -6px rgba(7,42,115,.12);
+  --shadow-lg:0 2px 4px rgba(7,42,115,.06),0 24px 48px -12px rgba(7,42,115,.22);
+  --ease-out:cubic-bezier(.23,1,.32,1);
+  --ease-in-out:cubic-bezier(.77,0,.175,1);
+  --pad:clamp(64px,9vw,112px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:88px;-webkit-text-size-adjust:100%}
+body{margin:0;font:400 1.0625rem/1.65 "Nunito Sans",system-ui,sans-serif;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+h1,h2,h3{font-family:Montserrat,system-ui,sans-serif;margin:0 0 .5em;text-wrap:balance}
+h1{line-height:1.02;letter-spacing:-.035em;font-weight:800}
+h2{font-size:clamp(1.85rem,4vw,2.75rem);line-height:1.08;letter-spacing:-.025em;color:var(--blue-d);font-weight:800}
+h3{font-size:1.125rem;line-height:1.3;letter-spacing:-.01em}
+p{margin:0 0 1em;text-wrap:pretty}
+a{color:var(--blue);text-underline-offset:3px}
+img{max-width:100%;display:block}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+section{padding:var(--pad) 0}
+.soft{background:var(--soft)}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font:700 .75rem Montserrat;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:14px}
+.eyebrow::before{content:"";width:18px;height:2px;background:currentColor;border-radius:2px}
+.lead{font-size:clamp(1.05rem,1.6vw,1.2rem);color:var(--muted);max-width:60ch}
+.muted{color:var(--muted)}
+.head{margin-bottom:clamp(32px,5vw,48px)}
+
+/* botões: feedback no press, hover só em ponteiro fino */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;min-height:48px;padding:.8em 1.5em;border-radius:999px;font:700 .95rem Montserrat;letter-spacing:-.005em;text-decoration:none;border:2px solid transparent;cursor:pointer;user-select:none;touch-action:manipulation;
+  transition:transform 160ms var(--ease-out),background-color 200ms ease,box-shadow 200ms ease,border-color 200ms ease}
+.btn:active{transform:scale(.97)}
+.btn-lime{background:var(--lime);color:var(--blue-d);box-shadow:0 6px 20px -6px rgba(201,202,0,.7)}
+.btn-blue{background:var(--blue);color:#fff;box-shadow:0 6px 20px -8px rgba(11,58,154,.7)}
+.btn-ghost{border-color:rgba(255,255,255,.55);color:#fff;background:rgba(255,255,255,.06)}
+.btn .arr{transition:transform 200ms var(--ease-out)}
+@media (hover:hover) and (pointer:fine){
+  .btn-lime:hover{background:#ecee1a}
+  .btn-blue:hover{background:var(--blue-d)}
+  .btn-ghost:hover{background:rgba(255,255,255,.14);border-color:#fff}
+  .btn:hover .arr{transform:translateX(3px)}
+}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px;border-radius:6px}
+
+.grid{display:grid;gap:clamp(16px,2.4vw,24px)}
+.g2{grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
+.card{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:28px;box-shadow:var(--shadow);overflow:hidden;
+  transition:transform 300ms var(--ease-out),box-shadow 300ms var(--ease-out)}
+.card .media{margin:-28px -28px 22px;aspect-ratio:16/10;overflow:hidden}
+.card .media img{width:100%;height:100%;object-fit:cover;transition:transform 600ms var(--ease-out)}
+@media (hover:hover) and (pointer:fine){
+  .card.lift:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+  .card.lift:hover .media img{transform:scale(1.04)}
+}
+
+/* topbar + header (material translúcido, borda só ao rolar) */
+.topbar{background:var(--blue-d);color:#c3cfee;font-size:.82rem}
+.topbar .wrap{display:flex;gap:8px 20px;justify-content:space-between;flex-wrap:wrap;padding:7px 0}
+.topbar a{color:#fff;text-decoration:none}
+@media (max-width:640px){.topbar .hide-sm{display:none}}
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);-webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);
+  box-shadow:0 1px 0 transparent;transition:box-shadow 200ms ease}
+header.scrolled{box-shadow:0 1px 0 rgba(7,42,115,.08),0 8px 24px -12px rgba(7,42,115,.18)}
+header .wrap{display:flex;align-items:center;gap:20px;height:72px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--blue-d);font:800 .98rem/1.1 Montserrat;letter-spacing:-.015em}
+.brand img{width:54px;height:54px;object-fit:contain}
+.brand small{display:block;font-weight:600;font-size:.7rem;letter-spacing:0;color:var(--muted);margin-top:2px}
+nav{margin-left:auto}
+nav ul{display:flex;gap:2px;list-style:none;margin:0;padding:0}
+nav a{display:block;padding:8px 12px;border-radius:10px;text-decoration:none;color:var(--ink);font:600 .9rem Montserrat;transition:background-color 150ms ease,color 150ms ease}
+nav a:active{background:var(--blue-l)}
+@media (hover:hover) and (pointer:fine){nav a:hover{background:var(--blue-l);color:var(--blue)}}
+nav a.on{color:var(--blue);background:var(--blue-l)}
+.menu-btn{display:none;margin-left:auto;width:44px;height:44px;background:none;border:0;border-radius:12px;cursor:pointer;position:relative;touch-action:manipulation}
+.menu-btn:active{background:var(--blue-l)}
+.menu-btn span{position:absolute;left:11px;width:22px;height:2.5px;background:var(--blue-d);border-radius:2px;transition:transform 250ms var(--ease-out),opacity 150ms ease}
+.menu-btn span:nth-child(1){top:15px}.menu-btn span:nth-child(2){top:21px}.menu-btn span:nth-child(3){top:27px}
+.menu-btn[aria-expanded="true"] span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.menu-btn[aria-expanded="true"] span:nth-child(2){opacity:0}
+.menu-btn[aria-expanded="true"] span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+@media (max-width:980px){
+  .menu-btn{display:block}
+  header .btn{display:none}
+  /* folha que desce do header: mesmo caminho na entrada e na saída */
+  nav{position:absolute;left:12px;right:12px;top:calc(100% + 8px);margin:0;padding:8px;border-radius:var(--r);
+    background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(24px) saturate(180%);backdrop-filter:blur(24px) saturate(180%);
+    box-shadow:var(--shadow-lg);border:1px solid rgba(255,255,255,.6);
+    transform-origin:top right;opacity:0;transform:translateY(-8px) scale(.98);visibility:hidden;
+    transition:opacity 150ms ease,transform 150ms var(--ease-out),visibility 0s 150ms}
+  nav.open{opacity:1;transform:none;visibility:visible;transition:opacity 200ms ease,transform 250ms var(--ease-out),visibility 0s}
+  nav ul{flex-direction:column}
+  nav a{padding:14px 16px;font-size:1rem}
+}
+
+/* hero */
+.hero{position:relative;isolation:isolate;color:#fff;padding:clamp(88px,12vw,148px) 0 clamp(112px,13vw,160px);overflow:hidden;background:var(--blue-d)}
+.hero-bg{position:absolute;inset:0;z-index:-2;background:url(img/infra3.jpg) 70% center/cover}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(100deg,rgba(7,42,115,.97) 0%,rgba(11,58,154,.88) 42%,rgba(11,58,154,.35) 100%)}
+.hero .dot{position:absolute;border-radius:50%;z-index:-1;pointer-events:none}
+.hero .d1{width:clamp(180px,24vw,300px);aspect-ratio:1;right:-60px;bottom:-70px;background:var(--lime)}
+.hero .d2{width:64px;aspect-ratio:1;right:22%;top:18%;background:var(--lime);opacity:.95}
+.hero .d3{width:120px;aspect-ratio:1;right:8%;top:10%;border:2px solid rgba(255,255,255,.35)}
+.hero .d4{width:56px;aspect-ratio:1;right:30%;bottom:20%;border:2px solid rgba(223,224,0,.6)}
+@media (max-width:720px){.hero .d2,.hero .d3,.hero .d4{display:none}}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px 6px 8px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);font:700 .78rem Montserrat;letter-spacing:.02em;color:#fff;margin-bottom:22px;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.badge b{background:var(--lime);color:var(--blue-d);padding:3px 9px;border-radius:999px;font-size:.7rem}
+.hero h1{font-size:clamp(2.5rem,6.4vw,4.6rem);max-width:13ch;margin-bottom:.35em}
+.hero h1 em{font-style:normal;color:var(--lime)}
+.hero p{font-size:clamp(1.05rem,1.7vw,1.25rem);max-width:46ch;color:#d6e0f8}
+.hero .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:1px;margin-top:-64px;position:relative;z-index:2;
+  background:var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-lg)}
+.stat{background:#fff;padding:24px 26px}
+.stat b{display:block;font:800 clamp(1.5rem,2.6vw,1.9rem)/1.1 Montserrat;letter-spacing:-.03em;color:var(--blue);font-variant-numeric:tabular-nums;margin-bottom:4px}
+.stat span{color:var(--muted);font-size:.92rem;line-height:1.4;display:block}
+
+/* etapas */
+.etapa{padding-top:32px}
+.etapa::before{content:"";position:absolute;inset:0 0 auto;height:5px;background:var(--c,var(--blue))}
+.etapa .tag{display:inline-flex;align-items:center;gap:6px;background:var(--blue-l);color:var(--blue);font:700 .76rem Montserrat;padding:5px 11px;border-radius:999px;margin-bottom:16px;font-variant-numeric:tabular-nums}
+.etapa p{color:var(--muted)}
+details{margin-top:4px;border-top:1px solid var(--line);padding-top:12px}
+summary{cursor:pointer;font:700 .9rem Montserrat;color:var(--blue);list-style:none;display:flex;align-items:center;justify-content:space-between;padding:4px 0;user-select:none}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:1.3rem;line-height:1;transition:transform 250ms var(--ease-out)}
+details[open] summary::after{transform:rotate(45deg)}
+/* expansão suave onde houver suporte (Chromium); nos demais, abre instantâneo */
+@supports (interpolate-size:allow-keywords){
+  :root{interpolate-size:allow-keywords}
+  details::details-content{block-size:0;overflow:hidden;opacity:0;transition:block-size 300ms var(--ease-out),opacity 200ms ease,content-visibility 300ms allow-discrete}
+  details[open]::details-content{block-size:auto;opacity:1}
+}
+details ul{padding-left:1.1em;margin:8px 0 0}
+details p,details li{font-size:.95rem;color:var(--muted)}
+details li{margin-bottom:6px}
+
+/* timeline */
+.timeline{list-style:none;padding:0;margin:0;position:relative}
+.timeline::before{content:"";position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:linear-gradient(var(--blue),var(--lime))}
+.timeline li{position:relative;padding:0 0 22px 36px;color:var(--muted)}
+.timeline li::before{content:"";position:absolute;left:0;top:5px;width:16px;height:16px;border-radius:50%;background:#fff;border:3px solid var(--blue)}
+.timeline li:last-child::before{background:var(--lime);border-color:var(--blue-d)}
+.timeline b{font:800 1.05rem Montserrat;letter-spacing:-.01em;color:var(--blue-d);display:block}
+.checks{list-style:none;padding:0;margin:0}
+.checks li{padding:7px 0 7px 32px;position:relative;line-height:1.5}
+.checks li::before{content:"";position:absolute;left:0;top:9px;width:20px;height:20px;border-radius:50%;
+  background:var(--blue) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M6 10.5l2.5 2.5L14 7.5' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/100%}
+
+/* matrículas */
+.steps{counter-reset:s;list-style:none;padding:0;margin:0;display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr))}
+.steps li{counter-increment:s;background:#fff;border-radius:var(--r);padding:24px;border:1px solid var(--line);color:var(--muted);box-shadow:var(--shadow)}
+.steps li h3{color:var(--ink);margin-bottom:.3em}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:var(--lime);color:var(--blue-d);font:800 1.1rem Montserrat;margin-bottom:14px}
+.downloads{display:grid;gap:8px}
+.dl{display:flex;align-items:center;gap:14px;padding:12px 14px;border:1px solid var(--line);border-radius:var(--r-sm);text-decoration:none;color:var(--ink);background:#fff;font-weight:600;
+  transition:border-color 150ms ease,background-color 150ms ease,transform 160ms var(--ease-out)}
+.dl:active{transform:scale(.98)}
+.dl::after{content:"↓";margin-left:auto;color:var(--blue);font-weight:700;transition:transform 200ms var(--ease-out)}
+@media (hover:hover) and (pointer:fine){.dl:hover{border-color:var(--blue);background:var(--blue-l)}.dl:hover::after{transform:translateY(2px)}}
+.dl i{font-style:normal;font:800 .66rem Montserrat;letter-spacing:.04em;background:var(--red);color:#fff;padding:6px 0;border-radius:7px;width:44px;text-align:center;flex:none}
+.dl small{display:block;color:var(--muted);font-weight:400}
+.mini{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px}
+table{width:100%;border-collapse:collapse;font-size:.95rem;font-variant-numeric:tabular-nums}
+td,th{padding:11px 8px;border-bottom:1px solid var(--line);text-align:left}
+tr:last-child td{border-bottom:0}
+th{font:700 .72rem Montserrat;text-transform:uppercase;color:var(--muted);letter-spacing:.08em}
+
+/* transporte */
+.search{position:relative}
+.search svg{position:absolute;left:16px;top:50%;translate:0 -50%;color:var(--muted);pointer-events:none}
+.search input{width:100%;padding:16px 16px 16px 48px;border:2px solid var(--line);border-radius:14px;font:inherit;font-size:max(16px,1rem);background:#fff;transition:border-color 150ms ease,box-shadow 150ms ease}
+.search input:focus{border-color:var(--blue);box-shadow:0 0 0 4px var(--blue-l);outline:none}
+#res{margin-top:16px;display:grid;gap:16px}
+#res > div{transition:opacity 250ms ease,transform 250ms var(--ease-out)}
+@starting-style{#res > div{opacity:0;transform:translateY(6px)}}
+.driver{display:flex;justify-content:space-between;align-items:center;gap:8px 12px;flex-wrap:wrap;padding:12px 14px;background:var(--soft);border-radius:var(--r-sm);margin-top:8px}
+.driver .acts{display:flex;gap:8px}
+.chip{display:inline-flex;align-items:center;min-height:36px;padding:0 14px;border-radius:999px;font:700 .82rem Montserrat;text-decoration:none;background:#fff;border:1px solid var(--line);color:var(--blue);transition:transform 160ms var(--ease-out)}
+.chip:active{transform:scale(.96)}
+.chip.wa{background:#1fa855;border-color:#1fa855;color:#fff}
+
+/* galeria em bento */
+.gallery{display:grid;gap:12px;grid-template-columns:repeat(4,1fr);grid-auto-rows:clamp(140px,17vw,220px)}
+.gallery img{width:100%;height:100%;object-fit:cover;border-radius:var(--r-sm)}
+.gallery img:first-child{grid-column:span 2;grid-row:span 2}
+@media (max-width:720px){.gallery{grid-template-columns:1fr 1fr;grid-auto-rows:150px}.gallery img:first-child{grid-row:span 1}}
+
+/* contato */
+.contact-list{list-style:none;padding:0;margin:0 0 28px}
+.contact-list li{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.contact-list b{min-width:92px;font-family:Montserrat;font-size:.85rem;color:var(--blue-d);padding-top:2px}
+form{display:grid;gap:14px}
+.row{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr))}
+label{font:600 .85rem Montserrat;color:var(--ink)}
+input,select,textarea{width:100%;padding:13px 14px;border:2px solid var(--line);border-radius:var(--r-sm);font:inherit;font-size:max(16px,1rem);margin-top:6px;background:#fff;transition:border-color 150ms ease,box-shadow 150ms ease}
+input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 4px var(--blue-l);outline:none}
+form .btn{justify-self:start}
+.map{width:100%;height:100%;min-height:360px;border:0;border-radius:var(--r);box-shadow:var(--shadow)}
+
+.cta{position:relative;isolation:isolate;overflow:hidden;background:var(--blue);color:#fff;text-align:center}
+.cta::before,.cta::after{content:"";position:absolute;border-radius:50%;z-index:-1}
+.cta::before{width:320px;aspect-ratio:1;left:-120px;top:-140px;border:2px solid rgba(255,255,255,.18)}
+.cta::after{width:200px;aspect-ratio:1;right:-60px;bottom:-90px;background:var(--lime)}
+.cta h2{color:#fff}
+.cta p{color:#d6e0f8;margin-inline:auto}
+
+footer{background:var(--blue-d);color:#aebde3;padding:64px 0 calc(24px + env(safe-area-inset-bottom));font-size:.92rem}
+footer a{color:#fff;text-decoration:none}
+@media (hover:hover){footer a:hover{text-decoration:underline}}
+footer h3{color:#fff;font-size:.95rem;margin-bottom:14px}
+footer ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.partners{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.partners span{border:1px solid rgba(255,255,255,.2);padding:4px 11px;border-radius:999px;font-size:.78rem}
+.copy{border-top:1px solid rgba(255,255,255,.12);margin-top:48px;padding-top:20px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:.85rem}
+
+/* botão flutuante (mobile): aparece depois do hero, respeita a área segura */
+.fab{position:fixed;right:16px;bottom:max(16px,env(safe-area-inset-bottom));z-index:60;box-shadow:0 10px 30px -6px rgba(7,42,115,.45);
+  transition:opacity 200ms ease,transform 250ms var(--ease-out)}
+.fab.off{opacity:0;transform:translateY(12px) scale(.96);pointer-events:none}
+.btn-wa{background:#1fa855;color:#fff;box-shadow:0 6px 20px -8px rgba(31,168,85,.8)}
+@media (hover:hover) and (pointer:fine){.btn-wa:hover{background:#178a45}}
+.ic{width:1.25em;height:1.25em;flex:none}
+.fab{box-shadow:0 10px 30px -6px rgba(31,168,85,.6)}
+
+/* revelação ao rolar: só com JS, uma vez, com leve cascata */
+.js .rv{opacity:0;transform:translateY(16px);transition:opacity 600ms var(--ease-out),transform 600ms var(--ease-out);transition-delay:calc(var(--i,0) * 60ms)}
+.js .rv.in{opacity:1;transform:none}
+.js .gallery img.rv{transform:none;clip-path:inset(0 0 100% 0 round 12px);transition:clip-path 900ms var(--ease-in-out),opacity 300ms ease;transition-delay:calc(var(--i,0) * 80ms)}
+.js .gallery img.rv.in{clip-path:inset(0 0 0 0 round 12px)}
+
+
+/* vídeo do hero: entra por cima da foto quando começa a tocar */
+.hero-video{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 900ms ease}
+.hero-video.on{opacity:1}
+.vid-btn{position:absolute;right:16px;bottom:16px;z-index:2;display:none;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:rgba(7,42,115,.45);color:#fff;cursor:pointer;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);place-items:center;transition:transform 160ms var(--ease-out),background-color 150ms ease}
+.vid-btn.show{display:grid}
+.vid-btn:active{transform:scale(.94)}
+@media (hover:hover) and (pointer:fine){.vid-btn:hover{background:rgba(7,42,115,.7)}}
+.vid-btn svg{width:16px;height:16px}
+
+/* intercâmbio */
+.intl{background:linear-gradient(180deg,var(--soft),#fff)}
+.intl .wrap{display:grid;gap:clamp(32px,5vw,64px);grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));align-items:center}
+.collage{position:relative;aspect-ratio:5/4}
+.collage img{position:absolute;object-fit:cover;border-radius:var(--r);box-shadow:var(--shadow-lg)}
+.collage img:first-of-type{left:0;top:0;width:82%;height:82%}
+.collage img:last-of-type{right:0;bottom:0;width:58%;height:48%;border:6px solid #fff}
+.flags{position:absolute;left:16px;top:16px;display:flex;gap:6px;z-index:1}
+.flags span{background:rgba(255,255,255,.92);border-radius:999px;padding:5px 12px;font:700 .75rem Montserrat;color:var(--blue-d);box-shadow:var(--shadow)}
+.quote{margin:24px 0;padding:18px 20px;border-left:4px solid var(--lime);background:#fff;border-radius:0 var(--r-sm) var(--r-sm) 0;color:var(--muted);font-style:italic;box-shadow:var(--shadow)}
+.quote small{display:block;font-style:normal;margin-top:6px;font-size:.8rem}
+
+/* notícias */
+.news{display:grid;gap:clamp(16px,2.4vw,24px);grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr))}
+.news-card{all:unset;box-sizing:border-box;display:flex;flex-direction:column;cursor:pointer;background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);
+  transition:transform 300ms var(--ease-out),box-shadow 300ms var(--ease-out)}
+.news-card:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+.news-card:active{transform:scale(.985)}
+.news-card .media{position:relative;aspect-ratio:3/2;overflow:hidden}
+.news-card .media img{width:100%;height:100%;object-fit:cover;transition:transform 600ms var(--ease-out)}
+.news-card .count{position:absolute;right:12px;bottom:12px;background:rgba(7,42,115,.75);color:#fff;font:700 .75rem Montserrat;padding:5px 10px;border-radius:999px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.news-card .body{padding:20px 22px 24px;display:flex;flex-direction:column;gap:6px}
+.news-card time{font:700 .72rem Montserrat;letter-spacing:.1em;text-transform:uppercase;color:var(--red)}
+.news-card .t{display:block;font:700 1.125rem/1.3 Montserrat;letter-spacing:-.01em;color:var(--ink);text-wrap:balance}
+.news-card .d{display:block;color:var(--muted);font-size:.95rem;line-height:1.55}
+@media (hover:hover) and (pointer:fine){
+  .news-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+  .news-card:hover .media img{transform:scale(1.04)}
+}
+.more{display:flex;justify-content:center;margin-top:32px}
+
+/* álbum (dialog nativo) */
+dialog.album{width:min(1000px,100% - 24px);max-height:calc(100dvh - 24px);padding:0;border:0;border-radius:var(--r);background:#0d1220;color:#fff;box-shadow:0 30px 80px rgba(0,0,0,.5);overflow:hidden;
+  opacity:0;transform:scale(.96);transition:opacity 200ms ease,transform 250ms var(--ease-out),overlay 250ms allow-discrete,display 250ms allow-discrete}
+dialog.album[open]{opacity:1;transform:none}
+@starting-style{dialog.album[open]{opacity:0;transform:scale(.96)}}
+dialog.album::backdrop{background:rgba(7,15,40,0);transition:background-color 250ms ease,overlay 250ms allow-discrete,display 250ms allow-discrete}
+dialog.album[open]::backdrop{background:rgba(7,15,40,.75)}
+@starting-style{dialog.album[open]::backdrop{background:rgba(7,15,40,0)}}
+.album-head{display:flex;align-items:center;gap:12px;padding:14px 14px 14px 22px}
+.album-head h3{margin:0;font-size:1rem;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.album-head span{font:600 .85rem Montserrat;color:#aab4d0;font-variant-numeric:tabular-nums}
+.icon-btn{width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.1);color:#fff;font-size:1.2rem;cursor:pointer;display:grid;place-items:center;flex:none;transition:transform 160ms var(--ease-out),background-color 150ms ease}
+.icon-btn:active{transform:scale(.92)}
+@media (hover:hover) and (pointer:fine){.icon-btn:hover{background:rgba(255,255,255,.2)}}
+.track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}
+.track::-webkit-scrollbar{display:none}
+.track img{flex:0 0 100%;width:100%;height:min(68dvh,640px);object-fit:contain;scroll-snap-align:center;background:#0d1220}
+.album-nav{position:absolute;top:50%;translate:0 -50%;background:rgba(0,0,0,.45)}
+.album-nav.prev{left:12px}.album-nav.next{right:12px}
+@media (hover:none){.album-nav{display:none}}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition-duration:150ms!important;animation:none!important}
+  .js .rv,.js .gallery img.rv{transform:none;clip-path:none}
+  .btn:active,.dl:active,.chip:active{transform:none}
+}
+@media (prefers-reduced-transparency:reduce){
+  header,nav,.badge{background:#fff;-webkit-backdrop-filter:none;backdrop-filter:none}
+  .badge{background:var(--blue)}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><symbol id="wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 1.8a8.2 8.2 0 1 1-4.2 15.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 0 1 12 3.8z"/><path fill="currentColor" d="M8.6 7.2c-.2 0-.6.1-.9.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.5 2.6 1 3.1.8 3.7.8.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4l-.6-.4-2-1c-.3-.1-.5-.1-.7.1l-.9 1.1c-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.4.1-.6l.4-.5.3-.5c.1-.2 0-.4 0-.5l-.9-2.2c-.2-.5-.5-.5-.7-.5h-.5z"/></symbol></svg>
+
+<div class="topbar"><div class="wrap">
+  <span class="hide-sm">Secretaria: seg a sex, 8h às 17h30</span>
+  <span><a href="https://wa.me/5511991733538?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20informa%C3%A7%C3%B5es." target="_blank" rel="noopener">WhatsApp (11) 99173-3538</a><span class="hide-sm"> · <a href="tel:+551146781461">(11) 4678-1461</a> · <a href="tel:+551146781564">(11) 4678-1564</a> · <a href="mailto:contato@ieluterano.com.br">contato@ieluterano.com.br</a></span></span>
+</div></div>
+
+<header><div class="wrap">
+  <a class="brand" href="#top"><img src="img/logo-escura.png" alt="" width="54" height="54"><span>Instituto Educacional<br>Luterano<small>Ferraz de Vasconcelos · SP</small></span></a>
+  <button class="menu-btn" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
+  <nav id="nav"><ul>
+    <li><a href="#ensino">Ensino</a></li>
+    <li><a href="#sobre">Quem somos</a></li>
+    <li><a href="#matriculas">Matrículas</a></li>
+    <li><a href="#atividades">Atividades</a></li>
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#noticias">Notícias</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul></nav>
+  <a class="btn btn-blue" href="#contato">Agendar visita <span class="arr">→</span></a>
+</div></header>
+
+<main id="top">
+
+<section class="hero">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <video class="hero-video" muted loop playsinline preload="none" aria-hidden="true"></video>
+  <button class="vid-btn" type="button" aria-label="Pausar vídeo de fundo"><svg viewBox="0 0 16 16" fill="currentColor"><rect x="3" y="2" width="3.5" height="12" rx="1"/><rect x="9.5" y="2" width="3.5" height="12" rx="1"/></svg></button>
+  <span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span><span class="dot d4"></span>
+  <div class="wrap">
+  <a class="badge rv" href="#matriculas" style="text-decoration:none"><b>2027</b> Matrículas abertas →</a>
+  <h1 class="rv">Ensino de qualidade que <em>supera fronteiras</em></h1>
+  <p class="rv">Escola confessional luterana em Ferraz de Vasconcelos. Formação integral da Educação Infantil ao Ensino Médio, com valores de amor, respeito, responsabilidade e justiça.</p>
+  <div class="actions rv">
+    <a class="btn btn-lime" href="#matriculas">Quero matricular <span class="arr">→</span></a>
+    <a class="btn btn-ghost" href="#contato">Agendar uma visita</a>
+  </div>
+</div></section>
+
+<div class="wrap stats">
+  <div class="stat"><b>Desde 1981</b><span>mais de 40 anos educando em Ferraz</span></div>
+  <div class="stat"><b>4 etapas</b><span>da Educação Infantil ao Ensino Médio</span></div>
+  <div class="stat"><b>50+ escolas</b><span>na Rede Sinodal de Educação</span></div>
+  <div class="stat"><b>Bolsa Social</b><span>edital de bolsas de estudo 2027</span></div>
+</div>
+
+<!-- ENSINO -->
+<section id="ensino"><div class="wrap">
+  <span class="eyebrow">Educação</span>
+  <h2>Uma etapa para cada fase da vida</h2>
+  <p class="lead">"Buscar o desenvolvimento do senso crítico, da criatividade e da integridade da pessoa, na dimensão da vocação para servir."</p>
+  <div class="grid g4" style="margin-top:32px">
+    <article class="card etapa" style="--c:var(--lime)">
+      <span class="tag">Tarde · 13h às 17h30</span>
+      <h3>Educação Infantil</h3>
+      <p>Maternal, Jardim I e Jardim II. Aprender brincando, respeitando o tempo de cada criança.</p>
+      <details><summary>Saiba mais</summary>
+        <ul>
+          <li>Autonomia por meio da vivência cognitiva e social, valorizando a diversidade cultural.</li>
+          <li>Diferentes linguagens: corporal, musical, plástica, oral e escrita.</li>
+          <li>Hábitos de saúde e bem-estar e descoberta do próprio corpo.</li>
+          <li>O lúdico: brincar, jogar, imitar, criar ritmos e movimentos, cantar.</li>
+          <li>Relações sociais com respeito, ajuda e colaboração.</li>
+        </ul>
+      </details>
+    </article>
+    <article class="card etapa" style="--c:var(--blue)">
+      <span class="tag">Tarde · 13h30 às 18h</span>
+      <h3>Ensino Fundamental I</h3>
+      <p>1º ao 5º ano. "Aprender a aprender": pesquisa e reflexão no lugar do simples acúmulo de informações.</p>
+      <details><summary>Saiba mais</summary>
+        <p>Formação integral, conteúdos significativos e contextualizados e forte vínculo com os princípios cristãos luteranos: amor a Deus e ao próximo, respeito à vida e às diferenças.</p>
+      </details>
+    </article>
+    <article class="card etapa" style="--c:var(--red)">
+      <span class="tag">Manhã · 7h às 12h35</span>
+      <h3>Ensino Fundamental II</h3>
+      <p>6º ao 9º ano. Acolhimento na adolescência, com criatividade, originalidade e senso de comunidade.</p>
+      <details><summary>Saiba mais</summary>
+        <p>Equilíbrio entre tradição, cultura e inovação. Educar para a liberdade, para a vida em comunidade e para a solidariedade, preparando para o exercício da cidadania.</p>
+      </details>
+    </article>
+    <article class="card etapa" style="--c:var(--blue-d)">
+      <span class="tag">Manhã · 7h às 13h20</span>
+      <h3>Ensino Médio</h3>
+      <p>Segurança para os próximos passos na vida acadêmica e profissional, com simulados, projetos e laboratórios.</p>
+      <details><summary>Saiba mais</summary>
+        <p>Continuidade do trabalho do Fundamental II, com compromisso com a ética e o pluralismo cultural. Exemplo: alunos do 2º ano construíram uma roda gigante para estudar as funções seno e cosseno.</p>
+      </details>
+    </article>
+  </div>
+</div></section>
+
+<!-- SOBRE -->
+<section id="sobre" class="soft"><div class="wrap grid g2" style="align-items:start">
+  <div>
+    <span class="eyebrow">Quem somos</span>
+    <h2>Uma história que começou com um projeto social</h2>
+    <p class="lead">Em 1981, por iniciativa do Pastor Zulmir Penno e da comunidade luterana, nasceu o Centro Social Talita Cumi ("menina, levanta-te"), para atender crianças de baixa renda de Ferraz de Vasconcelos. O projeto continua até hoje.</p>
+    <ol class="timeline" style="margin-top:28px">
+      <li><b>1981</b>Centro Social e Recreativo Talita Cumi, em convênio com a OASE/SP.</li>
+      <li><b>1983</b>Recreio Infantil Peixinho Dourado, cujas mensalidades ajudavam a manter o projeto social.</li>
+      <li><b>1992</b>"Projeto Figueira": pais e comunidade constroem ginásio, salas, biblioteca e laboratório.</li>
+      <li><b>1994</b>Nasce o Instituto Educacional Luterano, que passa a oferecer o Ensino Fundamental completo.</li>
+      <li><b>2002</b>Chegada do Ensino Médio.</li>
+      <li><b>Hoje</b>Da Educação Infantil ao Ensino Médio, integrando a Rede Sinodal de Educação.</li>
+    </ol>
+  </div>
+  <div class="grid" style="gap:20px">
+    <div class="card">
+      <h3>Proposta pedagógica</h3>
+      <ul class="checks">
+        <li>Valorizar a educação como instrumento de humanização.</li>
+        <li>Formar pessoas plenas, com autonomia e cidadania.</li>
+        <li>Valores éticos: ser consciente, livre e responsável.</li>
+        <li>Liberdade de expressão com responsabilidade.</li>
+        <li>Sustentabilidade ambiental para as próximas gerações.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Mantenedora: OASE</h3>
+      <p class="muted">A Ordem Auxiliadora das Senhoras Evangélicas, fundada em 1948, é o braço diaconal da Igreja Evangélica Luterana de São Paulo e é reconhecida como entidade de assistência social de utilidade pública.</p>
+    </div>
+    <div class="card">
+      <h3>Nossa equipe</h3>
+      <p style="color:var(--muted);margin:0">Profissionais capacitados e em formação contínua, com programa próprio de formação e incentivo a eventos externos.</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- INFRA -->
+<section id="infra"><div class="wrap">
+  <span class="eyebrow">Infraestrutura</span>
+  <h2>Estrutura completa no centro da cidade</h2>
+  <p class="lead">Salas climatizadas, laboratórios de biologia, química, física e robótica, sala de artes e de música, biblioteca, quadra poliesportiva, pátio coberto, cantina e cozinha.</p>
+  <div class="gallery" style="margin-top:28px">
+    <img src="img/infra1.jpg" alt="Laboratório de ciências" loading="lazy">
+    <img src="img/infra2.jpg" alt="Sala de aula" loading="lazy">
+    <img src="img/infra4.jpg" alt="Biblioteca" loading="lazy">
+    <img src="img/infra5.jpg" alt="Quadra poliesportiva coberta" loading="lazy">
+    <img src="img/infra3.jpg" alt="Fachada do Instituto Educacional Luterano" loading="lazy">
+  </div>
+</div></section>
+
+<!-- INTERCÂMBIO -->
+<section id="intercambio" class="intl"><div class="wrap">
+  <div class="collage">
+    <div class="flags"><span>Brasil</span><span>Argentina</span></div>
+    <img src="img/intercambio2.jpg" alt="Alunos brasileiros e argentinos reunidos no intercâmbio" loading="lazy">
+    <img src="img/intercambio.jpg" alt="Casa Rosada, em Buenos Aires" loading="lazy">
+  </div>
+  <div>
+    <span class="eyebrow">Intercâmbio Brasil–Argentina</span>
+    <h2>Borrando fronteiras, aproximando culturas</h2>
+    <p class="lead">Há mais de uma década, o Instituto Evangélico Americano (IEA), de José C. Paz, na Grande Buenos Aires, realiza intercâmbios educativos e culturais com escolas luteranas do Brasil. Em 2019, a parceria foi com o Luterano.</p>
+    <ul class="checks" style="margin-top:20px">
+      <li>Um tema por ano, trabalhado em todas as disciplinas, nas escolas dos dois países.</li>
+      <li>Encontros presenciais, aqui e lá, para apresentar o que os alunos produziram.</li>
+      <li>Em 2019, o tema foi tecnologia na educação: uso seguro da internet e das redes sociais.</li>
+    </ul>
+    <p class="quote">Os alunos mostraram opinião formada sobre o papel da tecnologia em suas vidas e valorizam a conversa e o contato pessoal para além dos aparelhos.<small>Dirección de Educación de Gestión Privada (DIEGEP), Buenos Aires</small></p>
+    <a class="btn btn-wa" href="https://wa.me/5511991733538?text=Ol%C3%A1!%20Gostaria%20de%20saber%20sobre%20o%20interc%C3%A2mbio%20Brasil-Argentina." target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#wa"/></svg> Perguntar sobre o intercâmbio</a>
+  </div>
+</div></section>
+
+<!-- MATRÍCULAS -->
+<section id="matriculas" class="soft"><div class="wrap">
+  <span class="eyebrow">Matrículas 2027</span>
+  <h2>Como matricular seu filho</h2>
+  <p class="lead">Venha conhecer a escola, mesmo antes do período de matrículas. Atendimento de segunda a sexta, das 8h às 17h.</p>
+  <ol class="steps" style="margin:32px 0 40px">
+    <li><h3>Agende uma visita</h3>Conheça nossos espaços e profissionais. Ligue ou envie uma mensagem.</li>
+    <li><h3>Leia o edital</h3>O edital de matrícula 2027 traz prazos, valores e regras.</li>
+    <li><h3>Separe os documentos</h3>Veja a lista ao lado e traga tudo no dia.</li>
+    <li><h3>Assine o contrato</h3>Na secretaria/tesouraria, com o responsável financeiro.</li>
+  </ol>
+  <div class="grid g2">
+    <div class="card">
+      <h3>Documentos e editais</h3>
+      <div class="downloads">
+        <a class="dl" href="docs/EDITAL-DE-MATRICULA-2027.docx" download><i>DOCX</i><span>Edital de Matrícula 2027<small>Prazos, valores e regras</small></span></a>
+        <a class="dl" href="docs/EDITAL-DE-BOLSA-SOCIAL-DE-ESTUDO-PARA-2027.pdf" target="_blank" rel="noopener"><i>PDF</i><span>Edital de Bolsa Social de Estudo 2027</span></a>
+        <a class="dl" href="docs/REQUERIMENTO-DE-BOLSA-DE-ESTUDO-PARA-2027.pdf" target="_blank" rel="noopener"><i>PDF</i><span>Requerimento de Bolsa de Estudo 2027</span></a>
+        <a class="dl" href="docs/Documentacao-para-Solicitar-a-Bolsa-de-Estudos-para-2027.pdf" target="_blank" rel="noopener"><i>PDF</i><span>Documentação para solicitar a bolsa</span></a>
+      </div>
+      <h3 style="margin-top:28px">Horários das aulas</h3>
+      <table>
+        <tr><th>Etapa</th><th>Período</th><th>Horário</th></tr>
+        <tr><td>Educação Infantil</td><td>Tarde</td><td>13h às 17h30</td></tr>
+        <tr><td>Fundamental I</td><td>Tarde</td><td>13h30 às 18h</td></tr>
+        <tr><td>Fundamental II</td><td>Manhã</td><td>7h às 12h35</td></tr>
+        <tr><td>Ensino Médio</td><td>Manhã</td><td>7h às 13h20</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>Checklist para o dia da matrícula</h3>
+      <ul class="checks">
+        <li>Termo de adesão ao contrato preenchido e assinado pelo responsável financeiro.</li>
+        <li>Formulário de saúde e cópia da carteira de vacinação atualizada.</li>
+        <li>RG e CPF do aluno (obrigatórios no 9º ano do EF e no 3º ano do EM).</li>
+        <li>Histórico escolar (alunos novos), em até 30 dias após o início das aulas.</li>
+        <li>Comprovante de residência atualizado (água, luz ou telefone).</li>
+        <li>Ficha de matrícula preenchida.</li>
+        <li>Atestado médico, se houver restrição para Educação Física.</li>
+      </ul>
+      <h3 id="listas" style="margin-top:28px">Listas de material 2027</h3>
+      <div class="downloads mini">
+        <a class="dl" href="docs/LISTA-DE-MATERIAL-MATERNAL.jpeg" target="_blank"><i>IMG</i>Maternal</a>
+        <a class="dl" href="docs/LISTA-DE-MATERIAL-JARDIM-I.jpeg" target="_blank"><i>IMG</i>Jardim I</a>
+        <a class="dl" href="docs/LISTA-DE-MATERIAL-JARDIM-II.jpeg" target="_blank"><i>IMG</i>Jardim II</a>
+        <a class="dl" href="docs/1o-ANO.jpeg" target="_blank"><i>IMG</i>1º ano</a>
+        <a class="dl" href="docs/2o-ANO.jpeg" target="_blank"><i>IMG</i>2º ano</a>
+        <a class="dl" href="docs/3o-ANO.jpeg" target="_blank"><i>IMG</i>3º ano</a>
+        <a class="dl" href="docs/4o-ANO.jpeg" target="_blank"><i>IMG</i>4º ano</a>
+        <a class="dl" href="docs/5o-ANO.jpeg" target="_blank"><i>IMG</i>5º ano</a>
+        <a class="dl" href="docs/Lista-de-materiais-2027-Ensino-fundamental-2-e-Medio.pdf" target="_blank" rel="noopener"><i>PDF</i>Fundamental II e Ensino Médio</a>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ATIVIDADES -->
+<section id="atividades"><div class="wrap">
+  <span class="eyebrow">Extracurriculares</span>
+  <h2>Muito além da sala de aula</h2>
+  <p class="lead">Atividades que desenvolvem habilidades e valores levados para a vida toda.</p>
+  <div class="grid g3" style="margin-top:32px">
+    <article class="card lift"><div class="media"><img src="img/ballet.jpg" alt="Aula de ballet" loading="lazy"></div>
+      <h3>Ballet</h3><p class="muted">Graça e força em turmas Baby Class, Ballet I e Ballet II. O Balé Luterano apresenta espetáculos como "A Bela e a Fera".</p></article>
+    <article class="card lift"><div class="media"><img src="img/judo.jpg" alt="Aula de judô" loading="lazy"></div>
+      <h3>Judô</h3><p class="muted">Disciplina, respeito, persistência e saber ganhar e perder. Melhora a coordenação motora e o condicionamento.</p></article>
+    <article class="card lift"><div class="media"><img src="img/violao.jpg" alt="Aula de violão" loading="lazy"></div>
+      <h3>Violão</h3><p class="muted">Projeto "Aprendendo a tocar violão", da Igreja Luterana. Aulas em grupo, duas vezes por semana.</p></article>
+  </div>
+</div></section>
+
+<!-- SERVIÇOS -->
+<section id="servicos" class="soft"><div class="wrap">
+  <span class="eyebrow">Serviços</span>
+  <h2>Tudo para o dia a dia da família</h2>
+  <div class="grid g3" style="margin-top:32px">
+    <article class="card lift"><div class="media"><img src="img/alimentacao.jpg" alt="Refeição saudável" loading="lazy"></div>
+      <h3>Alimentação saudável</h3><p class="muted">Cardápio equilibrado acompanhado pela nutricionista Tulla Maria Costa Rodrigues da Cunha. É na escola que se formam os hábitos alimentares.</p></article>
+    <article class="card lift"><div class="media"><img src="img/biblioteca.jpg" alt="Biblioteca" loading="lazy"></div>
+      <h3>Biblioteca</h3><p class="muted">Acervo diversificado e atualizado para alunos, professores e funcionários, com consulta local e empréstimo de livros e revistas.</p></article>
+    <article class="card">
+      <h3>Uniformes</h3><p class="muted">O uso do uniforme é obrigatório nas aulas regulares e de reforço. Marque todas as peças com o nome do aluno. No fim do ano, peças não procuradas são doadas.</p></article>
+  </div>
+
+  <div class="card" id="transporte" style="margin-top:24px">
+    <h3>Transporte escolar: encontre um motorista no seu bairro</h3>
+    <p class="muted">São <span id="nb"></span> bairros atendidos por transportadores parceiros. Digite o seu:</p>
+    <div class="search">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" list="bairros" placeholder="Ex.: Jardim São João" aria-label="Seu bairro" autocomplete="off">
+      <datalist id="bairros"></datalist>
+    </div>
+    <div id="res" aria-live="polite"></div>
+  </div>
+</div></section>
+
+<!-- NOTÍCIAS -->
+<section id="noticias"><div class="wrap">
+  <span class="eyebrow">Vida no Luterano</span>
+  <h2>Momentos que contam a nossa história</h2>
+  <p class="lead">Projetos, saídas de estudo, esporte e arte. Toque em uma notícia para ver as fotos.</p>
+  <div class="news" style="margin-top:32px">
+    <button class="news-card" type="button" data-album="bale" data-n="8" aria-label="Ver fotos: Balé Luterano apresenta “A Bela e a Fera”">
+      <span class="media"><img src="img/noticias/bale-1.jpg" alt="" loading="lazy"><span class="count">8 fotos</span></span>
+      <span class="body"><time datetime="2019-12">Dez 2019</time><span class="t">Balé Luterano apresenta “A Bela e a Fera”</span><span class="d">O espetáculo de fim de ano reuniu as turmas de balé da escola.</span></span>
+    </button>
+    <button class="news-card" type="button" data-album="roda" data-n="8" aria-label="Ver fotos: Uma roda-gigante na aula de matemática">
+      <span class="media"><img src="img/noticias/roda-1.jpg" alt="" loading="lazy"><span class="count">8 fotos</span></span>
+      <span class="body"><time datetime="2019-06">Jun 2019</time><span class="t">Uma roda-gigante na aula de matemática</span><span class="d">O 2º ano do Ensino Médio construiu uma roda-gigante para demonstrar as funções seno e cosseno, com a professora Thais Guedes.</span></span>
+    </button>
+    <button class="news-card" type="button" data-album="bertioga" data-n="8" aria-label="Ver fotos: Saída de estudos a Bertioga">
+      <span class="media"><img src="img/noticias/bertioga-1.jpg" alt="" loading="lazy"><span class="count">8 fotos</span></span>
+      <span class="body"><time datetime="2019-06">Jun 2019</time><span class="t">Saída de estudos a Bertioga</span><span class="d">O 3º ano do Ensino Médio visitou a estação de tratamento de afluentes e efluentes da Riviera de São Lourenço, com os professores Rodrigo e Wellington.</span></span>
+    </button>
+    <button class="news-card" type="button" data-album="judo" data-n="8" aria-label="Ver fotos: Festival de judô">
+      <span class="media"><img src="img/noticias/judo-1.jpg" alt="" loading="lazy"><span class="count">8 fotos</span></span>
+      <span class="body"><time datetime="2019-05">Mai 2019</time><span class="t">Festival de judô</span><span class="d">Nossos atletas participaram do festival com o incentivo do Sensei Thiago Santos.</span></span>
+    </button>
+    <button class="news-card" type="button" data-album="itaipu" data-n="8" aria-label="Ver fotos: Foz do Iguaçu: Cataratas e Itaipu">
+      <span class="media"><img src="img/noticias/itaipu-1.jpg" alt="" loading="lazy"><span class="count">8 fotos</span></span>
+      <span class="body"><time datetime="2018-12">Dez 2018</time><span class="t">Foz do Iguaçu: Cataratas e Itaipu</span><span class="d">Alunos do Fundamental II e do Ensino Médio visitaram as Cataratas e a Usina de Itaipu com os professores David e Majo.</span></span>
+    </button>
+    <button class="news-card" type="button" data-album="interclasse" data-n="8" aria-label="Ver fotos: Premiação do Interclasse">
+      <span class="media"><img src="img/noticias/interclasse-1.jpg" alt="" loading="lazy"><span class="count">8 fotos</span></span>
+      <span class="body"><time datetime="2018-12">Dez 2018</time><span class="t">Premiação do Interclasse</span><span class="d">Final do Interclasse do Fundamental II, no handebol e no futsal, com o professor Neylor.</span></span>
+    </button>
+  </div>
+  <div class="more"><a class="btn btn-blue" href="https://www.facebook.com/InstitutoEducacionalLuterano/" target="_blank" rel="noopener">Novidades recentes no Facebook <span class="arr">→</span></a></div>
+</div></section>
+
+<dialog class="album" id="album" aria-labelledby="album-t">
+  <div class="album-head"><h3 id="album-t"></h3><span id="album-c"></span><button class="icon-btn" type="button" data-close aria-label="Fechar">✕</button></div>
+  <div style="position:relative">
+    <div class="track" id="track" tabindex="0" aria-label="Fotos"></div>
+    <button class="icon-btn album-nav prev" type="button" aria-label="Foto anterior">‹</button>
+    <button class="icon-btn album-nav next" type="button" aria-label="Próxima foto">›</button>
+  </div>
+</dialog>
+
+<!-- CTA -->
+<section class="cta"><div class="wrap">
+  <h2>Venha conhecer o Luterano</h2>
+  <p class="lead">Agende uma visita e conheça nossos professores, os laboratórios e tudo o que preparamos para o seu filho.</p>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px">
+    <a class="btn btn-lime" href="#contato">Agendar visita <span class="arr">→</span></a>
+    <a class="btn btn-wa" href="https://wa.me/5511991733538?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20informa%C3%A7%C3%B5es." target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#wa"/></svg> Falar no WhatsApp</a>
+  </div>
+</div></section>
+
+<!-- CONTATO -->
+<section id="contato"><div class="wrap grid g2">
+  <div>
+    <span class="eyebrow">Fale conosco</span>
+    <h2>Será um prazer atender você</h2>
+    <ul class="contact-list">
+      <li><b>Endereço:</b> Av. Herman Teles Ribeiro, 162, Ferraz de Vasconcelos (SP)</li>
+      <li><b>Telefones:</b> <a href="tel:+551146781461">(11) 4678-1461</a> · <a href="tel:+551146781564">(11) 4678-1564</a></li>
+      <li><b>WhatsApp:</b> <a href="https://wa.me/5511991733538?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20informa%C3%A7%C3%B5es." target="_blank" rel="noopener">(11) 99173-3538</a></li>
+      <li><b>E-mail:</b> <a href="mailto:contato@ieluterano.com.br">contato@ieluterano.com.br</a></li>
+      <li><b>Secretaria:</b> seg a sex, 8h às 17h30</li>
+      <li><b>Tesouraria:</b> seg a sex, 7h30 às 16h30</li>
+    </ul>
+    <form id="form">
+      <div class="row">
+        <label>Seu nome<input name="nome" required autocomplete="name"></label>
+        <label>Telefone<input name="tel" type="tel" inputmode="tel" required autocomplete="tel"></label>
+      </div>
+      <label>Assunto
+        <select name="assunto">
+          <option>Agendar visita</option><option>Matrícula 2027</option><option>Bolsa social de estudo</option><option>Outro assunto</option>
+        </select></label>
+      <label>Mensagem<textarea name="msg" rows="3"></textarea></label>
+      <button class="btn btn-wa" type="submit"><svg class="ic" aria-hidden="true"><use href="#wa"/></svg> Enviar pelo WhatsApp</button>
+    </form>
+  </div>
+  <iframe class="map" title="Mapa: Instituto Educacional Luterano" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+    src="https://www.google.com/maps?q=Av.+Herman+Teles+Ribeiro,+162,+Ferraz+de+Vasconcelos+-+SP&output=embed"></iframe>
+</div></section>
+
+</main>
+
+<footer><div class="wrap">
+  <div class="grid g4">
+    <div>
+      <a class="brand" href="#top" style="color:#fff"><img src="img/logo.png" alt="" width="44" height="44"><span>Instituto Educacional<br>Luterano</span></a>
+      <p style="margin-top:14px">Escola confessional luterana, mantida pela OASE e integrante da Rede Sinodal de Educação.</p>
+    </div>
+    <div><h3>Educação</h3><ul>
+      <li><a href="#ensino">Educação Infantil</a></li><li><a href="#ensino">Ensino Fundamental I</a></li>
+      <li><a href="#ensino">Ensino Fundamental II</a></li><li><a href="#ensino">Ensino Médio</a></li></ul></div>
+    <div><h3>Para famílias</h3><ul>
+      <li><a href="#matriculas">Matrículas e bolsas</a></li><li><a href="#listas">Listas de material</a></li>
+      <li><a href="#transporte">Transporte escolar</a></li><li><a href="#atividades">Extracurriculares</a></li><li><a href="#intercambio">Intercâmbio</a></li><li><a href="#noticias">Notícias</a></li></ul></div>
+    <div><h3>Parceiros</h3>
+      <div class="partners"><span>OASE</span><span>IECLB</span><span>Rede Sinodal</span><span>CEBAS</span><span>Paróquia Leste</span></div>
+      <p style="margin-top:16px"><a href="https://www.facebook.com/InstitutoEducacionalLuterano/" target="_blank" rel="noopener">Facebook →</a></p>
+    </div>
+  </div>
+  <div class="copy"><span>© <span id="y"></span> Instituto Educacional Luterano</span><span>Av. Herman Teles Ribeiro, 162 · Ferraz de Vasconcelos (SP)</span></div>
+</div></footer>
+
+<a class="btn btn-wa fab off" href="https://wa.me/5511991733538?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20informa%C3%A7%C3%B5es." target="_blank" rel="noopener" aria-label="Falar com a escola no WhatsApp"><svg class="ic" aria-hidden="true"><use href="#wa"/></svg> WhatsApp</a>
+
+<script>
+// Transporte: {bairro: [motoristas]}, motoristas: {nome: celular}
+const T = {"bairros": {"Cdhu Fazenda Itajuibe": ["Laécio Claudino", "Carlos Eduardo Offenstein", "Jonathan Paulo da Silva", "José Edgard Ramos"], "Chácara Descansolândia": ["José Edgard Ramos"], "Chácara Laguna": ["Laécio Claudino"], "Cidade Kemel": ["Laécio Claudino"], "Conjunto Residencial Itajuibe": ["Laécio Claudino"], "Conjunto Res. Presid. Castello Branco": ["Any Bademian"], "Jardim Alexandre": ["José Edgard Ramos"], "Jardim Alice": ["José Edgard Ramos"], "Jardim Amalfi": ["Laécio Claudino", "José Edgard Ramos"], "Jardim Anchieta": ["Laécio Claudino"], "Jardim Ayres": ["José Edgard Ramos"], "Jardim Barão": ["Laécio Claudino"], "Jardim Bela Vista": ["Laécio Claudino", "Sidney Ribeiro Marciano"], "Jardim Brígida": ["José Edgard Ramos"], "Jardim Cambiri": ["José Edgard Ramos"], "Jardim Dayse": ["Vagna Cravo Viana Domingos", "Any Bademian", "Sidney Ribeiro Marciano"], "Jardim do Castelo": ["Vagna Cravo Viana Domingos", "Carlos Eduardo Offenstein", "Jonathan Paulo da Silva", "José Edgard Ramos"], "Jardim do Papai": ["Grazi", "Vagna Cravo Viana Domingos", "Carlos Eduardo Offenstein", "Jonathan Paulo da Silva", "José Edgard Ramos"], "Jardim do Sol": ["Carlos Eduardo Offenstein"], "Jardim Figueiredo": ["Any Bademian"], "Jardim Freire": ["Laécio Claudino", "Jonathan Paulo da Silva", "José Edgard Ramos"], "Jardim Helena": ["Laécio Claudino"], "Jardim Ipanema": ["Grazi", "Laécio Claudino", "Vagna Cravo Viana Domingos"], "Jardim José Ferreira": ["Laécio Claudino", "Jonathan Paulo da Silva", "José Edgard Ramos"], "Jardim Juliana": ["Graciela / Sérgio", "Laécio Claudino", "Vagna Cravo Viana Domingos"], "Jardim Júlio de Carvalho": ["Any Bademian", "Carlos Eduardo Offenstein", "José Edgard Ramos"], "Jardim Leila": ["Sidney Ribeiro Marciano", "José Edgard Ramos"], "Jardim Luiz Mauro": ["Laécio Claudino"], "Jardim Malda": ["Laécio Claudino"], "Jardim Melilo": ["Graciela / Sérgio", "Vagna Cravo Viana Domingos", "Sidney Ribeiro Marciano"], "Jardim Mercedes": ["Laécio Claudino"], "Jardim Oseias Genuíno": ["Graciela / Sérgio", "Laécio Claudino", "Sidney Ribeiro Marciano"], "Jardim Primavera": ["Any Bademian"], "Jardim Recanto dos Pássaros": ["Jonathan Paulo da Silva", "José Edgard Ramos"], "Jardim Renata": ["Graciela / Sérgio"], "Jardim Rosana": ["Graciela / Sérgio"], "Jardim San Giovani": ["José Edgard Ramos"], "Jardim Santa Rosa": ["Carlos Eduardo Offenstein", "José Edgard Ramos"], "Jardim São Benedito": ["José Edgard Ramos"], "Jardim São Fernando": ["Laécio Claudino"], "Jardim São João": ["Laécio Claudino", "Vagna Cravo Viana Domingos"], "Jardim São Lázaro": ["Laécio Claudino"], "Jardim Soeiro": ["Laécio Claudino", "Carlos Eduardo Offenstein"], "Jardim Temporim": ["Laécio Claudino", "Vagna Cravo Viana Domingos"], "Jardim Tinoco": ["Laécio Claudino", "Sidney Ribeiro Marciano"], "Jardim Travessa": ["José Edgard Ramos"], "Jardim Vista Alegre": ["Laécio Claudino", "Sidney Ribeiro Marciano"], "Jardim Yone": ["Vagna Cravo Viana Domingos"], "Parque Dourado": ["Grazi", "Vagna Cravo Viana Domingos", "Any Bademian", "Jonathan Paulo da Silva"], "Parque Imperial": ["Jonathan Paulo da Silva", "José Edgard Ramos"], "Parque São Francisco": ["Grazi", "Vagna Cravo Viana Domingos", "Any Bademian", "José Edgard Ramos"], "Parque São Judas Tadeu": ["Carlos Eduardo Offenstein", "Jonathan Paulo da Silva", "José Edgard Ramos"], "Sítio Paredão": ["Laécio Claudino", "Vagna Cravo Viana Domingos"], "Sítio Sebastião Soares": ["Carlos Eduardo Offenstein", "José Edgard Ramos"], "Tanquinho": ["Laécio Claudino", "Vagna Cravo Viana Domingos", "Sidney Ribeiro Marciano"], "Vila Alayde": ["Sidney Ribeiro Marciano", "José Edgard Ramos"], "Vila Andeyara": ["Graciela / Sérgio", "Laécio Claudino", "Vagna Cravo Viana Domingos"], "Vila Arbame": ["Laécio Claudino"], "Vila Ayda": ["Sidney Ribeiro Marciano"], "Vila Bianchi": ["Jonathan Paulo da Silva"], "Vila Corrêa": ["Graciela / Sérgio", "Laécio Claudino", "Vagna Cravo Viana Domingos", "José Edgard Ramos"], "Vila Cristina": ["Carlos Eduardo Offenstein", "José Edgard Ramos"], "Vila das Nações": ["Laécio Claudino"], "Vila do Americano": ["Graciela / Sérgio", "Any Bademian", "Sidney Ribeiro Marciano"], "Vila Jamil": ["Jonathan Paulo da Silva", "José Edgard Ramos"], "Vila Joana D'arc": ["Jonathan Paulo da Silva"], "Vila Jurema": ["Laécio Claudino"], "Vila Leite": ["Sidney Ribeiro Marciano"], "Vila Panucce": ["Jonathan Paulo da Silva", "José Edgard Ramos"], "Vila Pery": ["José Edgard Ramos"], "Vila Romanopolis": ["Graciela / Sérgio", "Grazi", "Laécio Claudino", "Vagna Cravo Viana Domingos", "Any Bademian", "Sidney Ribeiro Marciano"], "Vila Santa Margarida": ["Laécio Claudino", "Carlos Eduardo Offenstein", "Jonathan Paulo da Silva", "José Edgard Ramos"], "Vila Santo Antônio": ["Vagna Cravo Viana Domingos", "Any Bademian", "Sidney Ribeiro Marciano"], "Vila São João": ["Laécio Claudino", "Jonathan Paulo da Silva", "José Edgard Ramos"], "Vila São Paulo": ["Vagna Cravo Viana Domingos"], "Vila Solar": ["José Edgard Ramos"], "Vila Zita": ["Sidney Ribeiro Marciano", "Jonathan Paulo da Silva", "José Edgard Ramos"], "Divisa de Ferraz/Poá": ["Graciela / Sérgio", "Jonathan Paulo da Silva", "José Edgard Ramos"], "Jardim Fanganiello (Guaianazes)": ["José Edgard Ramos"]}, "motoristas": {"Laécio Claudino": "973338537", "Carlos Eduardo Offenstein": "976969232", "Jonathan Paulo da Silva": "969279327", "José Edgard Ramos": "998921380", "Any Bademian": "973003678", "Sidney Ribeiro Marciano": "968022150", "Vagna Cravo Viana Domingos": "999579540", "Grazi": "952376389", "Graciela / Sérgio": "967297938"}};
+const bairros = Object.keys(T.bairros);
+const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+document.getElementById('nb').textContent = bairros.length;
+document.getElementById('bairros').innerHTML = bairros.map(b => `<option value="${b}">`).join('');
+const res = document.getElementById('res');
+document.getElementById('q').addEventListener('input', e => {
+  const q = norm(e.target.value.trim());
+  if (q.length < 3) { res.innerHTML = ''; res.dataset.k = ''; return; }
+  const hits = bairros.filter(b => norm(b).includes(q)).slice(0, 4);
+  if (hits.join() === res.dataset.k) return; // evita piscar a cada tecla
+  res.dataset.k = hits.join();
+  res.innerHTML = hits.length ? hits.map(b => `<div><b>${b}</b>` + T.bairros[b].map(n => {
+      const c = T.motoristas[n];
+      return `<div class="driver"><span>${n}</span><span class="acts"><a class="chip" href="tel:+5511${c}">(11) ${c.slice(0,5)}-${c.slice(5)}</a><a class="chip wa" href="https://wa.me/5511${c}" target="_blank" rel="noopener">WhatsApp</a></span></div>`;
+    }).join('') + '</div>').join('')
+    : '<p>Não encontramos esse bairro. Fale com a secretaria pelo <a href="https://wa.me/5511991733538?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20informa%C3%A7%C3%B5es." target="_blank" rel="noopener">WhatsApp</a> ou pelo <a href="tel:+551146781461">(11) 4678-1461</a>.</p>';
+});
+
+// Contato: abre o WhatsApp da escola com a mensagem já preenchida (sem backend)
+document.getElementById('form').addEventListener('submit', e => {
+  e.preventDefault();
+  const f = new FormData(e.target);
+  const txt = `Olá! Assunto: ${f.get('assunto')}\nNome: ${f.get('nome')}\nTelefone: ${f.get('tel')}\n\n${f.get('msg')}`.trim();
+  window.open(`https://wa.me/5511991733538?text=${encodeURIComponent(txt)}`, '_blank', 'noopener');
+});
+
+// Menu mobile
+const nav = document.getElementById('nav'), mb = document.querySelector('.menu-btn');
+const closeNav = () => { nav.classList.remove('open'); mb.setAttribute('aria-expanded', false); };
+mb.addEventListener('click', () => mb.setAttribute('aria-expanded', nav.classList.toggle('open')));
+nav.addEventListener('click', e => { if (e.target.tagName === 'A') closeNav(); });
+addEventListener('keydown', e => { if (e.key === 'Escape') closeNav(); });
+document.addEventListener('click', e => { if (!e.target.closest('header')) closeNav(); });
+
+// Header ganha sombra ao rolar; botão "Ligar" só aparece depois do hero
+const header = document.querySelector('header'), fab = document.querySelector('.fab');
+new IntersectionObserver(([e]) => {
+  header.classList.toggle('scrolled', !e.isIntersecting);
+  fab.classList.toggle('off', e.isIntersecting);
+}, { rootMargin: '-80px 0px 0px' }).observe(document.querySelector('.hero'));
+
+// Item do menu destacado conforme a seção visível
+const links = [...nav.querySelectorAll('a')];
+const secObs = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) links.forEach(a => a.classList.toggle('on', a.hash === '#' + e.target.id));
+}), { rootMargin: '-45% 0px -50% 0px' });
+document.querySelectorAll('section[id]').forEach(sec => secObs.observe(sec));
+
+// Revelação ao rolar: uma vez só, com cascata curta entre irmãos
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return;
+  e.target.classList.add('in');
+  io.unobserve(e.target);
+  // limpa depois, para o hover dos cards não herdar o atraso da cascata
+  setTimeout(() => e.target.classList.remove('rv', 'in'), 1500);
+}), { rootMargin: '0px 0px -60px' });
+document.querySelectorAll('section:not(.hero) :is(.eyebrow, h2, .lead, .card, .news-card, .collage, .steps li, .timeline li, .gallery img), .stats, .hero .rv').forEach(el => el.classList.add('rv'));
+document.querySelectorAll('.rv').forEach(el => {
+  el.style.setProperty('--i', [...el.parentElement.children].filter(c => c.matches('.rv')).indexOf(el));
+  io.observe(el);
+});
+
+
+// Vídeo do hero: só em telas largas, sem economia de dados e sem "reduzir movimento"
+// ponytail: vídeo hospedado no S3 da escola (19 MB webm / 37 MB mp4); comprimir para ~5 MB se o carregamento pesar
+const vid = document.querySelector('.hero-video'), vbtn = document.querySelector('.vid-btn');
+if (matchMedia('(min-width:768px)').matches && !matchMedia('(prefers-reduced-motion:reduce)').matches && !(navigator.connection && navigator.connection.saveData)) {
+  const S3 = 'https://s3-sa-east-1.amazonaws.com/ieluterano.com.br/ieluterano-home.';
+  vid.innerHTML = `<source src="${S3}webm" type="video/webm"><source src="${S3}mp4" type="video/mp4">`;
+  vid.addEventListener('playing', () => { vid.classList.add('on'); vbtn.classList.add('show'); }, { once: true });
+  vid.load();
+  vid.play().catch(() => {});
+  const ICON_PAUSE = vbtn.innerHTML, ICON_PLAY = '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5v11a1 1 0 0 0 1.5.86l9-5.5a1 1 0 0 0 0-1.72l-9-5.5A1 1 0 0 0 4 2.5z"/></svg>';
+  vbtn.addEventListener('click', () => {
+    const p = vid.paused; p ? vid.play() : vid.pause();
+    vbtn.innerHTML = p ? ICON_PAUSE : ICON_PLAY;
+    vbtn.setAttribute('aria-label', p ? 'Pausar vídeo de fundo' : 'Tocar vídeo de fundo');
+  });
+}
+
+// Álbum de fotos das notícias
+const album = document.getElementById('album'), track = document.getElementById('track'), counter = document.getElementById('album-c');
+const step = dir => track.scrollBy({ left: dir * track.clientWidth, behavior: matchMedia('(prefers-reduced-motion:reduce)').matches ? 'auto' : 'smooth' });
+document.querySelectorAll('.news-card').forEach(card => card.addEventListener('click', () => {
+  const k = card.dataset.album, n = +card.dataset.n;
+  document.getElementById('album-t').textContent = card.querySelector('.t').textContent;
+  track.innerHTML = Array.from({ length: n }, (_, i) => `<img src="img/noticias/${k}-${i + 1}.jpg" alt="Foto ${i + 1} de ${n}" ${i ? 'loading="lazy"' : ''}>`).join('');
+  track.scrollLeft = 0; counter.textContent = `1 / ${n}`;
+  album.showModal();
+}));
+track.addEventListener('scroll', () => {
+  counter.textContent = `${Math.round(track.scrollLeft / track.clientWidth) + 1} / ${track.children.length}`;
+}, { passive: true });
+album.querySelector('.prev').addEventListener('click', () => step(-1));
+album.querySelector('.next').addEventListener('click', () => step(1));
+album.querySelector('[data-close]').addEventListener('click', () => album.close());
+album.addEventListener('click', e => { if (e.target === album) album.close(); }); // clique fora fecha
+album.addEventListener('keydown', e => {
+  // teclado: troca instantânea, sem animação
+  if (e.key === 'ArrowRight') track.scrollBy({ left: track.clientWidth });
+  if (e.key === 'ArrowLeft') track.scrollBy({ left: -track.clientWidth });
+});
+
+document.getElementById('y').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
