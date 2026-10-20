@@ -4,16 +4,29 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#072a73">
-<script>document.documentElement.classList.add('js')</script>
+<script>
+// tema aplicado antes da pintura: sem piscar branco no modo escuro
+document.documentElement.classList.add('js');
+try { var th = localStorage.getItem('theme') } catch (e) {}
+document.documentElement.dataset.theme = th || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+</script>
 <title>Instituto Educacional Luterano | Ferraz de Vasconcelos</title>
 <meta name="description" content="Escola confessional luterana em Ferraz de Vasconcelos (SP), desde 1981. Educação Infantil, Ensino Fundamental I e II e Ensino Médio. Matrículas 2027 abertas.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ieluterano.com.br/">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:locale:alternate" content="es_ES">
 <meta property="og:title" content="Instituto Educacional Luterano">
 <meta property="og:description" content="Ensino de qualidade que supera fronteiras. Da Educação Infantil ao Ensino Médio.">
-<meta property="og:image" content="img/infra3.jpg">
+<meta property="og:image" content="https://ieluterano.com.br/img/infra3.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="img/logo-escura.png">
+<link rel="apple-touch-icon" href="img/logo-escura.png">
+<link rel="preload" as="image" href="img/infra3.jpg" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Nunito+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"School","name":"Instituto Educacional Luterano","url":"https://ieluterano.com.br","logo":"https://ieluterano.com.br/img/logo.png","telephone":"+55-11-4678-1461","email":"contato@ieluterano.com.br","foundingDate":"1981","address":{"@type":"PostalAddress","streetAddress":"Av. Herman Teles Ribeiro, 162","addressLocality":"Ferraz de Vasconcelos","addressRegion":"SP","addressCountry":"BR"},"sameAs":["https://www.facebook.com/InstitutoEducacionalLuterano/"]}
 </script>
@@ -29,21 +42,46 @@
   --ease-out:cubic-bezier(.23,1,.32,1);
   --ease-in-out:cubic-bezier(.77,0,.175,1);
   --pad:clamp(64px,9vw,112px);
+  /* papéis de cor: o que muda entre claro e escuro */
+  --surface:#fff; --link:var(--blue); --heading:var(--blue-d); --kicker:var(--red);
+  --wa:#15803d; --wa-d:#116932; /* verde WhatsApp escurecido: texto branco passa AA (5:1) */
+  --i-arrow:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 8h10M9 4l4 4-4 4'/%3E%3C/svg%3E"); --i-down:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 2.5v8M4.5 7.5 8 11l3.5-3.5M3 14h10'/%3E%3C/svg%3E"); --i-ext:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9.5 2.5h4v4M13.5 2.5 7 9M11.5 9.5v4h-9v-9h4'/%3E%3C/svg%3E"); --i-plus:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 3v10M3 8h10'/%3E%3C/svg%3E");
+  color-scheme:light; accent-color:var(--blue);
 }
+:root[data-theme=dark]{
+  color-scheme:dark;
+  --ink:#e6eaf5; --muted:#9ba6c2; --line:#253150; --bg:#0a1022; --soft:#0e1630; --surface:#131c36;
+  --blue-l:rgba(143,176,255,.12); --link:#9db8ff; --heading:#eef2ff; --kicker:#ff8095;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px -6px rgba(0,0,0,.45);
+  --shadow-lg:0 2px 4px rgba(0,0,0,.3),0 24px 48px -12px rgba(0,0,0,.6);
+}
+[data-theme=dark] .map{filter:invert(.9) hue-rotate(180deg)}
+.logo-d,[data-theme=dark] .logo-l{display:none}
+[data-theme=dark] .logo-d{display:block}
+::selection{background:var(--lime);color:var(--blue-d)}
+html{scrollbar-color:color-mix(in srgb,var(--muted) 45%,transparent) var(--bg)}
+input,textarea{caret-color:var(--link)}
+::placeholder{color:var(--muted);opacity:1}
+.ico{display:inline-block;width:16px;height:16px;flex:none;background:currentColor;-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat}
+.arr{--m:var(--i-arrow);display:inline-block;width:16px;height:16px;flex:none;font-size:0;vertical-align:-3px;background:currentColor;-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat}
+.skip{position:absolute;left:12px;top:-64px;z-index:100;padding:10px 16px;border-radius:10px;background:var(--lime);color:var(--blue-d);font:700 .9rem Montserrat;text-decoration:none;transition:top 150ms ease}
+.skip:focus{top:12px}
+main:focus{outline:none}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:88px;-webkit-text-size-adjust:100%}
 body{margin:0;font:400 1.0625rem/1.65 "Nunito Sans",system-ui,sans-serif;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
 h1,h2,h3{font-family:Montserrat,system-ui,sans-serif;margin:0 0 .5em;text-wrap:balance}
 h1{line-height:1.02;letter-spacing:-.035em;font-weight:800}
-h2{font-size:clamp(1.85rem,4vw,2.75rem);line-height:1.08;letter-spacing:-.025em;color:var(--blue-d);font-weight:800}
+h2{font-size:clamp(1.85rem,4vw,2.75rem);line-height:1.08;letter-spacing:-.025em;color:var(--heading);font-weight:800}
 h3{font-size:1.125rem;line-height:1.3;letter-spacing:-.01em}
 p{margin:0 0 1em;text-wrap:pretty}
-a{color:var(--blue);text-underline-offset:3px}
+a{color:var(--link);text-underline-offset:3px}
+a[href^="tel:"]{white-space:nowrap} /* telefone nunca quebra no meio */
 img{max-width:100%;display:block}
 .wrap{width:min(1180px,100% - 32px);margin-inline:auto}
 section{padding:var(--pad) 0}
 .soft{background:var(--soft)}
-.eyebrow{display:inline-flex;align-items:center;gap:8px;font:700 .75rem Montserrat;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:14px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font:700 .75rem Montserrat;letter-spacing:.14em;text-transform:uppercase;color:var(--kicker);margin-bottom:14px}
 .eyebrow::before{content:"";width:18px;height:2px;background:currentColor;border-radius:2px}
 .lead{font-size:clamp(1.05rem,1.6vw,1.2rem);color:var(--muted);max-width:60ch}
 .muted{color:var(--muted)}
@@ -53,7 +91,7 @@ section{padding:var(--pad) 0}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;min-height:48px;padding:.8em 1.5em;border-radius:999px;font:700 .95rem Montserrat;letter-spacing:-.005em;text-decoration:none;border:2px solid transparent;cursor:pointer;user-select:none;touch-action:manipulation;
   transition:transform 160ms var(--ease-out),background-color 200ms ease,box-shadow 200ms ease,border-color 200ms ease}
 .btn:active{transform:scale(.97)}
-.btn-lime{background:var(--lime);color:var(--blue-d);box-shadow:0 6px 20px -6px rgba(201,202,0,.7)}
+.btn-lime{background:var(--lime);color:var(--blue-d);box-shadow:0 1px 2px rgba(7,20,60,.12),0 8px 20px -8px rgba(7,20,60,.45)}
 .btn-blue{background:var(--blue);color:#fff;box-shadow:0 6px 20px -8px rgba(11,58,154,.7)}
 .btn-ghost{border-color:rgba(255,255,255,.55);color:#fff;background:rgba(255,255,255,.06)}
 .btn .arr{transition:transform 200ms var(--ease-out)}
@@ -63,13 +101,13 @@ section{padding:var(--pad) 0}
   .btn-ghost:hover{background:rgba(255,255,255,.14);border-color:#fff}
   .btn:hover .arr{transform:translateX(3px)}
 }
-:focus-visible{outline:3px solid var(--red);outline-offset:3px;border-radius:6px}
+:focus-visible{outline:3px solid var(--kicker);outline-offset:3px;border-radius:6px}
 
 .grid{display:grid;gap:clamp(16px,2.4vw,24px)}
 .g2{grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))}
 .g3{grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
 .g4{grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
-.card{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:28px;box-shadow:var(--shadow);overflow:hidden;
+.card{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:28px;box-shadow:var(--shadow);overflow:hidden;
   transition:transform 300ms var(--ease-out),box-shadow 300ms var(--ease-out)}
 .card .media{margin:-28px -28px 22px;aspect-ratio:16/10;overflow:hidden}
 .card .media img{width:100%;height:100%;object-fit:cover;transition:transform 600ms var(--ease-out)}
@@ -79,37 +117,58 @@ section{padding:var(--pad) 0}
 }
 
 /* topbar + header (material translúcido, borda só ao rolar) */
-.topbar{background:var(--blue-d);color:#c3cfee;font-size:.82rem}
+.topbar{background:var(--blue-d);color:#c3cfee;font-size:.85rem}
 .topbar .wrap{display:flex;gap:8px 20px;justify-content:space-between;flex-wrap:wrap;padding:7px 0}
-.topbar a{color:#fff;text-decoration:none}
-@media (max-width:640px){.topbar .hide-sm{display:none}}
-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);-webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);
+.topbar a{color:#fff;text-decoration:none;padding:4px 0}
+.tb-r{display:flex;align-items:center;gap:16px;margin-left:auto}
+/* idioma + tema: no header, ao lado do menu */
+.prefs{display:flex;align-items:center;gap:8px;flex:none}
+.prefs button{display:grid;place-items:center;min-width:40px;height:40px;padding:0 10px;border:1.5px solid var(--line);border-radius:999px;background:var(--surface);color:var(--heading);font:800 .8rem Montserrat;letter-spacing:.05em;cursor:pointer;touch-action:manipulation;transition:background-color 150ms ease,color 150ms ease,border-color 150ms ease,transform 160ms var(--ease-out)}
+.prefs button:active{transform:scale(.94)}
+@media (hover:hover) and (pointer:fine){.prefs button:hover{border-color:var(--link);color:var(--link)}}
+.prefs svg{width:18px;height:18px}
+.langs{display:flex;gap:2px;border:1.5px solid var(--line);border-radius:999px;padding:3px;background:var(--surface)}
+.langs button{border:0;height:32px;min-width:36px;padding:0 9px;background:none}
+.langs button[aria-pressed=true]{background:var(--blue);color:#fff}
+@media (hover:hover) and (pointer:fine){.langs button[aria-pressed=true]:hover{color:#fff}}
+.nav-prefs{display:none}
+.theme .sun,[data-theme=dark] .theme .moon{display:none}
+[data-theme=dark] .theme .sun{display:block}
+.open-now{display:inline-flex;align-items:center;gap:6px;font-weight:700;white-space:nowrap}
+.open-now::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.open-now.yes{color:var(--wa)}
+.topbar .open-now.yes, :root[data-theme=dark] .open-now.yes{color:#3ddc84}
+.open-now.no{color:inherit;opacity:.8}
+.contact-list .open-now{white-space:normal}
+@media (max-width:640px){.topbar .hide-sm{display:none}.tb-r{width:100%;justify-content:space-between}}
+header{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 94%,transparent);-webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);
   box-shadow:0 1px 0 transparent;transition:box-shadow 200ms ease}
 header.scrolled{box-shadow:0 1px 0 rgba(7,42,115,.08),0 8px 24px -12px rgba(7,42,115,.18)}
-header .wrap{display:flex;align-items:center;gap:20px;height:72px}
-.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--blue-d);font:800 .98rem/1.1 Montserrat;letter-spacing:-.015em}
+header .wrap{display:flex;align-items:center;gap:14px;height:72px;width:min(1320px,100% - 32px)}
+.brand{flex:none;display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--heading);font:800 .98rem/1.1 Montserrat;letter-spacing:-.015em}
 .brand img{width:54px;height:54px;object-fit:contain}
-.brand small{display:block;font-weight:600;font-size:.7rem;letter-spacing:0;color:var(--muted);margin-top:2px}
+.brand small{display:block;font-weight:600;font-size:.75rem;letter-spacing:0;color:var(--muted);margin-top:2px}
 nav{margin-left:auto}
 nav ul{display:flex;gap:2px;list-style:none;margin:0;padding:0}
-nav a{display:block;padding:8px 12px;border-radius:10px;text-decoration:none;color:var(--ink);font:600 .9rem Montserrat;transition:background-color 150ms ease,color 150ms ease}
+nav a{display:block;padding:8px 8px;border-radius:10px;text-decoration:none;color:var(--ink);font:600 .9rem Montserrat;transition:background-color 150ms ease,color 150ms ease}
 nav a:active{background:var(--blue-l)}
-@media (hover:hover) and (pointer:fine){nav a:hover{background:var(--blue-l);color:var(--blue)}}
-nav a.on{color:var(--blue);background:var(--blue-l)}
+@media (hover:hover) and (pointer:fine){nav a:hover{background:var(--blue-l);color:var(--link)}}
+nav a.on{color:var(--link);background:var(--blue-l)}
+nav a,header .btn{white-space:nowrap}
 .menu-btn{display:none;margin-left:auto;width:44px;height:44px;background:none;border:0;border-radius:12px;cursor:pointer;position:relative;touch-action:manipulation}
 .menu-btn:active{background:var(--blue-l)}
-.menu-btn span{position:absolute;left:11px;width:22px;height:2.5px;background:var(--blue-d);border-radius:2px;transition:transform 250ms var(--ease-out),opacity 150ms ease}
+.menu-btn span{position:absolute;left:11px;width:22px;height:2.5px;background:var(--heading);border-radius:2px;transition:transform 250ms var(--ease-out),opacity 150ms ease}
 .menu-btn span:nth-child(1){top:15px}.menu-btn span:nth-child(2){top:21px}.menu-btn span:nth-child(3){top:27px}
 .menu-btn[aria-expanded="true"] span:nth-child(1){transform:translateY(6px) rotate(45deg)}
 .menu-btn[aria-expanded="true"] span:nth-child(2){opacity:0}
 .menu-btn[aria-expanded="true"] span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
-@media (max-width:980px){
-  .menu-btn{display:block}
-  header .btn{display:none}
+@media (max-width:1360px){
+  .menu-btn{display:block;order:3;margin-left:0}
+  .prefs{margin-left:auto}
   /* folha que desce do header: mesmo caminho na entrada e na saída */
   nav{position:absolute;left:12px;right:12px;top:calc(100% + 8px);margin:0;padding:8px;border-radius:var(--r);
-    background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(24px) saturate(180%);backdrop-filter:blur(24px) saturate(180%);
-    box-shadow:var(--shadow-lg);border:1px solid rgba(255,255,255,.6);
+    background:color-mix(in srgb,var(--surface) 92%,transparent);-webkit-backdrop-filter:blur(24px) saturate(180%);backdrop-filter:blur(24px) saturate(180%);
+    box-shadow:var(--shadow-lg);border:1px solid var(--line);
     transform-origin:top right;opacity:0;transform:translateY(-8px) scale(.98);visibility:hidden;
     transition:opacity 150ms ease,transform 150ms var(--ease-out),visibility 0s 150ms}
   nav.open{opacity:1;transform:none;visibility:visible;transition:opacity 200ms ease,transform 250ms var(--ease-out),visibility 0s}
@@ -127,27 +186,44 @@ nav a.on{color:var(--blue);background:var(--blue-l)}
 .hero .d3{width:120px;aspect-ratio:1;right:8%;top:10%;border:2px solid rgba(255,255,255,.35)}
 .hero .d4{width:56px;aspect-ratio:1;right:30%;bottom:20%;border:2px solid rgba(223,224,0,.6)}
 @media (max-width:720px){.hero .d2,.hero .d3,.hero .d4{display:none}}
-.badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px 6px 8px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);font:700 .78rem Montserrat;letter-spacing:.02em;color:#fff;margin-bottom:22px;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
-.badge b{background:var(--lime);color:var(--blue-d);padding:3px 9px;border-radius:999px;font-size:.7rem}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px 6px 8px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);font:700 .8rem Montserrat;letter-spacing:.02em;color:#fff;margin-bottom:22px;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.badge b{background:var(--lime);color:var(--blue-d);padding:3px 9px;border-radius:999px;font-size:.75rem;font-weight:800}
 .hero h1{font-size:clamp(2.5rem,6.4vw,4.6rem);max-width:13ch;margin-bottom:.35em}
 .hero h1 em{font-style:normal;color:var(--lime)}
 .hero p{font-size:clamp(1.05rem,1.7vw,1.25rem);max-width:46ch;color:#d6e0f8}
 .hero .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:1px;margin-top:-64px;position:relative;z-index:2;
   background:var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-lg)}
-.stat{background:#fff;padding:24px 26px}
-.stat b{display:block;font:800 clamp(1.5rem,2.6vw,1.9rem)/1.1 Montserrat;letter-spacing:-.03em;color:var(--blue);font-variant-numeric:tabular-nums;margin-bottom:4px}
-.stat span{color:var(--muted);font-size:.92rem;line-height:1.4;display:block}
+.stat{background:var(--surface);padding:24px 26px}
+.stat b{display:block;font:800 clamp(1.5rem,2.6vw,1.9rem)/1.1 Montserrat;letter-spacing:-.03em;color:var(--link);font-variant-numeric:tabular-nums;margin-bottom:4px}
+.stat > span{color:var(--muted);font-size:.92rem;line-height:1.4;display:block}
+a.stat{text-decoration:none;color:inherit;transition:background-color 150ms ease,transform 150ms var(--ease-out)}
+a.stat:active{transform:scale(.98)}
+a.stat b{display:flex;align-items:center;gap:8px}
+@media (max-width:720px){a.stat .arr{display:none}}
+@media (hover:hover) and (pointer:fine){a.stat:hover{background:var(--blue-l)}}
+@media (max-width:720px){.stats{grid-template-columns:repeat(2,1fr)}.stat{padding:16px 18px}.stat b{font-size:1.3rem}.stat > span{font-size:.85rem}}
+/* acesso rápido para quem já é da escola */
+.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:28px}
+.quick .eyebrow{grid-column:1/-1;margin:0}
+.quick a{display:flex;align-items:center;gap:14px;padding:16px 18px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);text-decoration:none;color:var(--ink);box-shadow:var(--shadow);transition:transform 160ms var(--ease-out),border-color 150ms ease}
+.quick a:active{transform:scale(.98)}
+@media (hover:hover) and (pointer:fine){.quick a:hover{border-color:var(--link)}}
+.quick svg{width:40px;height:40px;flex:none;padding:9px;border-radius:12px;background:var(--blue-l);color:var(--link)}
+.quick b{display:block;font:700 .95rem/1.3 Montserrat;color:var(--heading)}
+.quick small{display:block;color:var(--muted);font-size:.85rem;line-height:1.35;margin-top:2px}
+@media (max-width:980px){.quick{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:420px){.quick a{flex-direction:column;align-items:flex-start;gap:10px;padding:14px}}
 
 /* etapas */
 .etapa{padding-top:32px}
 .etapa::before{content:"";position:absolute;inset:0 0 auto;height:5px;background:var(--c,var(--blue))}
-.etapa .tag{display:inline-flex;align-items:center;gap:6px;background:var(--blue-l);color:var(--blue);font:700 .76rem Montserrat;padding:5px 11px;border-radius:999px;margin-bottom:16px;font-variant-numeric:tabular-nums}
+.etapa .tag{display:inline-flex;align-items:center;gap:6px;background:var(--blue-l);color:var(--link);font:700 .8rem Montserrat;padding:5px 11px;border-radius:999px;margin-bottom:16px;font-variant-numeric:tabular-nums}
 .etapa p{color:var(--muted)}
 details{margin-top:4px;border-top:1px solid var(--line);padding-top:12px}
-summary{cursor:pointer;font:700 .9rem Montserrat;color:var(--blue);list-style:none;display:flex;align-items:center;justify-content:space-between;padding:4px 0;user-select:none}
+summary{cursor:pointer;font:700 .9rem Montserrat;color:var(--link);list-style:none;display:flex;align-items:center;justify-content:space-between;padding:4px 0;user-select:none}
 summary::-webkit-details-marker{display:none}
-summary::after{content:"+";font-size:1.3rem;line-height:1;transition:transform 250ms var(--ease-out)}
+summary::after{content:"";--m:var(--i-plus);width:16px;height:16px;flex:none;background:currentColor;-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat;transition:transform 250ms var(--ease-out)}
 details[open] summary::after{transform:rotate(45deg)}
 /* expansão suave onde houver suporte (Chromium); nos demais, abre instantâneo */
 @supports (interpolate-size:allow-keywords){
@@ -161,11 +237,18 @@ details li{margin-bottom:6px}
 
 /* timeline */
 .timeline{list-style:none;padding:0;margin:0;position:relative}
-.timeline::before{content:"";position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:linear-gradient(var(--blue),var(--lime))}
+.timeline::before{content:"";position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:linear-gradient(var(--link),var(--lime))}
 .timeline li{position:relative;padding:0 0 22px 36px;color:var(--muted)}
-.timeline li::before{content:"";position:absolute;left:0;top:5px;width:16px;height:16px;border-radius:50%;background:#fff;border:3px solid var(--blue)}
+.timeline li::before{content:"";position:absolute;left:0;top:5px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:3px solid var(--link)}
 .timeline li:last-child::before{background:var(--lime);border-color:var(--blue-d)}
-.timeline b{font:800 1.05rem Montserrat;letter-spacing:-.01em;color:var(--blue-d);display:block}
+.timeline b{font:800 1.5rem/1.1 Montserrat;letter-spacing:-.02em;color:var(--heading);display:block;margin-bottom:2px}
+.timeline li::before{top:7px}
+#sobre h2{font-size:clamp(2.2rem,5vw,3.6rem);line-height:1.02;letter-spacing:-.03em;max-width:13ch}
+#sobre h2 em{font-style:normal;background:linear-gradient(transparent 60%,var(--lime) 60% 90%,transparent 90%) no-repeat 0 0/100% 100%;transition:background-size 900ms var(--ease-out) 250ms}
+/* o grifo se desenha uma vez, como marca-texto, quando a história entra na tela */
+.js #sobre h2 em.rv{opacity:1;transform:none;background-size:0 100%}
+.js #sobre h2 em.rv.in{background-size:100% 100%}
+:root[data-theme=dark] #sobre h2 em{background:none;color:var(--lime)}
 .checks{list-style:none;padding:0;margin:0}
 .checks li{padding:7px 0 7px 32px;position:relative;line-height:1.5}
 .checks li::before{content:"";position:absolute;left:0;top:9px;width:20px;height:20px;border-radius:50%;
@@ -173,36 +256,40 @@ details li{margin-bottom:6px}
 
 /* matrículas */
 .steps{counter-reset:s;list-style:none;padding:0;margin:0;display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr))}
-.steps li{counter-increment:s;background:#fff;border-radius:var(--r);padding:24px;border:1px solid var(--line);color:var(--muted);box-shadow:var(--shadow)}
+.steps li{counter-increment:s;background:var(--surface);border-radius:var(--r);padding:24px;border:1px solid var(--line);color:var(--muted);box-shadow:var(--shadow)}
 .steps li h3{color:var(--ink);margin-bottom:.3em}
 .steps li::before{content:counter(s);display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:var(--lime);color:var(--blue-d);font:800 1.1rem Montserrat;margin-bottom:14px}
 .downloads{display:grid;gap:8px}
-.dl{display:flex;align-items:center;gap:14px;padding:12px 14px;border:1px solid var(--line);border-radius:var(--r-sm);text-decoration:none;color:var(--ink);background:#fff;font-weight:600;
+.dl{display:flex;align-items:center;gap:14px;padding:12px 14px;border:1px solid var(--line);border-radius:var(--r-sm);text-decoration:none;color:var(--ink);background:var(--surface);font-weight:600;
   transition:border-color 150ms ease,background-color 150ms ease,transform 160ms var(--ease-out)}
 .dl:active{transform:scale(.98)}
-.dl::after{content:"↓";margin-left:auto;color:var(--blue);font-weight:700;transition:transform 200ms var(--ease-out)}
-@media (hover:hover) and (pointer:fine){.dl:hover{border-color:var(--blue);background:var(--blue-l)}.dl:hover::after{transform:translateY(2px)}}
-.dl i{font-style:normal;font:800 .66rem Montserrat;letter-spacing:.04em;background:var(--red);color:#fff;padding:6px 0;border-radius:7px;width:44px;text-align:center;flex:none}
-.dl small{display:block;color:var(--muted);font-weight:400}
-.mini{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px}
+.dl::after{content:"";--m:var(--i-ext);width:16px;height:16px;flex:none;margin-left:auto;background:var(--link);-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat;transition:transform 200ms var(--ease-out)}
+@media (hover:hover) and (pointer:fine){.dl:hover{border-color:var(--link);background:var(--blue-l)}.dl:hover::after{transform:translate(1px,-1px)}.dl[download]:hover::after{transform:translateY(2px)}}
+.dl[download]::after{--m:var(--i-down)}
+.dl i{font-style:normal;font:800 .75rem Montserrat;letter-spacing:.04em;background:var(--blue-l);color:var(--link);padding:6px 0;border-radius:7px;width:48px;text-align:center;flex:none}
+.dl small{display:block;color:var(--muted);font:400 .85rem/1.4 "Nunito Sans",system-ui,sans-serif}
+.mini{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px}
+.mini .dl i{display:none}
+.mini .dl:last-child{grid-column:1/-1}
 table{width:100%;border-collapse:collapse;font-size:.95rem;font-variant-numeric:tabular-nums}
 td,th{padding:11px 8px;border-bottom:1px solid var(--line);text-align:left}
 tr:last-child td{border-bottom:0}
-th{font:700 .72rem Montserrat;text-transform:uppercase;color:var(--muted);letter-spacing:.08em}
+td:last-child{white-space:nowrap}
+th{font:700 .75rem Montserrat;text-transform:uppercase;color:var(--muted);letter-spacing:.08em}
 
 /* transporte */
 .search{position:relative}
 .search svg{position:absolute;left:16px;top:50%;translate:0 -50%;color:var(--muted);pointer-events:none}
-.search input{width:100%;padding:16px 16px 16px 48px;border:2px solid var(--line);border-radius:14px;font:inherit;font-size:max(16px,1rem);background:#fff;transition:border-color 150ms ease,box-shadow 150ms ease}
-.search input:focus{border-color:var(--blue);box-shadow:0 0 0 4px var(--blue-l);outline:none}
+.search input{width:100%;padding:16px 16px 16px 48px;border:2px solid var(--line);border-radius:14px;font:inherit;font-size:max(16px,1rem);color:inherit;background:var(--surface);transition:border-color 150ms ease,box-shadow 150ms ease}
+.search input:focus{border-color:var(--link);box-shadow:0 0 0 4px var(--blue-l);outline:none}
 #res{margin-top:16px;display:grid;gap:16px}
 #res > div{transition:opacity 250ms ease,transform 250ms var(--ease-out)}
 @starting-style{#res > div{opacity:0;transform:translateY(6px)}}
 .driver{display:flex;justify-content:space-between;align-items:center;gap:8px 12px;flex-wrap:wrap;padding:12px 14px;background:var(--soft);border-radius:var(--r-sm);margin-top:8px}
 .driver .acts{display:flex;gap:8px}
-.chip{display:inline-flex;align-items:center;min-height:36px;padding:0 14px;border-radius:999px;font:700 .82rem Montserrat;text-decoration:none;background:#fff;border:1px solid var(--line);color:var(--blue);transition:transform 160ms var(--ease-out)}
+.chip{display:inline-flex;align-items:center;min-height:36px;padding:0 14px;border-radius:999px;font:700 .82rem Montserrat;text-decoration:none;background:var(--surface);border:1px solid var(--line);color:var(--link);transition:transform 160ms var(--ease-out)}
 .chip:active{transform:scale(.96)}
-.chip.wa{background:#1fa855;border-color:#1fa855;color:#fff}
+.chip.wa{background:var(--wa);border-color:var(--wa);color:#fff}
 
 /* galeria em bento */
 .gallery{display:grid;gap:12px;grid-template-columns:repeat(4,1fr);grid-auto-rows:clamp(140px,17vw,220px)}
@@ -213,13 +300,17 @@ th{font:700 .72rem Montserrat;text-transform:uppercase;color:var(--muted);letter
 /* contato */
 .contact-list{list-style:none;padding:0;margin:0 0 28px}
 .contact-list li{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
-.contact-list b{min-width:92px;font-family:Montserrat;font-size:.85rem;color:var(--blue-d);padding-top:2px}
+.contact-list b{min-width:92px;font-family:Montserrat;font-size:.85rem;color:var(--heading);padding-top:2px}
 form{display:grid;gap:14px}
 .row{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr))}
 label{font:600 .85rem Montserrat;color:var(--ink)}
-input,select,textarea{width:100%;padding:13px 14px;border:2px solid var(--line);border-radius:var(--r-sm);font:inherit;font-size:max(16px,1rem);margin-top:6px;background:#fff;transition:border-color 150ms ease,box-shadow 150ms ease}
-input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 4px var(--blue-l);outline:none}
+input,select,textarea{width:100%;padding:13px 14px;border:2px solid var(--line);border-radius:var(--r-sm);font:inherit;font-size:max(16px,1rem);margin-top:6px;color:inherit;background:var(--surface);transition:border-color 150ms ease,box-shadow 150ms ease}
+input:focus,select:focus,textarea:focus{border-color:var(--link);box-shadow:0 0 0 4px var(--blue-l);outline:none}
 form .btn{justify-self:start}
+label small{font-weight:600;color:var(--muted)}
+.form-note{margin:0;color:var(--muted);font-size:.9rem}
+.form-ok{margin:0;color:var(--link);font-weight:700;font-size:.95rem}
+.form-ok:empty{display:none}
 .map{width:100%;height:100%;min-height:360px;border:0;border-radius:var(--r);box-shadow:var(--shadow)}
 
 .cta{position:relative;isolation:isolate;overflow:hidden;background:var(--blue);color:#fff;text-align:center}
@@ -233,19 +324,19 @@ footer{background:var(--blue-d);color:#aebde3;padding:64px 0 calc(24px + env(saf
 footer a{color:#fff;text-decoration:none}
 @media (hover:hover){footer a:hover{text-decoration:underline}}
 footer h3{color:#fff;font-size:.95rem;margin-bottom:14px}
-footer ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+footer ul{list-style:none;padding:0;margin:0;display:grid;gap:2px}
+footer ul a{display:inline-block;padding:5px 0}
 .partners{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
-.partners span{border:1px solid rgba(255,255,255,.2);padding:4px 11px;border-radius:999px;font-size:.78rem}
+.partners span{border:1px solid rgba(255,255,255,.2);padding:4px 11px;border-radius:999px;font-size:.8rem}
 .copy{border-top:1px solid rgba(255,255,255,.12);margin-top:48px;padding-top:20px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:.85rem}
 
 /* botão flutuante (mobile): aparece depois do hero, respeita a área segura */
-.fab{position:fixed;right:16px;bottom:max(16px,env(safe-area-inset-bottom));z-index:60;box-shadow:0 10px 30px -6px rgba(7,42,115,.45);
+.fab{position:fixed;right:16px;bottom:max(16px,env(safe-area-inset-bottom));z-index:60;box-shadow:0 2px 4px rgba(7,20,60,.15),0 12px 28px -8px rgba(7,20,60,.5);
   transition:opacity 200ms ease,transform 250ms var(--ease-out)}
 .fab.off{opacity:0;transform:translateY(12px) scale(.96);pointer-events:none}
-.btn-wa{background:#1fa855;color:#fff;box-shadow:0 6px 20px -8px rgba(31,168,85,.8)}
-@media (hover:hover) and (pointer:fine){.btn-wa:hover{background:#178a45}}
+.btn-wa{background:var(--wa);color:#fff;box-shadow:0 1px 2px rgba(7,20,60,.12),0 8px 20px -8px rgba(7,20,60,.45)}
+@media (hover:hover) and (pointer:fine){.btn-wa:hover{background:var(--wa-d)}}
 .ic{width:1.25em;height:1.25em;flex:none}
-.fab{box-shadow:0 10px 30px -6px rgba(31,168,85,.6)}
 
 /* revelação ao rolar: só com JS, uma vez, com leve cascata */
 .js .rv{opacity:0;transform:translateY(16px);transition:opacity 600ms var(--ease-out),transform 600ms var(--ease-out);transition-delay:calc(var(--i,0) * 60ms)}
@@ -259,33 +350,34 @@ footer ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}
 .hero-video.on{opacity:1}
 .vid-btn{position:absolute;right:16px;bottom:16px;z-index:2;display:none;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:rgba(7,42,115,.45);color:#fff;cursor:pointer;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);place-items:center;transition:transform 160ms var(--ease-out),background-color 150ms ease}
 .vid-btn.show{display:grid}
+@media (max-width:720px){.vid-btn{top:16px;bottom:auto}}
 .vid-btn:active{transform:scale(.94)}
 @media (hover:hover) and (pointer:fine){.vid-btn:hover{background:rgba(7,42,115,.7)}}
 .vid-btn svg{width:16px;height:16px}
 
 /* intercâmbio */
-.intl{background:linear-gradient(180deg,var(--soft),#fff)}
+.intl{background:linear-gradient(180deg,var(--soft),var(--bg))}
 .intl .wrap{display:grid;gap:clamp(32px,5vw,64px);grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));align-items:center}
 .collage{position:relative;aspect-ratio:5/4}
 .collage img{position:absolute;object-fit:cover;border-radius:var(--r);box-shadow:var(--shadow-lg)}
 .collage img:first-of-type{left:0;top:0;width:82%;height:82%}
-.collage img:last-of-type{right:0;bottom:0;width:58%;height:48%;border:6px solid #fff}
+.collage img:last-of-type{right:0;bottom:0;width:58%;height:48%;border:6px solid var(--surface)}
 .flags{position:absolute;left:16px;top:16px;display:flex;gap:6px;z-index:1}
 .flags span{background:rgba(255,255,255,.92);border-radius:999px;padding:5px 12px;font:700 .75rem Montserrat;color:var(--blue-d);box-shadow:var(--shadow)}
-.quote{margin:24px 0;padding:18px 20px;border-left:4px solid var(--lime);background:#fff;border-radius:0 var(--r-sm) var(--r-sm) 0;color:var(--muted);font-style:italic;box-shadow:var(--shadow)}
-.quote small{display:block;font-style:normal;margin-top:6px;font-size:.8rem}
+.quote{position:relative;margin:24px 0;padding:20px 22px 20px 60px;border:1px solid var(--line);background:var(--surface);border-radius:var(--r-sm);color:var(--muted);font-style:italic;box-shadow:var(--shadow)}
+.quote::before{content:"“";position:absolute;left:18px;top:10px;font:800 3.4rem/1 Montserrat;color:var(--lime-d)}
+.quote small{display:block;font-style:normal;margin-top:8px;font-size:.85rem}
 
 /* notícias */
 .news{display:grid;gap:clamp(16px,2.4vw,24px);grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr))}
-.news-card{all:unset;box-sizing:border-box;display:flex;flex-direction:column;cursor:pointer;background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);
+.news-card{all:unset;box-sizing:border-box;display:flex;flex-direction:column;cursor:pointer;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);
   transition:transform 300ms var(--ease-out),box-shadow 300ms var(--ease-out)}
-.news-card:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+.news-card:focus-visible{outline:3px solid var(--kicker);outline-offset:3px}
 .news-card:active{transform:scale(.985)}
 .news-card .media{position:relative;aspect-ratio:3/2;overflow:hidden}
 .news-card .media img{width:100%;height:100%;object-fit:cover;transition:transform 600ms var(--ease-out)}
 .news-card .count{position:absolute;right:12px;bottom:12px;background:rgba(7,42,115,.75);color:#fff;font:700 .75rem Montserrat;padding:5px 10px;border-radius:999px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 .news-card .body{padding:20px 22px 24px;display:flex;flex-direction:column;gap:6px}
-.news-card time{font:700 .72rem Montserrat;letter-spacing:.1em;text-transform:uppercase;color:var(--red)}
 .news-card .t{display:block;font:700 1.125rem/1.3 Montserrat;letter-spacing:-.01em;color:var(--ink);text-wrap:balance}
 .news-card .d{display:block;color:var(--muted);font-size:.95rem;line-height:1.55}
 @media (hover:hover) and (pointer:fine){
@@ -308,21 +400,30 @@ dialog.album[open]::backdrop{background:rgba(7,15,40,.75)}
 .icon-btn{width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.1);color:#fff;font-size:1.2rem;cursor:pointer;display:grid;place-items:center;flex:none;transition:transform 160ms var(--ease-out),background-color 150ms ease}
 .icon-btn:active{transform:scale(.92)}
 @media (hover:hover) and (pointer:fine){.icon-btn:hover{background:rgba(255,255,255,.2)}}
-.track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}
+.track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;touch-action:pan-x}
 .track::-webkit-scrollbar{display:none}
 .track img{flex:0 0 100%;width:100%;height:min(68dvh,640px);object-fit:contain;scroll-snap-align:center;background:#0d1220}
 .album-nav{position:absolute;top:50%;translate:0 -50%;background:rgba(0,0,0,.45)}
 .album-nav.prev{left:12px}.album-nav.next{right:12px}
 @media (hover:none){.album-nav{display:none}}
 
+@media (max-width:720px){
+  header .btn{display:none}
+  header .wrap{gap:12px}
+  .nav-prefs:not(:empty){display:flex;justify-content:center;padding:14px 8px 6px;margin-top:6px;border-top:1px solid var(--line)}
+}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{transition-duration:150ms!important;animation:none!important}
   .js .rv,.js .gallery img.rv{transform:none;clip-path:none}
   .btn:active,.dl:active,.chip:active{transform:none}
 }
+@media (prefers-contrast:more){
+  :root{--muted:var(--ink);--line:#8a94ab}
+  :root[data-theme=dark]{--muted:var(--ink);--line:#5b6a8f}
+}
 @media (prefers-reduced-transparency:reduce){
-  header,nav,.badge{background:#fff;-webkit-backdrop-filter:none;backdrop-filter:none}
+  header,nav,.badge{background:var(--bg);-webkit-backdrop-filter:none;backdrop-filter:none}
   .badge{background:var(--blue)}
 }
 </style>
@@ -330,92 +431,111 @@ dialog.album[open]::backdrop{background:rgba(7,15,40,.75)}
 <body>
 <svg width="0" height="0" style="position:absolute"><symbol id="wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 1.8a8.2 8.2 0 1 1-4.2 15.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 0 1 12 3.8z"/><path fill="currentColor" d="M8.6 7.2c-.2 0-.6.1-.9.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.5 2.6 1 3.1.8 3.7.8.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4l-.6-.4-2-1c-.3-.1-.5-.1-.7.1l-.9 1.1c-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.4.1-.6l.4-.5.3-.5c.1-.2 0-.4 0-.5l-.9-2.2c-.2-.5-.5-.5-.7-.5h-.5z"/></symbol></svg>
 
+<a class="skip" href="#top" data-en="Skip to content" data-es="Saltar al contenido">Pular para o conteúdo</a>
+
 <div class="topbar"><div class="wrap">
-  <span class="hide-sm">Secretaria: seg a sex, 8h às 17h30</span>
-  <span><a href="https://wa.me/5511991733538?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20informa%C3%A7%C3%B5es." target="_blank" rel="noopener">WhatsApp (11) 99173-3538</a><span class="hide-sm"> · <a href="tel:+551146781461">(11) 4678-1461</a> · <a href="tel:+551146781564">(11) 4678-1564</a> · <a href="mailto:contato@ieluterano.com.br">contato@ieluterano.com.br</a></span></span>
+  <span class="hide-sm"><span data-en="Front office: Mon–Fri, 8am–5:30pm" data-es="Secretaría: lun a vie, 8:00–17:30">Secretaria: seg a sex, 8h às 17h30</span> · <span class="open-now"></span></span>
+  <span class="tb-r">
+    <span><a href="https://wa.me/5511991733538?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20informa%C3%A7%C3%B5es." data-en-href="https://wa.me/5511991733538?text=Hello!%20I%20found%20you%20through%20the%20website%20and%20would%20like%20some%20information." data-es-href="https://wa.me/5511991733538?text=%C2%A1Hola!%20Los%20encontr%C3%A9%20por%20el%20sitio%20web%20y%20me%20gustar%C3%ADa%20recibir%20informaci%C3%B3n." target="_blank" rel="noopener">WhatsApp (11) 99173-3538</a><span class="hide-sm"> · <a href="tel:+551146781461">(11) 4678-1461</a> · <a href="tel:+551146781564">(11) 4678-1564</a> · <a href="mailto:contato@ieluterano.com.br">contato@ieluterano.com.br</a></span></span>
+  </span>
 </div></div>
 
 <header><div class="wrap">
-  <a class="brand" href="#top"><img src="img/logo-escura.png" alt="" width="54" height="54"><span>Instituto Educacional<br>Luterano<small>Ferraz de Vasconcelos · SP</small></span></a>
-  <button class="menu-btn" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
+  <a class="brand" href="#top"><img class="logo-l" src="img/logo-escura.png" alt="" width="54" height="54"><img class="logo-d" src="img/logo.png" alt="" width="54" height="54"><span>Instituto Educacional<br>Luterano<small>Ferraz de Vasconcelos · SP</small></span></a>
+  <button class="menu-btn" aria-label="Abrir menu" data-en-aria-label="Open menu" data-es-aria-label="Abrir menú" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
   <nav id="nav"><ul>
-    <li><a href="#ensino">Ensino</a></li>
-    <li><a href="#sobre">Quem somos</a></li>
-    <li><a href="#matriculas">Matrículas</a></li>
-    <li><a href="#atividades">Atividades</a></li>
-    <li><a href="#servicos">Serviços</a></li>
-    <li><a href="#noticias">Notícias</a></li>
-    <li><a href="#contato">Contato</a></li>
-  </ul></nav>
-  <a class="btn btn-blue" href="#contato">Agendar visita <span class="arr">→</span></a>
+    <li><a href="#ensino" data-en="Programs" data-es="Niveles">Ensino</a></li>
+    <li><a href="#sobre" data-en="About us" data-es="Nosotros">Quem somos</a></li>
+    <li><a href="#matriculas" data-en="Enrollment" data-es="Inscripciones">Matrículas</a></li>
+    <li><a href="#atividades" data-en="Activities" data-es="Actividades">Atividades</a></li>
+    <li><a href="#familias" data-en="For families" data-es="Para familias">Para famílias</a></li>
+    <li><a href="#noticias" data-en="News" data-es="Noticias">Notícias</a></li>
+    <li><a href="#contato" data-en="Contact" data-es="Contacto">Contato</a></li>
+  </ul><div class="nav-prefs"></div></nav>
+  <span class="prefs">
+    <span class="langs" role="group" aria-label="Idioma / Language / Idioma"><button type="button" data-l="pt" lang="pt-BR" aria-label="Português" aria-pressed="true">PT</button><button type="button" data-l="en" lang="en" aria-label="English" aria-pressed="false">EN</button><button type="button" data-l="es" lang="es" aria-label="Español" aria-pressed="false">ES</button></span>
+    <button class="theme" type="button" aria-pressed="false" aria-label="Modo escuro" data-en-aria-label="Dark mode" data-es-aria-label="Modo oscuro">
+      <svg class="moon" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M13.5 10.2A6 6 0 0 1 5.8 2.5a6 6 0 1 0 7.7 7.7z"/></svg>
+      <svg class="sun" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="8" cy="8" r="3" fill="currentColor"/><path d="M8 1v1.5M8 13.5V15M1 8h1.5M13.5 8H15M3 3l1 1M12 12l1 1M3 13l1-1M12 4l1-1"/></svg>
+    </button>
+  </span>
+  <a class="btn btn-blue" href="https://wa.me/5511991733538?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20visita%20ao%20Luterano." data-en-href="https://wa.me/5511991733538?text=Hello!%20I%27d%20like%20to%20schedule%20a%20visit%20to%20Luterano." data-es-href="https://wa.me/5511991733538?text=%C2%A1Hola!%20Me%20gustar%C3%ADa%20agendar%20una%20visita%20al%20Luterano." target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#wa"/></svg> <span data-en="Book a visit" data-es="Agendar visita">Agendar visita</span></a>
 </div></header>
 
-<main id="top">
+<main id="top" tabindex="-1">
 
 <section class="hero">
   <div class="hero-bg" aria-hidden="true"></div>
   <video class="hero-video" muted loop playsinline preload="none" aria-hidden="true"></video>
-  <button class="vid-btn" type="button" aria-label="Pausar vídeo de fundo"><svg viewBox="0 0 16 16" fill="currentColor"><rect x="3" y="2" width="3.5" height="12" rx="1"/><rect x="9.5" y="2" width="3.5" height="12" rx="1"/></svg></button>
+  <button class="vid-btn" type="button"><svg viewBox="0 0 16 16" fill="currentColor"><rect x="3" y="2" width="3.5" height="12" rx="1"/><rect x="9.5" y="2" width="3.5" height="12" rx="1"/></svg></button>
   <span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span><span class="dot d4"></span>
   <div class="wrap">
-  <a class="badge rv" href="#matriculas" style="text-decoration:none"><b>2027</b> Matrículas abertas →</a>
-  <h1 class="rv">Ensino de qualidade que <em>supera fronteiras</em></h1>
-  <p class="rv">Escola confessional luterana em Ferraz de Vasconcelos. Formação integral da Educação Infantil ao Ensino Médio, com valores de amor, respeito, responsabilidade e justiça.</p>
+  <a class="badge rv" href="#matriculas" style="text-decoration:none" data-en="<b>2027</b> Enrollment open <span class='arr'>→</span>" data-es="<b>2027</b> Inscripciones abiertas <span class='arr'>→</span>"><b>2027</b> Matrículas abertas <span class="arr">→</span></a>
+  <h1 class="rv" data-en="Quality education <em>beyond borders</em>" data-es="Educación de calidad <em>sin fronteras</em>">Ensino de qualidade que <em>supera fronteiras</em></h1>
+  <p class="rv" data-en="A Lutheran school in Ferraz de Vasconcelos. Whole-person education from Early Childhood to High School, grounded in love, respect, responsibility and justice." data-es="Escuela confesional luterana en Ferraz de Vasconcelos. Formación integral desde la Educación Infantil hasta la Enseñanza Media, con valores de amor, respeto, responsabilidad y justicia.">Escola confessional luterana em Ferraz de Vasconcelos. Formação integral da Educação Infantil ao Ensino Médio, com valores de amor, respeito, responsabilidade e justiça.</p>
   <div class="actions rv">
-    <a class="btn btn-lime" href="#matriculas">Quero matricular <span class="arr">→</span></a>
-    <a class="btn btn-ghost" href="#contato">Agendar uma visita</a>
+    <a class="btn btn-lime" href="#matriculas" data-en="Enroll my child <span class='arr'>→</span>" data-es="Quiero inscribir <span class='arr'>→</span>">Quero matricular <span class="arr">→</span></a>
+    <a class="btn btn-ghost" href="https://wa.me/5511991733538?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20visita%20ao%20Luterano." data-en-href="https://wa.me/5511991733538?text=Hello!%20I%27d%20like%20to%20schedule%20a%20visit%20to%20Luterano." data-es-href="https://wa.me/5511991733538?text=%C2%A1Hola!%20Me%20gustar%C3%ADa%20agendar%20una%20visita%20al%20Luterano." target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#wa"/></svg> <span data-en="Schedule a visit" data-es="Agendar una visita">Agendar uma visita</span></a>
   </div>
 </div></section>
 
 <div class="wrap stats">
-  <div class="stat"><b>Desde 1981</b><span>mais de 40 anos educando em Ferraz</span></div>
-  <div class="stat"><b>4 etapas</b><span>da Educação Infantil ao Ensino Médio</span></div>
-  <div class="stat"><b>50+ escolas</b><span>na Rede Sinodal de Educação</span></div>
-  <div class="stat"><b>Bolsa Social</b><span>edital de bolsas de estudo 2027</span></div>
+  <a class="stat" href="#sobre"><b><span data-en="Since 1981" data-es="Desde 1981">Desde 1981</span> <span class="arr">→</span></b><span data-en="born as a social project in Ferraz" data-es="nacimos como proyecto social en Ferraz">nascemos como projeto social em Ferraz</span></a>
+  <div class="stat"><b data-en="4 stages" data-es="4 niveles">4 etapas</b><span data-en="from Early Childhood to High School" data-es="de la Educación Infantil a la Enseñanza Media">da Educação Infantil ao Ensino Médio</span></div>
+  <div class="stat"><b data-en="50+ schools" data-es="50+ escuelas">50+ escolas</b><span data-en="in the Synodal Education Network" data-es="en la Red Sinodal de Educación">na Rede Sinodal de Educação</span></div>
+  <a class="stat" href="#documentos"><b><span data-en="Scholarships" data-es="Becas">Bolsa Social</span> <span class="arr">→</span></b><span data-en="2027 need-based scholarship program" data-es="convocatoria de becas sociales 2027">edital de bolsas de estudo 2027</span></a>
+</div>
+
+<div class="wrap quick" id="familias" role="navigation" aria-labelledby="quick-t">
+  <p class="eyebrow" id="quick-t" data-en="Already at Luterano? Quick access" data-es="¿Ya es del Luterano? Acceso rápido">Já é do Luterano? Acesso rápido</p>
+  <a href="#listas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d='M9 5h10M9 12h10M9 19h10'/><path d='M4.5 5h.01M4.5 12h.01M4.5 19h.01' stroke-width='3'/></svg><span><b data-en="Supply lists" data-es="Listas de útiles">Listas de material</b><small data-en="Nursery to High School" data-es="De Maternal a Enseñanza Media">Do Maternal ao Ensino Médio</small></span></a>
+  <a href="#horarios"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx='12' cy='12' r='9'/><path d='M12 7v5l3 2'/></svg><span><b data-en="Class times" data-es="Horarios">Horários</b><small data-en="Start and end by stage" data-es="Entrada y salida por nivel">Entrada e saída por etapa</small></span></a>
+  <a href="#transporte"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x='4' y='3' width='16' height='14' rx='3'/><path d='M4 11h16M7 21v-4M17 21v-4'/><path d='M8 14h.01M16 14h.01' stroke-width='3'/></svg><span><b data-en="School transport" data-es="Transporte escolar">Transporte escolar</b><small data-en="Partner drivers by neighborhood" data-es="Conductores por barrio">Motoristas por bairro</small></span></a>
+  <a href="#documentos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d='M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z'/><path d='M14 3v5h5M9 13h6M9 17h6'/></svg><span><b data-en="Documents &amp; scholarship" data-es="Documentos y becas">Documentos e bolsa</b><small data-en="Notices and application forms" data-es="Reglamentos y formularios">Edital, bolsa e requerimento</small></span></a>
 </div>
 
 <!-- ENSINO -->
 <section id="ensino"><div class="wrap">
-  <span class="eyebrow">Educação</span>
-  <h2>Uma etapa para cada fase da vida</h2>
-  <p class="lead">"Buscar o desenvolvimento do senso crítico, da criatividade e da integridade da pessoa, na dimensão da vocação para servir."</p>
+  <span class="eyebrow" data-en="Education" data-es="Educación">Educação</span>
+  <h2 data-en="A stage for every season of life" data-es="Un nivel para cada etapa de la vida">Uma etapa para cada fase da vida</h2>
+  <p class="lead" data-en="“To develop critical thinking, creativity and personal integrity, in the spirit of a calling to serve.”" data-es="“Buscar el desarrollo del sentido crítico, la creatividad y la integridad de la persona, en la dimensión de la vocación de servir.”">"Buscar o desenvolvimento do senso crítico, da criatividade e da integridade da pessoa, na dimensão da vocação para servir."</p>
   <div class="grid g4" style="margin-top:32px">
     <article class="card etapa" style="--c:var(--lime)">
-      <span class="tag">Tarde · 13h às 17h30</span>
-      <h3>Educação Infantil</h3>
-      <p>Maternal, Jardim I e Jardim II. Aprender brincando, respeitando o tempo de cada criança.</p>
-      <details><summary>Saiba mais</summary>
+      <span class="tag" data-en="Afternoon · 1pm–5:30pm" data-es="Tarde · 13:00–17:30">Tarde · 13h às 17h30</span>
+      <h3 data-en="Early Childhood" data-es="Educación Infantil">Educação Infantil</h3>
+      <p data-en="Nursery, Pre-K and Kindergarten. Learning through play, at each child’s own pace." data-es="Maternal, Jardín I y Jardín II. Aprender jugando, respetando el tiempo de cada niño.">Maternal, Jardim I e Jardim II. Aprender brincando, respeitando o tempo de cada criança.</p>
+      <details><summary data-en="Learn more" data-es="Saber más">Saiba mais</summary>
         <ul>
-          <li>Autonomia por meio da vivência cognitiva e social, valorizando a diversidade cultural.</li>
-          <li>Diferentes linguagens: corporal, musical, plástica, oral e escrita.</li>
-          <li>Hábitos de saúde e bem-estar e descoberta do próprio corpo.</li>
-          <li>O lúdico: brincar, jogar, imitar, criar ritmos e movimentos, cantar.</li>
-          <li>Relações sociais com respeito, ajuda e colaboração.</li>
+          <li data-en="Autonomy through cognitive and social experiences that value cultural diversity." data-es="Autonomía a través de experiencias cognitivas y sociales que valoran la diversidad cultural.">Autonomia por meio da vivência cognitiva e social, valorizando a diversidade cultural.</li>
+          <li data-en="Different languages: body, music, visual arts, speech and writing." data-es="Diferentes lenguajes: corporal, musical, plástico, oral y escrito.">Diferentes linguagens: corporal, musical, plástica, oral e escrita.</li>
+          <li data-en="Healthy habits, well-being and discovering one’s own body." data-es="Hábitos de salud y bienestar, y descubrimiento del propio cuerpo.">Hábitos de saúde e bem-estar e descoberta do próprio corpo.</li>
+          <li data-en="Play: games, imitation, rhythm and movement, singing." data-es="Lo lúdico: jugar, imitar, crear ritmos y movimientos, cantar.">O lúdico: brincar, jogar, imitar, criar ritmos e movimentos, cantar.</li>
+          <li data-en="Social relationships built on respect, helping and collaboration." data-es="Relaciones sociales basadas en el respeto, la ayuda y la colaboración.">Relações sociais com respeito, ajuda e colaboração.</li>
         </ul>
       </details>
     </article>
     <article class="card etapa" style="--c:var(--blue)">
-      <span class="tag">Tarde · 13h30 às 18h</span>
-      <h3>Ensino Fundamental I</h3>
-      <p>1º ao 5º ano. "Aprender a aprender": pesquisa e reflexão no lugar do simples acúmulo de informações.</p>
-      <details><summary>Saiba mais</summary>
-        <p>Formação integral, conteúdos significativos e contextualizados e forte vínculo com os princípios cristãos luteranos: amor a Deus e ao próximo, respeito à vida e às diferenças.</p>
+      <span class="tag" data-en="Afternoon · 1:30pm–6pm" data-es="Tarde · 13:30–18:00">Tarde · 13h30 às 18h</span>
+      <h3 data-en="Elementary School" data-es="Educación Primaria">Ensino Fundamental I</h3>
+      <p data-en="1st to 5th grade. “Learning to learn”: research and reflection instead of simply piling up information." data-es="1.º a 5.º año. “Aprender a aprender”: investigación y reflexión en lugar de la simple acumulación de información.">1º ao 5º ano. "Aprender a aprender": pesquisa e reflexão no lugar do simples acúmulo de informações.</p>
+      <details><summary data-en="Learn more" data-es="Saber más">Saiba mais</summary>
+        <p data-en="Whole-person education, meaningful content in context and a strong bond with Lutheran Christian principles: love of God and neighbor, respect for life and for differences." data-es="Formación integral, contenidos significativos y contextualizados, y un fuerte vínculo con los principios cristianos luteranos: amor a Dios y al prójimo, respeto a la vida y a las diferencias.">Formação integral, conteúdos significativos e contextualizados e forte vínculo com os princípios cristãos luteranos: amor a Deus e ao próximo, respeito à vida e às diferenças.</p>
       </details>
     </article>
     <article class="card etapa" style="--c:var(--red)">
-      <span class="tag">Manhã · 7h às 12h35</span>
-      <h3>Ensino Fundamental II</h3>
-      <p>6º ao 9º ano. Acolhimento na adolescência, com criatividade, originalidade e senso de comunidade.</p>
-      <details><summary>Saiba mais</summary>
-        <p>Equilíbrio entre tradição, cultura e inovação. Educar para a liberdade, para a vida em comunidade e para a solidariedade, preparando para o exercício da cidadania.</p>
+      <span class="tag" data-en="Morning · 7am–12:35pm" data-es="Mañana · 7:00–12:35">Manhã · 7h às 12h35</span>
+      <h3 data-en="Middle School" data-es="Secundaria Básica">Ensino Fundamental II</h3>
+      <p data-en="6th to 9th grade. Support through adolescence, with creativity, originality and a sense of community." data-es="6.º a 9.º año. Acompañamiento en la adolescencia, con creatividad, originalidad y sentido de comunidad.">6º ao 9º ano. Acolhimento na adolescência, com criatividade, originalidade e senso de comunidade.</p>
+      <details><summary data-en="Learn more" data-es="Saber más">Saiba mais</summary>
+        <p data-en="A balance between tradition, culture and innovation. Educating for freedom, community life and solidarity, preparing students for active citizenship." data-es="Equilibrio entre tradición, cultura e innovación. Educar para la libertad, la vida en comunidad y la solidaridad, preparando para el ejercicio de la ciudadanía.">Equilíbrio entre tradição, cultura e inovação. Educar para a liberdade, para a vida em comunidade e para a solidariedade, preparando para o exercício da cidadania.</p>
       </details>
     </article>
     <article class="card etapa" style="--c:var(--blue-d)">
-      <span class="tag">Manhã · 7h às 13h20</span>
-      <h3>Ensino Médio</h3>
-      <p>Segurança para os próximos passos na vida acadêmica e profissional, com simulados, projetos e laboratórios.</p>
-      <details><summary>Saiba mais</summary>
-        <p>Continuidade do trabalho do Fundamental II, com compromisso com a ética e o pluralismo cultural. Exemplo: alunos do 2º ano construíram uma roda gigante para estudar as funções seno e cosseno.</p>
+      <span class="tag" data-en="Morning · 7am–1:20pm" data-es="Mañana · 7:00–13:20">Manhã · 7h às 13h20</span>
+      <h3 data-en="High School" data-es="Enseñanza Media">Ensino Médio</h3>
+      <p data-en="Confidence for the next steps in academic and professional life, with mock exams, projects and labs." data-es="Seguridad para los próximos pasos en la vida académica y profesional, con simulacros de examen, proyectos y laboratorios.">Segurança para os próximos passos na vida acadêmica e profissional, com simulados, projetos e laboratórios.</p>
+      <details><summary data-en="Learn more" data-es="Saber más">Saiba mais</summary>
+        <p data-en="Building on Middle School, with a commitment to ethics and cultural pluralism. For example, 11th graders built a Ferris wheel to study the sine and cosine functions." data-es="Continuidad del trabajo de la Secundaria Básica, con compromiso con la ética y el pluralismo cultural. Por ejemplo, alumnos del 2.º año construyeron una vuelta al mundo para estudiar las funciones seno y coseno.">Continuidade do trabalho do Fundamental II, com compromisso com a ética e o pluralismo cultural. Exemplo: alunos do 2º ano construíram uma roda gigante para estudar as funções seno e cosseno.</p>
       </details>
     </article>
   </div>
@@ -424,126 +544,126 @@ dialog.album[open]::backdrop{background:rgba(7,15,40,.75)}
 <!-- SOBRE -->
 <section id="sobre" class="soft"><div class="wrap grid g2" style="align-items:start">
   <div>
-    <span class="eyebrow">Quem somos</span>
-    <h2>Uma história que começou com um projeto social</h2>
-    <p class="lead">Em 1981, por iniciativa do Pastor Zulmir Penno e da comunidade luterana, nasceu o Centro Social Talita Cumi ("menina, levanta-te"), para atender crianças de baixa renda de Ferraz de Vasconcelos. O projeto continua até hoje.</p>
+    <span class="eyebrow" data-en="About us" data-es="Quiénes somos">Quem somos</span>
+    <h2 data-en="A story that began as a <em class='hl'>social project</em>" data-es="Una historia que comenzó con un <em class='hl'>proyecto social</em>">Uma história que começou com um <em class="hl">projeto social</em></h2>
+    <p class="lead" data-en="In 1981, led by Pastor Zulmir Penno and the Lutheran community, the Talita Cumi Social Center (“little girl, get up”) was founded to serve low-income children in Ferraz de Vasconcelos. The project continues to this day." data-es="En 1981, por iniciativa del pastor Zulmir Penno y de la comunidad luterana, nació el Centro Social Talita Cumi (“niña, levántate”), para atender a niños de bajos recursos de Ferraz de Vasconcelos. El proyecto continúa hasta hoy.">Em 1981, por iniciativa do Pastor Zulmir Penno e da comunidade luterana, nasceu o Centro Social Talita Cumi ("menina, levanta-te"), para atender crianças de baixa renda de Ferraz de Vasconcelos. O projeto continua até hoje.</p>
     <ol class="timeline" style="margin-top:28px">
-      <li><b>1981</b>Centro Social e Recreativo Talita Cumi, em convênio com a OASE/SP.</li>
-      <li><b>1983</b>Recreio Infantil Peixinho Dourado, cujas mensalidades ajudavam a manter o projeto social.</li>
-      <li><b>1992</b>"Projeto Figueira": pais e comunidade constroem ginásio, salas, biblioteca e laboratório.</li>
-      <li><b>1994</b>Nasce o Instituto Educacional Luterano, que passa a oferecer o Ensino Fundamental completo.</li>
-      <li><b>2002</b>Chegada do Ensino Médio.</li>
-      <li><b>Hoje</b>Da Educação Infantil ao Ensino Médio, integrando a Rede Sinodal de Educação.</li>
+      <li data-en="<b>1981</b>Talita Cumi Social and Recreational Center, in partnership with OASE/SP." data-es="<b>1981</b>Centro Social y Recreativo Talita Cumi, en convenio con la OASE/SP."><b>1981</b>Centro Social e Recreativo Talita Cumi, em convênio com a OASE/SP.</li>
+      <li data-en="<b>1983</b>Peixinho Dourado Preschool, whose tuition helped sustain the social project." data-es="<b>1983</b>Jardín Infantil Peixinho Dourado, cuyas cuotas ayudaban a sostener el proyecto social."><b>1983</b>Recreio Infantil Peixinho Dourado, cujas mensalidades ajudavam a manter o projeto social.</li>
+      <li data-en="<b>1992</b>“Projeto Figueira”: parents and the community build the gym, classrooms, library and lab." data-es="<b>1992</b>“Projeto Figueira”: padres y comunidad construyen el gimnasio, aulas, biblioteca y laboratorio."><b>1992</b>"Projeto Figueira": pais e comunidade constroem ginásio, salas, biblioteca e laboratório.</li>
+      <li data-en="<b>1994</b>The Instituto Educacional Luterano is founded, now offering full Elementary and Middle School." data-es="<b>1994</b>Nace el Instituto Educacional Luterano, que pasa a ofrecer la Primaria y la Secundaria Básica completas."><b>1994</b>Nasce o Instituto Educacional Luterano, que passa a oferecer o Ensino Fundamental completo.</li>
+      <li data-en="<b>2002</b>High School arrives." data-es="<b>2002</b>Llega la Enseñanza Media."><b>2002</b>Chegada do Ensino Médio.</li>
+      <li data-en="<b>Today</b>From Early Childhood to High School, as part of the Synodal Education Network." data-es="<b>Hoy</b>De la Educación Infantil a la Enseñanza Media, como parte de la Red Sinodal de Educación."><b>Hoje</b>Da Educação Infantil ao Ensino Médio, integrando a Rede Sinodal de Educação.</li>
     </ol>
   </div>
   <div class="grid" style="gap:20px">
     <div class="card">
-      <h3>Proposta pedagógica</h3>
+      <h3 data-en="Our approach" data-es="Propuesta pedagógica">Proposta pedagógica</h3>
       <ul class="checks">
-        <li>Valorizar a educação como instrumento de humanização.</li>
-        <li>Formar pessoas plenas, com autonomia e cidadania.</li>
-        <li>Valores éticos: ser consciente, livre e responsável.</li>
-        <li>Liberdade de expressão com responsabilidade.</li>
-        <li>Sustentabilidade ambiental para as próximas gerações.</li>
+        <li data-en="Valuing education as a humanizing force." data-es="Valorar la educación como instrumento de humanización.">Valorizar a educação como instrumento de humanização.</li>
+        <li data-en="Forming whole people, with autonomy and citizenship." data-es="Formar personas plenas, con autonomía y ciudadanía.">Formar pessoas plenas, com autonomia e cidadania.</li>
+        <li data-en="Ethical values: being aware, free and responsible." data-es="Valores éticos: ser consciente, libre y responsable.">Valores éticos: ser consciente, livre e responsável.</li>
+        <li data-en="Freedom of expression with responsibility." data-es="Libertad de expresión con responsabilidad.">Liberdade de expressão com responsabilidade.</li>
+        <li data-en="Environmental sustainability for future generations." data-es="Sostenibilidad ambiental para las próximas generaciones.">Sustentabilidade ambiental para as próximas gerações.</li>
       </ul>
     </div>
     <div class="card">
-      <h3>Mantenedora: OASE</h3>
-      <p class="muted">A Ordem Auxiliadora das Senhoras Evangélicas, fundada em 1948, é o braço diaconal da Igreja Evangélica Luterana de São Paulo e é reconhecida como entidade de assistência social de utilidade pública.</p>
+      <h3 data-en="Sponsor: OASE" data-es="Entidad mantenedora: OASE">Mantenedora: OASE</h3>
+      <p class="muted" data-en="The Evangelical Women’s Auxiliary Order (OASE), founded in 1948, is the diaconal arm of the Evangelical Lutheran Church of São Paulo and is recognized as a public-interest social assistance organization." data-es="La Orden Auxiliadora de Señoras Evangélicas (OASE), fundada en 1948, es el brazo diaconal de la Iglesia Evangélica Luterana de São Paulo y está reconocida como entidad de asistencia social de utilidad pública.">A Ordem Auxiliadora das Senhoras Evangélicas, fundada em 1948, é o braço diaconal da Igreja Evangélica Luterana de São Paulo e é reconhecida como entidade de assistência social de utilidade pública.</p>
     </div>
     <div class="card">
-      <h3>Nossa equipe</h3>
-      <p style="color:var(--muted);margin:0">Profissionais capacitados e em formação contínua, com programa próprio de formação e incentivo a eventos externos.</p>
+      <h3 data-en="Our team" data-es="Nuestro equipo">Nossa equipe</h3>
+      <p style="color:var(--muted);margin:0" data-en="Qualified staff in continuous training, with our own professional development program and support for outside events." data-es="Profesionales capacitados y en formación continua, con un programa propio de formación e incentivo a eventos externos.">Profissionais capacitados e em formação contínua, com programa próprio de formação e incentivo a eventos externos.</p>
     </div>
   </div>
 </div></section>
 
 <!-- INFRA -->
 <section id="infra"><div class="wrap">
-  <span class="eyebrow">Infraestrutura</span>
-  <h2>Estrutura completa no centro da cidade</h2>
-  <p class="lead">Salas climatizadas, laboratórios de biologia, química, física e robótica, sala de artes e de música, biblioteca, quadra poliesportiva, pátio coberto, cantina e cozinha.</p>
+  <span class="eyebrow" data-en="Facilities" data-es="Infraestructura">Infraestrutura</span>
+  <h2 data-en="Complete facilities in the heart of the city" data-es="Infraestructura completa en el centro de la ciudad">Estrutura completa no centro da cidade</h2>
+  <p class="lead" data-en="Air-conditioned classrooms, biology, chemistry, physics and robotics labs, art and music rooms, a library, a multi-sport court, a covered courtyard, a cafeteria and a kitchen." data-es="Aulas climatizadas, laboratorios de biología, química, física y robótica, salas de arte y de música, biblioteca, cancha polideportiva, patio cubierto, cantina y cocina.">Salas climatizadas, laboratórios de biologia, química, física e robótica, sala de artes e de música, biblioteca, quadra poliesportiva, pátio coberto, cantina e cozinha.</p>
   <div class="gallery" style="margin-top:28px">
-    <img src="img/infra1.jpg" alt="Laboratório de ciências" loading="lazy">
-    <img src="img/infra2.jpg" alt="Sala de aula" loading="lazy">
-    <img src="img/infra4.jpg" alt="Biblioteca" loading="lazy">
-    <img src="img/infra5.jpg" alt="Quadra poliesportiva coberta" loading="lazy">
-    <img src="img/infra3.jpg" alt="Fachada do Instituto Educacional Luterano" loading="lazy">
+    <img src="img/infra1.jpg" alt="Laboratório de ciências" data-en-alt="Science lab" data-es-alt="Laboratorio de ciencias" loading="lazy">
+    <img src="img/infra2.jpg" alt="Sala de aula" data-en-alt="Classroom" data-es-alt="Aula" loading="lazy">
+    <img src="img/infra4.jpg" alt="Biblioteca" data-en-alt="Library" data-es-alt="Biblioteca" loading="lazy">
+    <img src="img/infra5.jpg" alt="Quadra poliesportiva coberta" data-en-alt="Covered multi-sport court" data-es-alt="Cancha polideportiva cubierta" loading="lazy">
+    <img src="img/infra3.jpg" alt="Fachada do Instituto Educacional Luterano" data-en-alt="Front of the Instituto Educacional Luterano" data-es-alt="Fachada del Instituto Educacional Luterano" loading="lazy">
   </div>
 </div></section>
 
 <!-- INTERCÂMBIO -->
 <section id="intercambio" class="intl"><div class="wrap">
   <div class="collage">
-    <div class="flags"><span>Brasil</span><span>Argentina</span></div>
-    <img src="img/intercambio2.jpg" alt="Alunos brasileiros e argentinos reunidos no intercâmbio" loading="lazy">
-    <img src="img/intercambio.jpg" alt="Casa Rosada, em Buenos Aires" loading="lazy">
+    <div class="flags"><span data-en="Brazil" data-es="Brasil">Brasil</span><span>Argentina</span></div>
+    <img src="img/intercambio2.jpg" alt="Alunos brasileiros e argentinos reunidos no intercâmbio" data-en-alt="Brazilian and Argentine students together during the exchange" data-es-alt="Alumnos brasileños y argentinos reunidos en el intercambio" loading="lazy">
+    <img src="img/intercambio.jpg" alt="Casa Rosada, em Buenos Aires" data-en-alt="Casa Rosada, in Buenos Aires" data-es-alt="Casa Rosada, en Buenos Aires" loading="lazy">
   </div>
   <div>
-    <span class="eyebrow">Intercâmbio Brasil–Argentina</span>
-    <h2>Borrando fronteiras, aproximando culturas</h2>
-    <p class="lead">Há mais de uma década, o Instituto Evangélico Americano (IEA), de José C. Paz, na Grande Buenos Aires, realiza intercâmbios educativos e culturais com escolas luteranas do Brasil. Em 2019, a parceria foi com o Luterano.</p>
+    <span class="eyebrow" data-en="Brazil–Argentina exchange" data-es="Intercambio Brasil–Argentina">Intercâmbio Brasil–Argentina</span>
+    <h2 data-en="Blurring borders, bringing cultures together" data-es="Borrando fronteras, acercando culturas">Borrando fronteiras, aproximando culturas</h2>
+    <p class="lead" data-en="For over a decade, the Instituto Evangélico Americano (IEA), in José C. Paz, Greater Buenos Aires, has run educational and cultural exchanges with Lutheran schools in Brazil. In 2019, the partner school was Luterano." data-es="Desde hace más de una década, el Instituto Evangélico Americano (IEA), de José C. Paz, en el Gran Buenos Aires, realiza intercambios educativos y culturales con escuelas luteranas de Brasil. En 2019, la escuela socia fue el Luterano.">Há mais de uma década, o Instituto Evangélico Americano (IEA), de José C. Paz, na Grande Buenos Aires, realiza intercâmbios educativos e culturais com escolas luteranas do Brasil. Em 2019, a parceria foi com o Luterano.</p>
     <ul class="checks" style="margin-top:20px">
-      <li>Um tema por ano, trabalhado em todas as disciplinas, nas escolas dos dois países.</li>
-      <li>Encontros presenciais, aqui e lá, para apresentar o que os alunos produziram.</li>
-      <li>Em 2019, o tema foi tecnologia na educação: uso seguro da internet e das redes sociais.</li>
+      <li data-en="One theme per year, explored across every subject, in schools in both countries." data-es="Un tema por año, trabajado en todas las materias, en las escuelas de los dos países.">Um tema por ano, trabalhado em todas as disciplinas, nas escolas dos dois países.</li>
+      <li data-en="In-person meetings, here and there, to present what students produced." data-es="Encuentros presenciales, aquí y allá, para presentar lo que produjeron los alumnos.">Encontros presenciais, aqui e lá, para apresentar o que os alunos produziram.</li>
+      <li data-en="In 2019, the theme was technology in education: safe use of the internet and social media." data-es="En 2019, el tema fue la tecnología en la educación: uso seguro de internet y de las redes sociales.">Em 2019, o tema foi tecnologia na educação: uso seguro da internet e das redes sociais.</li>
     </ul>
-    <p class="quote">Os alunos mostraram opinião formada sobre o papel da tecnologia em suas vidas e valorizam a conversa e o contato pessoal para além dos aparelhos.<small>Dirección de Educación de Gestión Privada (DIEGEP), Buenos Aires</small></p>
-    <a class="btn btn-wa" href="https://wa.me/5511991733538?text=Ol%C3%A1!%20Gostaria%20de%20saber%20sobre%20o%20interc%C3%A2mbio%20Brasil-Argentina." target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#wa"/></svg> Perguntar sobre o intercâmbio</a>
+    <p class="quote" data-en="Students showed well-formed opinions on the role of technology in their lives and value conversation and personal contact beyond their devices.<small>Dirección de Educación de Gestión Privada (DIEGEP), Buenos Aires</small>" data-es="Los alumnos mostraron opinión formada sobre el papel de la tecnología en sus vidas y valoran la conversación y el contacto personal más allá de los dispositivos.<small>Dirección de Educación de Gestión Privada (DIEGEP), Buenos Aires</small>">Os alunos mostraram opinião formada sobre o papel da tecnologia em suas vidas e valorizam a conversa e o contato pessoal para além dos aparelhos.<small>Dirección de Educación de Gestión Privada (DIEGEP), Buenos Aires</small></p>
+    <a class="btn btn-wa" href="https://wa.me/5511991733538?text=Ol%C3%A1!%20Gostaria%20de%20saber%20sobre%20o%20interc%C3%A2mbio%20Brasil-Argentina." data-en-href="https://wa.me/5511991733538?text=Hello!%20I%27d%20like%20to%20know%20about%20the%20Brazil-Argentina%20exchange." data-es-href="https://wa.me/5511991733538?text=%C2%A1Hola!%20Me%20gustar%C3%ADa%20saber%20sobre%20el%20intercambio%20Brasil-Argentina." target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#wa"/></svg> <span data-en="Ask about the exchange" data-es="Consultar sobre el intercambio">Perguntar sobre o intercâmbio</span></a>
   </div>
 </div></section>
 
 <!-- MATRÍCULAS -->
 <section id="matriculas" class="soft"><div class="wrap">
-  <span class="eyebrow">Matrículas 2027</span>
-  <h2>Como matricular seu filho</h2>
-  <p class="lead">Venha conhecer a escola, mesmo antes do período de matrículas. Atendimento de segunda a sexta, das 8h às 17h.</p>
+  <span class="eyebrow" data-en="Enrollment 2027" data-es="Inscripciones 2027">Matrículas 2027</span>
+  <h2 data-en="How to enroll your child" data-es="Cómo inscribir a su hijo">Como matricular seu filho</h2>
+  <p class="lead" data-en="Come visit the school, even before enrollment opens. We’re available Monday to Friday, 8am to 5:30pm." data-es="Venga a conocer la escuela, incluso antes del período de inscripción. Atendemos de lunes a viernes, de 8:00 a 17:30.">Venha conhecer a escola, mesmo antes do período de matrículas. Atendimento de segunda a sexta, das 8h às 17h30.</p>
   <ol class="steps" style="margin:32px 0 40px">
-    <li><h3>Agende uma visita</h3>Conheça nossos espaços e profissionais. Ligue ou envie uma mensagem.</li>
-    <li><h3>Leia o edital</h3>O edital de matrícula 2027 traz prazos, valores e regras.</li>
-    <li><h3>Separe os documentos</h3>Veja a lista ao lado e traga tudo no dia.</li>
-    <li><h3>Assine o contrato</h3>Na secretaria/tesouraria, com o responsável financeiro.</li>
+    <li data-en="<h3>Book a visit</h3>See our spaces and meet our staff. Call or send us a message." data-es="<h3>Agende una visita</h3>Conozca nuestros espacios y profesionales. Llame o envíe un mensaje."><h3>Agende uma visita</h3>Conheça nossos espaços e profissionais. Ligue ou envie uma mensagem.</li>
+    <li data-en="<h3>Read the notice</h3>The 2027 enrollment notice covers deadlines, fees and rules." data-es="<h3>Lea el reglamento</h3>El reglamento de inscripción 2027 trae plazos, valores y reglas."><h3>Leia o edital</h3>O edital de matrícula 2027 traz prazos, valores e regras.</li>
+    <li data-en="<h3>Gather the documents</h3>Check the list below and bring everything on the day." data-es="<h3>Reúna los documentos</h3>Consulte la lista y traiga todo el día de la inscripción."><h3>Separe os documentos</h3>Veja a lista ao lado e traga tudo no dia.</li>
+    <li data-en="<h3>Sign the contract</h3>At the front office/treasury, with the financially responsible guardian." data-es="<h3>Firme el contrato</h3>En la secretaría/tesorería, con el responsable financiero."><h3>Assine o contrato</h3>Na secretaria/tesouraria, com o responsável financeiro.</li>
   </ol>
   <div class="grid g2">
     <div class="card">
-      <h3>Documentos e editais</h3>
+      <h3 id="documentos" data-en="Documents and notices <small class='muted'>(in Portuguese)</small>" data-es="Documentos y reglamentos <small class='muted'>(en portugués)</small>">Documentos e editais</h3>
       <div class="downloads">
-        <a class="dl" href="docs/EDITAL-DE-MATRICULA-2027.docx" download><i>DOCX</i><span>Edital de Matrícula 2027<small>Prazos, valores e regras</small></span></a>
-        <a class="dl" href="docs/EDITAL-DE-BOLSA-SOCIAL-DE-ESTUDO-PARA-2027.pdf" target="_blank" rel="noopener"><i>PDF</i><span>Edital de Bolsa Social de Estudo 2027</span></a>
-        <a class="dl" href="docs/REQUERIMENTO-DE-BOLSA-DE-ESTUDO-PARA-2027.pdf" target="_blank" rel="noopener"><i>PDF</i><span>Requerimento de Bolsa de Estudo 2027</span></a>
-        <a class="dl" href="docs/Documentacao-para-Solicitar-a-Bolsa-de-Estudos-para-2027.pdf" target="_blank" rel="noopener"><i>PDF</i><span>Documentação para solicitar a bolsa</span></a>
+        <a class="dl" href="docs/EDITAL-DE-MATRICULA-2027.docx" download><i>DOCX</i><span data-en="2027 Enrollment Notice<small>Deadlines, fees and rules · Word file</small>" data-es="Reglamento de Inscripción 2027<small>Plazos, valores y reglas · archivo Word</small>">Edital de Matrícula 2027<small>Prazos, valores e regras · arquivo Word</small></span></a>
+        <a class="dl" href="docs/EDITAL-DE-BOLSA-SOCIAL-DE-ESTUDO-PARA-2027.pdf" target="_blank" rel="noopener"><i>PDF</i><span data-en="2027 Scholarship Program Notice<small>Rules, deadlines and who can apply</small>" data-es="Convocatoria de Becas Sociales 2027<small>Reglas, plazos y quién puede solicitarla</small>">Edital de Bolsa Social de Estudo 2027<small>Regras, prazos e quem pode pedir</small></span></a>
+        <a class="dl" href="docs/REQUERIMENTO-DE-BOLSA-DE-ESTUDO-PARA-2027.pdf" target="_blank" rel="noopener"><i>PDF</i><span data-en="2027 Scholarship Application<small>Form to apply for the scholarship</small>" data-es="Solicitud de Beca 2027<small>Formulario para solicitar la beca</small>">Requerimento de Bolsa de Estudo 2027<small>Formulário para pedir a bolsa</small></span></a>
+        <a class="dl" href="docs/Documentacao-para-Solicitar-a-Bolsa-de-Estudos-para-2027.pdf" target="_blank" rel="noopener"><i>PDF</i><span data-en="Documents required for the scholarship<small>What to attach to the application</small>" data-es="Documentación para solicitar la beca<small>Qué adjuntar a la solicitud</small>">Documentação para solicitar a bolsa<small>O que anexar ao pedido</small></span></a>
       </div>
-      <h3 style="margin-top:28px">Horários das aulas</h3>
+      <h3 id="horarios" style="margin-top:28px" data-en="Class schedule" data-es="Horarios de clase">Horários das aulas</h3>
       <table>
-        <tr><th>Etapa</th><th>Período</th><th>Horário</th></tr>
-        <tr><td>Educação Infantil</td><td>Tarde</td><td>13h às 17h30</td></tr>
-        <tr><td>Fundamental I</td><td>Tarde</td><td>13h30 às 18h</td></tr>
-        <tr><td>Fundamental II</td><td>Manhã</td><td>7h às 12h35</td></tr>
-        <tr><td>Ensino Médio</td><td>Manhã</td><td>7h às 13h20</td></tr>
+        <tr data-en="<th>Stage</th><th>Shift</th><th>Time</th>" data-es="<th>Nivel</th><th>Turno</th><th>Horario</th>"><th>Etapa</th><th>Período</th><th>Horário</th></tr>
+        <tr data-en="<td>Early Childhood</td><td>Afternoon</td><td>1pm–5:30pm</td>" data-es="<td>Educación Infantil</td><td>Tarde</td><td>13:00–17:30</td>"><td>Educação Infantil</td><td>Tarde</td><td>13h às 17h30</td></tr>
+        <tr data-en="<td>Elementary</td><td>Afternoon</td><td>1:30pm–6pm</td>" data-es="<td>Primaria</td><td>Tarde</td><td>13:30–18:00</td>"><td>Fundamental I</td><td>Tarde</td><td>13h30 às 18h</td></tr>
+        <tr data-en="<td>Middle School</td><td>Morning</td><td>7am–12:35pm</td>" data-es="<td>Secundaria Básica</td><td>Mañana</td><td>7:00–12:35</td>"><td>Fundamental II</td><td>Manhã</td><td>7h às 12h35</td></tr>
+        <tr data-en="<td>High School</td><td>Morning</td><td>7am–1:20pm</td>" data-es="<td>Enseñanza Media</td><td>Mañana</td><td>7:00–13:20</td>"><td>Ensino Médio</td><td>Manhã</td><td>7h às 13h20</td></tr>
       </table>
     </div>
     <div class="card">
-      <h3>Checklist para o dia da matrícula</h3>
+      <h3 data-en="Enrollment day checklist" data-es="Lista para el día de la inscripción">Checklist para o dia da matrícula</h3>
       <ul class="checks">
-        <li>Termo de adesão ao contrato preenchido e assinado pelo responsável financeiro.</li>
-        <li>Formulário de saúde e cópia da carteira de vacinação atualizada.</li>
-        <li>RG e CPF do aluno (obrigatórios no 9º ano do EF e no 3º ano do EM).</li>
-        <li>Histórico escolar (alunos novos), em até 30 dias após o início das aulas.</li>
-        <li>Comprovante de residência atualizado (água, luz ou telefone).</li>
-        <li>Ficha de matrícula preenchida.</li>
-        <li>Atestado médico, se houver restrição para Educação Física.</li>
+        <li data-en="Contract agreement form completed and signed by the financially responsible guardian." data-es="Formulario de adhesión al contrato completado y firmado por el responsable financiero.">Termo de adesão ao contrato preenchido e assinado pelo responsável financeiro.</li>
+        <li data-en="Health form and a copy of the up-to-date vaccination card." data-es="Formulario de salud y copia del carné de vacunación actualizado.">Formulário de saúde e cópia da carteira de vacinação atualizada.</li>
+        <li data-en="Student’s ID (RG) and CPF (required in 9th grade and in the final year of High School)." data-es="RG y CPF del alumno (obligatorios en el 9.º año y en el último año de la Enseñanza Media).">RG e CPF do aluno (obrigatórios no 9º ano do EF e no 3º ano do EM).</li>
+        <li data-en="School transcript (new students), within 30 days of the start of classes." data-es="Historial escolar (alumnos nuevos), hasta 30 días después del inicio de las clases.">Histórico escolar (alunos novos), em até 30 dias após o início das aulas.</li>
+        <li data-en="Recent proof of address (water, electricity or phone bill)." data-es="Comprobante de domicilio actualizado (agua, luz o teléfono).">Comprovante de residência atualizado (água, luz ou telefone).</li>
+        <li data-en="Completed enrollment form." data-es="Ficha de inscripción completada.">Ficha de matrícula preenchida.</li>
+        <li data-en="Medical certificate, if there are restrictions on Physical Education." data-es="Certificado médico, si hay restricciones para Educación Física.">Atestado médico, se houver restrição para Educação Física.</li>
       </ul>
-      <h3 id="listas" style="margin-top:28px">Listas de material 2027</h3>
+      <h3 id="listas" style="margin-top:28px" data-en="2027 school supply lists" data-es="Listas de útiles 2027">Listas de material 2027</h3>
       <div class="downloads mini">
-        <a class="dl" href="docs/LISTA-DE-MATERIAL-MATERNAL.jpeg" target="_blank"><i>IMG</i>Maternal</a>
-        <a class="dl" href="docs/LISTA-DE-MATERIAL-JARDIM-I.jpeg" target="_blank"><i>IMG</i>Jardim I</a>
-        <a class="dl" href="docs/LISTA-DE-MATERIAL-JARDIM-II.jpeg" target="_blank"><i>IMG</i>Jardim II</a>
-        <a class="dl" href="docs/1o-ANO.jpeg" target="_blank"><i>IMG</i>1º ano</a>
-        <a class="dl" href="docs/2o-ANO.jpeg" target="_blank"><i>IMG</i>2º ano</a>
-        <a class="dl" href="docs/3o-ANO.jpeg" target="_blank"><i>IMG</i>3º ano</a>
-        <a class="dl" href="docs/4o-ANO.jpeg" target="_blank"><i>IMG</i>4º ano</a>
-        <a class="dl" href="docs/5o-ANO.jpeg" target="_blank"><i>IMG</i>5º ano</a>
-        <a class="dl" href="docs/Lista-de-materiais-2027-Ensino-fundamental-2-e-Medio.pdf" target="_blank" rel="noopener"><i>PDF</i>Fundamental II e Ensino Médio</a>
+        <a class="dl" href="docs/LISTA-DE-MATERIAL-MATERNAL.jpeg" target="_blank"><i>IMG</i><span data-en="Nursery" data-es="Maternal">Maternal</span></a>
+        <a class="dl" href="docs/LISTA-DE-MATERIAL-JARDIM-I.jpeg" target="_blank"><i>IMG</i><span data-en="Pre-K I" data-es="Jardín I">Jardim I</span></a>
+        <a class="dl" href="docs/LISTA-DE-MATERIAL-JARDIM-II.jpeg" target="_blank"><i>IMG</i><span data-en="Pre-K II" data-es="Jardín II">Jardim II</span></a>
+        <a class="dl" href="docs/1o-ANO.jpeg" target="_blank"><i>IMG</i><span data-en="1st grade" data-es="1.º año">1º ano</span></a>
+        <a class="dl" href="docs/2o-ANO.jpeg" target="_blank"><i>IMG</i><span data-en="2nd grade" data-es="2.º año">2º ano</span></a>
+        <a class="dl" href="docs/3o-ANO.jpeg" target="_blank"><i>IMG</i><span data-en="3rd grade" data-es="3.º año">3º ano</span></a>
+        <a class="dl" href="docs/4o-ANO.jpeg" target="_blank"><i>IMG</i><span data-en="4th grade" data-es="4.º año">4º ano</span></a>
+        <a class="dl" href="docs/5o-ANO.jpeg" target="_blank"><i>IMG</i><span data-en="5th grade" data-es="5.º año">5º ano</span></a>
+        <a class="dl" href="docs/Lista-de-materiais-2027-Ensino-fundamental-2-e-Medio.pdf" target="_blank" rel="noopener"><i>PDF</i><span data-en="Middle and High School" data-es="Secundaria Básica y Enseñanza Media">Fundamental II e Ensino Médio</span></a>
       </div>
     </div>
   </div>
@@ -551,38 +671,38 @@ dialog.album[open]::backdrop{background:rgba(7,15,40,.75)}
 
 <!-- ATIVIDADES -->
 <section id="atividades"><div class="wrap">
-  <span class="eyebrow">Extracurriculares</span>
-  <h2>Muito além da sala de aula</h2>
-  <p class="lead">Atividades que desenvolvem habilidades e valores levados para a vida toda.</p>
+  <span class="eyebrow" data-en="Extracurriculars" data-es="Extracurriculares">Extracurriculares</span>
+  <h2 data-en="Far beyond the classroom" data-es="Mucho más allá del aula">Muito além da sala de aula</h2>
+  <p class="lead" data-en="Activities that build skills and values for life." data-es="Actividades que desarrollan habilidades y valores para toda la vida.">Atividades que desenvolvem habilidades e valores levados para a vida toda.</p>
   <div class="grid g3" style="margin-top:32px">
-    <article class="card lift"><div class="media"><img src="img/ballet.jpg" alt="Aula de ballet" loading="lazy"></div>
-      <h3>Ballet</h3><p class="muted">Graça e força em turmas Baby Class, Ballet I e Ballet II. O Balé Luterano apresenta espetáculos como "A Bela e a Fera".</p></article>
-    <article class="card lift"><div class="media"><img src="img/judo.jpg" alt="Aula de judô" loading="lazy"></div>
-      <h3>Judô</h3><p class="muted">Disciplina, respeito, persistência e saber ganhar e perder. Melhora a coordenação motora e o condicionamento.</p></article>
-    <article class="card lift"><div class="media"><img src="img/violao.jpg" alt="Aula de violão" loading="lazy"></div>
-      <h3>Violão</h3><p class="muted">Projeto "Aprendendo a tocar violão", da Igreja Luterana. Aulas em grupo, duas vezes por semana.</p></article>
+    <article class="card lift"><div class="media"><img src="img/ballet.jpg" alt="Aula de ballet" data-en-alt="Ballet class" data-es-alt="Clase de ballet" loading="lazy"></div>
+      <h3>Ballet</h3><p class="muted" data-en="Grace and strength in Baby Class, Ballet I and Ballet II. Balé Luterano stages shows such as “Beauty and the Beast”." data-es="Gracia y fuerza en los grupos Baby Class, Ballet I y Ballet II. El Ballet Luterano presenta espectáculos como “La Bella y la Bestia”.">Graça e força em turmas Baby Class, Ballet I e Ballet II. O Balé Luterano apresenta espetáculos como "A Bela e a Fera".</p></article>
+    <article class="card lift"><div class="media"><img src="img/judo.jpg" alt="Aula de judô" data-en-alt="Judo class" data-es-alt="Clase de judo" loading="lazy"></div>
+      <h3 data-en="Judo" data-es="Judo">Judô</h3><p class="muted" data-en="Discipline, respect, persistence and learning to win and lose. Improves motor coordination and fitness." data-es="Disciplina, respeto, persistencia y saber ganar y perder. Mejora la coordinación motriz y el estado físico.">Disciplina, respeito, persistência e saber ganhar e perder. Melhora a coordenação motora e o condicionamento.</p></article>
+    <article class="card lift"><div class="media"><img src="img/violao.jpg" alt="Aula de violão" data-en-alt="Guitar class" data-es-alt="Clase de guitarra" loading="lazy"></div>
+      <h3 data-en="Guitar" data-es="Guitarra">Violão</h3><p class="muted" data-en="The Lutheran Church’s “Learning to play guitar” project. Group lessons, twice a week." data-es="Proyecto “Aprendiendo a tocar la guitarra”, de la Iglesia Luterana. Clases grupales, dos veces por semana.">Projeto "Aprendendo a tocar violão", da Igreja Luterana. Aulas em grupo, duas vezes por semana.</p></article>
   </div>
 </div></section>
 
 <!-- SERVIÇOS -->
 <section id="servicos" class="soft"><div class="wrap">
-  <span class="eyebrow">Serviços</span>
-  <h2>Tudo para o dia a dia da família</h2>
+  <span class="eyebrow" data-en="Services" data-es="Servicios">Serviços</span>
+  <h2 data-en="Everything for your family’s day-to-day" data-es="Todo para el día a día de la familia">Tudo para o dia a dia da família</h2>
   <div class="grid g3" style="margin-top:32px">
-    <article class="card lift"><div class="media"><img src="img/alimentacao.jpg" alt="Refeição saudável" loading="lazy"></div>
-      <h3>Alimentação saudável</h3><p class="muted">Cardápio equilibrado acompanhado pela nutricionista Tulla Maria Costa Rodrigues da Cunha. É na escola que se formam os hábitos alimentares.</p></article>
-    <article class="card lift"><div class="media"><img src="img/biblioteca.jpg" alt="Biblioteca" loading="lazy"></div>
-      <h3>Biblioteca</h3><p class="muted">Acervo diversificado e atualizado para alunos, professores e funcionários, com consulta local e empréstimo de livros e revistas.</p></article>
+    <article class="card lift"><div class="media"><img src="img/alimentacao.jpg" alt="Refeição saudável" data-en-alt="Healthy meal" data-es-alt="Comida saludable" loading="lazy"></div>
+      <h3 data-en="Healthy meals" data-es="Alimentación saludable">Alimentação saudável</h3><p class="muted" data-en="A balanced menu overseen by nutritionist Tulla Maria Costa Rodrigues da Cunha. School is where eating habits are formed." data-es="Menú equilibrado supervisado por la nutricionista Tulla Maria Costa Rodrigues da Cunha. Es en la escuela donde se forman los hábitos alimentarios.">Cardápio equilibrado acompanhado pela nutricionista Tulla Maria Costa Rodrigues da Cunha. É na escola que se formam os hábitos alimentares.</p></article>
+    <article class="card lift"><div class="media"><img src="img/biblioteca.jpg" alt="Biblioteca" data-en-alt="Library" data-es-alt="Biblioteca" loading="lazy"></div>
+      <h3 data-en="Library" data-es="Biblioteca">Biblioteca</h3><p class="muted" data-en="A diverse, up-to-date collection for students, teachers and staff, with on-site reading and loans of books and magazines." data-es="Acervo diverso y actualizado para alumnos, docentes y personal, con consulta en sala y préstamo de libros y revistas.">Acervo diversificado e atualizado para alunos, professores e funcionários, com consulta local e empréstimo de livros e revistas.</p></article>
     <article class="card">
-      <h3>Uniformes</h3><p class="muted">O uso do uniforme é obrigatório nas aulas regulares e de reforço. Marque todas as peças com o nome do aluno. No fim do ano, peças não procuradas são doadas.</p></article>
+      <h3 data-en="Uniforms" data-es="Uniformes">Uniformes</h3><p class="muted" data-en="Uniforms are required for regular and tutoring classes. Label every item with the student’s name. At the end of the year, unclaimed items are donated." data-es="El uniforme es obligatorio en las clases regulares y de apoyo. Marque todas las prendas con el nombre del alumno. A fin de año, las prendas no reclamadas se donan.">O uso do uniforme é obrigatório nas aulas regulares e de reforço. Marque todas as peças com o nome do aluno. No fim do ano, peças não procuradas são doadas.</p></article>
   </div>
 
   <div class="card" id="transporte" style="margin-top:24px">
-    <h3>Transporte escolar: encontre um motorista no seu bairro</h3>
-    <p class="muted">São <span id="nb"></span> bairros atendidos por transportadores parceiros. Digite o seu:</p>
+    <h3 data-en="School transport: find a driver in your neighborhood" data-es="Transporte escolar: encuentre un conductor en su barrio">Transporte escolar: encontre um motorista no seu bairro</h3>
+    <p class="muted" data-en="Partner drivers serve <span id='nb'></span> neighborhoods. Type yours:" data-es="Hay <span id='nb'></span> barrios atendidos por transportistas asociados. Escriba el suyo:">São <span id="nb"></span> bairros atendidos por transportadores parceiros. Digite o seu:</p>
     <div class="search">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-      <input id="q" list="bairros" placeholder="Ex.: Jardim São João" aria-label="Seu bairro" autocomplete="off">
+      <input id="q" list="bairros" placeholder="Ex.: Jardim São João" data-en-placeholder="E.g. Jardim São João" data-es-placeholder="Ej.: Jardim São João" aria-label="Seu bairro" data-en-aria-label="Your neighborhood" data-es-aria-label="Su barrio" autocomplete="off">
       <datalist id="bairros"></datalist>
     </div>
     <div id="res" aria-live="polite"></div>
@@ -591,84 +711,86 @@ dialog.album[open]::backdrop{background:rgba(7,15,40,.75)}
 
 <!-- NOTÍCIAS -->
 <section id="noticias"><div class="wrap">
-  <span class="eyebrow">Vida no Luterano</span>
-  <h2>Momentos que contam a nossa história</h2>
-  <p class="lead">Projetos, saídas de estudo, esporte e arte. Toque em uma notícia para ver as fotos.</p>
+  <span class="eyebrow" data-en="Life at Luterano" data-es="Vida en el Luterano">Vida no Luterano</span>
+  <h2 data-en="Moments that tell our story" data-es="Momentos que cuentan nuestra historia">Momentos que contam a nossa história</h2>
+  <p class="lead" data-en="Projects, field trips, sports and art. Tap a moment to see the photos. Our latest news is on Facebook." data-es="Proyectos, salidas educativas, deporte y arte. Toque un momento para ver las fotos. Las novedades más recientes están en nuestro Facebook.">Projetos, saídas de estudo, esporte e arte. Toque em um momento para ver as fotos. As novidades mais recentes estão no nosso Facebook.</p>
   <div class="news" style="margin-top:32px">
-    <button class="news-card" type="button" data-album="bale" data-n="8" aria-label="Ver fotos: Balé Luterano apresenta “A Bela e a Fera”">
-      <span class="media"><img src="img/noticias/bale-1.jpg" alt="" loading="lazy"><span class="count">8 fotos</span></span>
-      <span class="body"><time datetime="2019-12">Dez 2019</time><span class="t">Balé Luterano apresenta “A Bela e a Fera”</span><span class="d">O espetáculo de fim de ano reuniu as turmas de balé da escola.</span></span>
+    <button class="news-card" type="button" data-album="bale" data-n="8" aria-label="Ver fotos: Balé Luterano apresenta “A Bela e a Fera”" data-en-aria-label="See photos: Balé Luterano presents “Beauty and the Beast”" data-es-aria-label="Ver fotos: el Ballet Luterano presenta “La Bella y la Bestia”">
+      <span class="media"><img src="img/noticias/bale-1.jpg" alt="" loading="lazy"><span class="count" data-en="8 photos" data-es="8 fotos">8 fotos</span></span>
+      <span class="body"><span class="t" data-en="Balé Luterano presents “Beauty and the Beast”" data-es="El Ballet Luterano presenta “La Bella y la Bestia”">Balé Luterano apresenta “A Bela e a Fera”</span><span class="d" data-en="The year-end show brought together the school’s ballet classes." data-es="El espectáculo de fin de año reunió a los grupos de ballet de la escuela.">O espetáculo de fim de ano reuniu as turmas de balé da escola.</span></span>
     </button>
-    <button class="news-card" type="button" data-album="roda" data-n="8" aria-label="Ver fotos: Uma roda-gigante na aula de matemática">
-      <span class="media"><img src="img/noticias/roda-1.jpg" alt="" loading="lazy"><span class="count">8 fotos</span></span>
-      <span class="body"><time datetime="2019-06">Jun 2019</time><span class="t">Uma roda-gigante na aula de matemática</span><span class="d">O 2º ano do Ensino Médio construiu uma roda-gigante para demonstrar as funções seno e cosseno, com a professora Thais Guedes.</span></span>
+    <button class="news-card" type="button" data-album="roda" data-n="8" aria-label="Ver fotos: Uma roda-gigante na aula de matemática" data-en-aria-label="See photos: A Ferris wheel in math class" data-es-aria-label="Ver fotos: una vuelta al mundo en la clase de matemática">
+      <span class="media"><img src="img/noticias/roda-1.jpg" alt="" loading="lazy"><span class="count" data-en="8 photos" data-es="8 fotos">8 fotos</span></span>
+      <span class="body"><span class="t" data-en="A Ferris wheel in math class" data-es="Una vuelta al mundo en la clase de matemática">Uma roda-gigante na aula de matemática</span><span class="d" data-en="11th graders built a Ferris wheel to demonstrate the sine and cosine functions, with teacher Thais Guedes." data-es="El 2.º año de la Enseñanza Media construyó una vuelta al mundo para demostrar las funciones seno y coseno, con la profesora Thais Guedes.">O 2º ano do Ensino Médio construiu uma roda-gigante para demonstrar as funções seno e cosseno, com a professora Thais Guedes.</span></span>
     </button>
-    <button class="news-card" type="button" data-album="bertioga" data-n="8" aria-label="Ver fotos: Saída de estudos a Bertioga">
-      <span class="media"><img src="img/noticias/bertioga-1.jpg" alt="" loading="lazy"><span class="count">8 fotos</span></span>
-      <span class="body"><time datetime="2019-06">Jun 2019</time><span class="t">Saída de estudos a Bertioga</span><span class="d">O 3º ano do Ensino Médio visitou a estação de tratamento de afluentes e efluentes da Riviera de São Lourenço, com os professores Rodrigo e Wellington.</span></span>
+    <button class="news-card" type="button" data-album="bertioga" data-n="8" aria-label="Ver fotos: Saída de estudos a Bertioga" data-en-aria-label="See photos: Field trip to Bertioga" data-es-aria-label="Ver fotos: salida educativa a Bertioga">
+      <span class="media"><img src="img/noticias/bertioga-1.jpg" alt="" loading="lazy"><span class="count" data-en="8 photos" data-es="8 fotos">8 fotos</span></span>
+      <span class="body"><span class="t" data-en="Field trip to Bertioga" data-es="Salida educativa a Bertioga">Saída de estudos a Bertioga</span><span class="d" data-en="12th graders visited the water and wastewater treatment plant at Riviera de São Lourenço, with teachers Rodrigo and Wellington." data-es="El 3.º año de la Enseñanza Media visitó la planta de tratamiento de afluentes y efluentes de Riviera de São Lourenço, con los profesores Rodrigo y Wellington.">O 3º ano do Ensino Médio visitou a estação de tratamento de afluentes e efluentes da Riviera de São Lourenço, com os professores Rodrigo e Wellington.</span></span>
     </button>
-    <button class="news-card" type="button" data-album="judo" data-n="8" aria-label="Ver fotos: Festival de judô">
-      <span class="media"><img src="img/noticias/judo-1.jpg" alt="" loading="lazy"><span class="count">8 fotos</span></span>
-      <span class="body"><time datetime="2019-05">Mai 2019</time><span class="t">Festival de judô</span><span class="d">Nossos atletas participaram do festival com o incentivo do Sensei Thiago Santos.</span></span>
+    <button class="news-card" type="button" data-album="judo" data-n="8" aria-label="Ver fotos: Festival de judô" data-en-aria-label="See photos: Judo festival" data-es-aria-label="Ver fotos: festival de judo">
+      <span class="media"><img src="img/noticias/judo-1.jpg" alt="" loading="lazy"><span class="count" data-en="8 photos" data-es="8 fotos">8 fotos</span></span>
+      <span class="body"><span class="t" data-en="Judo festival" data-es="Festival de judo">Festival de judô</span><span class="d" data-en="Our athletes took part in the festival, encouraged by Sensei Thiago Santos." data-es="Nuestros atletas participaron del festival con el apoyo del sensei Thiago Santos.">Nossos atletas participaram do festival com o incentivo do Sensei Thiago Santos.</span></span>
     </button>
-    <button class="news-card" type="button" data-album="itaipu" data-n="8" aria-label="Ver fotos: Foz do Iguaçu: Cataratas e Itaipu">
-      <span class="media"><img src="img/noticias/itaipu-1.jpg" alt="" loading="lazy"><span class="count">8 fotos</span></span>
-      <span class="body"><time datetime="2018-12">Dez 2018</time><span class="t">Foz do Iguaçu: Cataratas e Itaipu</span><span class="d">Alunos do Fundamental II e do Ensino Médio visitaram as Cataratas e a Usina de Itaipu com os professores David e Majo.</span></span>
+    <button class="news-card" type="button" data-album="itaipu" data-n="8" aria-label="Ver fotos: Foz do Iguaçu: Cataratas e Itaipu" data-en-aria-label="See photos: Foz do Iguaçu: the Falls and Itaipu" data-es-aria-label="Ver fotos: Foz do Iguaçu: Cataratas e Itaipú">
+      <span class="media"><img src="img/noticias/itaipu-1.jpg" alt="" loading="lazy"><span class="count" data-en="8 photos" data-es="8 fotos">8 fotos</span></span>
+      <span class="body"><span class="t" data-en="Foz do Iguaçu: the Falls and Itaipu" data-es="Foz do Iguaçu: Cataratas e Itaipú">Foz do Iguaçu: Cataratas e Itaipu</span><span class="d" data-en="Middle and High School students visited Iguaçu Falls and the Itaipu Dam with teachers David and Majo." data-es="Alumnos de la Secundaria Básica y de la Enseñanza Media visitaron las Cataratas y la represa de Itaipú con los profesores David y Majo.">Alunos do Fundamental II e do Ensino Médio visitaram as Cataratas e a Usina de Itaipu com os professores David e Majo.</span></span>
     </button>
-    <button class="news-card" type="button" data-album="interclasse" data-n="8" aria-label="Ver fotos: Premiação do Interclasse">
-      <span class="media"><img src="img/noticias/interclasse-1.jpg" alt="" loading="lazy"><span class="count">8 fotos</span></span>
-      <span class="body"><time datetime="2018-12">Dez 2018</time><span class="t">Premiação do Interclasse</span><span class="d">Final do Interclasse do Fundamental II, no handebol e no futsal, com o professor Neylor.</span></span>
+    <button class="news-card" type="button" data-album="interclasse" data-n="8" aria-label="Ver fotos: Premiação do Interclasse" data-en-aria-label="See photos: Inter-class tournament awards" data-es-aria-label="Ver fotos: premiación del Interclases">
+      <span class="media"><img src="img/noticias/interclasse-1.jpg" alt="" loading="lazy"><span class="count" data-en="8 photos" data-es="8 fotos">8 fotos</span></span>
+      <span class="body"><span class="t" data-en="Inter-class tournament awards" data-es="Premiación del Interclases">Premiação do Interclasse</span><span class="d" data-en="Middle School inter-class finals in handball and futsal, with PE teacher Neylor." data-es="Final del Interclases de la Secundaria Básica, en handball y futsal, con el profesor Neylor.">Final do Interclasse do Fundamental II, no handebol e no futsal, com o professor Neylor.</span></span>
     </button>
   </div>
-  <div class="more"><a class="btn btn-blue" href="https://www.facebook.com/InstitutoEducacionalLuterano/" target="_blank" rel="noopener">Novidades recentes no Facebook <span class="arr">→</span></a></div>
+  <div class="more"><a class="btn btn-blue" href="https://www.facebook.com/InstitutoEducacionalLuterano/" target="_blank" rel="noopener" data-en="Latest news on Facebook <span class='arr'>→</span>" data-es="Novedades recientes en Facebook <span class='arr'>→</span>">Novidades recentes no Facebook <span class="arr">→</span></a></div>
 </div></section>
 
 <dialog class="album" id="album" aria-labelledby="album-t">
-  <div class="album-head"><h3 id="album-t"></h3><span id="album-c"></span><button class="icon-btn" type="button" data-close aria-label="Fechar">✕</button></div>
+  <div class="album-head"><h3 id="album-t"></h3><span id="album-c"></span><button class="icon-btn" type="button" data-close aria-label="Fechar" data-en-aria-label="Close" data-es-aria-label="Cerrar"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
   <div style="position:relative">
-    <div class="track" id="track" tabindex="0" aria-label="Fotos"></div>
-    <button class="icon-btn album-nav prev" type="button" aria-label="Foto anterior">‹</button>
-    <button class="icon-btn album-nav next" type="button" aria-label="Próxima foto">›</button>
+    <div class="track" id="track" tabindex="0" aria-label="Fotos" data-en-aria-label="Photos" data-es-aria-label="Fotos"></div>
+    <button class="icon-btn album-nav prev" type="button" aria-label="Foto anterior" data-en-aria-label="Previous photo" data-es-aria-label="Foto anterior"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3 5 8l5 5"/></svg></button>
+    <button class="icon-btn album-nav next" type="button" aria-label="Próxima foto" data-en-aria-label="Next photo" data-es-aria-label="Foto siguiente"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg></button>
   </div>
 </dialog>
 
 <!-- CTA -->
 <section class="cta"><div class="wrap">
-  <h2>Venha conhecer o Luterano</h2>
-  <p class="lead">Agende uma visita e conheça nossos professores, os laboratórios e tudo o que preparamos para o seu filho.</p>
+  <h2 data-en="Come visit Luterano" data-es="Venga a conocer el Luterano">Venha conhecer o Luterano</h2>
+  <p class="lead" data-en="Book a visit to meet our teachers, see the labs and everything we’ve prepared for your child." data-es="Agende una visita y conozca a nuestros profesores, los laboratorios y todo lo que preparamos para su hijo.">Agende uma visita e conheça nossos professores, os laboratórios e tudo o que preparamos para o seu filho.</p>
   <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px">
-    <a class="btn btn-lime" href="#contato">Agendar visita <span class="arr">→</span></a>
-    <a class="btn btn-wa" href="https://wa.me/5511991733538?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20informa%C3%A7%C3%B5es." target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#wa"/></svg> Falar no WhatsApp</a>
+    <a class="btn btn-lime" href="https://wa.me/5511991733538?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20visita%20ao%20Luterano." data-en-href="https://wa.me/5511991733538?text=Hello!%20I%27d%20like%20to%20schedule%20a%20visit%20to%20Luterano." data-es-href="https://wa.me/5511991733538?text=%C2%A1Hola!%20Me%20gustar%C3%ADa%20agendar%20una%20visita%20al%20Luterano." target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#wa"/></svg> <span data-en="Book a visit" data-es="Agendar visita">Agendar visita</span></a>
+    <a class="btn btn-ghost" href="tel:+551146781461"><span data-en="Call +55 11 4678-1461" data-es="Llamar: +55 11 4678-1461">Ligar: (11) 4678-1461</span></a>
   </div>
 </div></section>
 
 <!-- CONTATO -->
 <section id="contato"><div class="wrap grid g2">
   <div>
-    <span class="eyebrow">Fale conosco</span>
-    <h2>Será um prazer atender você</h2>
+    <span class="eyebrow" data-en="Get in touch" data-es="Contáctenos">Fale conosco</span>
+    <h2 data-en="We’d be glad to help" data-es="Será un placer atenderle">Será um prazer atender você</h2>
     <ul class="contact-list">
-      <li><b>Endereço:</b> Av. Herman Teles Ribeiro, 162, Ferraz de Vasconcelos (SP)</li>
-      <li><b>Telefones:</b> <a href="tel:+551146781461">(11) 4678-1461</a> · <a href="tel:+551146781564">(11) 4678-1564</a></li>
-      <li><b>WhatsApp:</b> <a href="https://wa.me/5511991733538?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20informa%C3%A7%C3%B5es." target="_blank" rel="noopener">(11) 99173-3538</a></li>
-      <li><b>E-mail:</b> <a href="mailto:contato@ieluterano.com.br">contato@ieluterano.com.br</a></li>
-      <li><b>Secretaria:</b> seg a sex, 8h às 17h30</li>
-      <li><b>Tesouraria:</b> seg a sex, 7h30 às 16h30</li>
+      <li><b data-en="Address:" data-es="Dirección:">Endereço:</b> Av. Herman Teles Ribeiro, 162, Ferraz de Vasconcelos (SP)</li>
+      <li><b data-en="Phone:" data-es="Teléfonos:">Telefones:</b> <span><a href="tel:+551146781461">(11) 4678-1461</a> · <a href="tel:+551146781564">(11) 4678-1564</a></span></li>
+      <li><b>WhatsApp:</b> <a href="https://wa.me/5511991733538?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20informa%C3%A7%C3%B5es." data-en-href="https://wa.me/5511991733538?text=Hello!%20I%20found%20you%20through%20the%20website%20and%20would%20like%20some%20information." data-es-href="https://wa.me/5511991733538?text=%C2%A1Hola!%20Los%20encontr%C3%A9%20por%20el%20sitio%20web%20y%20me%20gustar%C3%ADa%20recibir%20informaci%C3%B3n." target="_blank" rel="noopener">(11) 99173-3538</a></li>
+      <li><b data-en="Email:" data-es="Correo:">E-mail:</b> <a href="mailto:contato@ieluterano.com.br">contato@ieluterano.com.br</a></li>
+      <li><b data-en="Front office:" data-es="Secretaría:">Secretaria:</b> <span><span data-en="Mon–Fri, 8am–5:30pm" data-es="lun a vie, 8:00–17:30">seg a sex, 8h às 17h30</span> · <span class="open-now"></span></span></li>
+      <li><b data-en="Treasury:" data-es="Tesorería:">Tesouraria:</b> <span data-en="Mon–Fri, 7:30am–4:30pm" data-es="lun a vie, 7:30–16:30">seg a sex, 7h30 às 16h30</span></li>
     </ul>
     <form id="form">
       <div class="row">
-        <label>Seu nome<input name="nome" required autocomplete="name"></label>
-        <label>Telefone<input name="tel" type="tel" inputmode="tel" required autocomplete="tel"></label>
+        <label><span data-en="Your name" data-es="Su nombre">Seu nome</span><input name="nome" required autocomplete="name"></label>
+        <label><span data-en="Phone <small>(optional)</small>" data-es="Teléfono <small>(opcional)</small>">Telefone <small>(opcional)</small></span><input name="tel" type="tel" inputmode="tel" autocomplete="tel" pattern="[0-9()+ .\-]{8,}" title="Ex.: (11) 99999-9999"></label>
       </div>
-      <label>Assunto
+      <label><span data-en="Subject" data-es="Asunto">Assunto</span>
         <select name="assunto">
-          <option>Agendar visita</option><option>Matrícula 2027</option><option>Bolsa social de estudo</option><option>Outro assunto</option>
+          <option data-en="Book a visit" data-es="Agendar visita">Agendar visita</option><option data-en="Enrollment 2027" data-es="Inscripciones 2027">Matrícula 2027</option><option data-en="Scholarship" data-es="Beca social de estudio">Bolsa social de estudo</option><option data-en="Something else" data-es="Otro asunto">Outro assunto</option>
         </select></label>
-      <label>Mensagem<textarea name="msg" rows="3"></textarea></label>
-      <button class="btn btn-wa" type="submit"><svg class="ic" aria-hidden="true"><use href="#wa"/></svg> Enviar pelo WhatsApp</button>
+      <label><span data-en="Message" data-es="Mensaje">Mensagem</span><textarea name="msg" rows="3"></textarea></label>
+      <button class="btn btn-wa" type="submit"><svg class="ic" aria-hidden="true"><use href="#wa"/></svg> <span data-en="Send via WhatsApp" data-es="Enviar por WhatsApp">Enviar pelo WhatsApp</span></button>
+      <p class="form-ok" role="status"></p>
+      <p class="form-note" data-en="The front office replies on WhatsApp, Monday to Friday, 8am to 5:30pm." data-es="La secretaría responde por WhatsApp de lunes a viernes, de 8:00 a 17:30.">A secretaria responde pelo WhatsApp de segunda a sexta, das 8h às 17h30.</p>
     </form>
   </div>
-  <iframe class="map" title="Mapa: Instituto Educacional Luterano" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+  <iframe class="map" title="Mapa: Instituto Educacional Luterano" data-en-title="Map: Instituto Educacional Luterano" data-es-title="Mapa: Instituto Educacional Luterano" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
     src="https://www.google.com/maps?q=Av.+Herman+Teles+Ribeiro,+162,+Ferraz+de+Vasconcelos+-+SP&output=embed"></iframe>
 </div></section>
 
@@ -678,51 +800,64 @@ dialog.album[open]::backdrop{background:rgba(7,15,40,.75)}
   <div class="grid g4">
     <div>
       <a class="brand" href="#top" style="color:#fff"><img src="img/logo.png" alt="" width="44" height="44"><span>Instituto Educacional<br>Luterano</span></a>
-      <p style="margin-top:14px">Escola confessional luterana, mantida pela OASE e integrante da Rede Sinodal de Educação.</p>
+      <p style="margin-top:14px" data-en="A Lutheran faith-based school, sponsored by OASE and part of the Synodal Education Network." data-es="Escuela confesional luterana, mantenida por la OASE e integrante de la Red Sinodal de Educación.">Escola confessional luterana, mantida pela OASE e integrante da Rede Sinodal de Educação.</p>
     </div>
-    <div><h3>Educação</h3><ul>
-      <li><a href="#ensino">Educação Infantil</a></li><li><a href="#ensino">Ensino Fundamental I</a></li>
-      <li><a href="#ensino">Ensino Fundamental II</a></li><li><a href="#ensino">Ensino Médio</a></li></ul></div>
-    <div><h3>Para famílias</h3><ul>
-      <li><a href="#matriculas">Matrículas e bolsas</a></li><li><a href="#listas">Listas de material</a></li>
-      <li><a href="#transporte">Transporte escolar</a></li><li><a href="#atividades">Extracurriculares</a></li><li><a href="#intercambio">Intercâmbio</a></li><li><a href="#noticias">Notícias</a></li></ul></div>
-    <div><h3>Parceiros</h3>
+    <div><h3 data-en="Education" data-es="Educación">Educação</h3><ul>
+      <li><a href="#ensino" data-en="Early Childhood" data-es="Educación Infantil">Educação Infantil</a></li><li><a href="#ensino" data-en="Elementary School" data-es="Educación Primaria">Ensino Fundamental I</a></li>
+      <li><a href="#ensino" data-en="Middle School" data-es="Secundaria Básica">Ensino Fundamental II</a></li><li><a href="#ensino" data-en="High School" data-es="Enseñanza Media">Ensino Médio</a></li></ul></div>
+    <div><h3 data-en="For families" data-es="Para familias">Para famílias</h3><ul>
+      <li><a href="#matriculas" data-en="Enrollment &amp; scholarships" data-es="Inscripciones y becas">Matrículas e bolsas</a></li><li><a href="#listas" data-en="Supply lists" data-es="Listas de útiles">Listas de material</a></li>
+      <li><a href="#transporte" data-en="School transport" data-es="Transporte escolar">Transporte escolar</a></li><li><a href="#atividades" data-en="Extracurriculars" data-es="Extracurriculares">Extracurriculares</a></li><li><a href="#intercambio" data-en="Exchange program" data-es="Intercambio">Intercâmbio</a></li><li><a href="#noticias" data-en="News" data-es="Noticias">Notícias</a></li></ul></div>
+    <div><h3 data-en="Partners" data-es="Socios">Parceiros</h3>
       <div class="partners"><span>OASE</span><span>IECLB</span><span>Rede Sinodal</span><span>CEBAS</span><span>Paróquia Leste</span></div>
-      <p style="margin-top:16px"><a href="https://www.facebook.com/InstitutoEducacionalLuterano/" target="_blank" rel="noopener">Facebook →</a></p>
+      <p style="margin-top:16px"><a href="https://www.facebook.com/InstitutoEducacionalLuterano/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px">Facebook <span class="arr">→</span></a></p>
     </div>
   </div>
   <div class="copy"><span>© <span id="y"></span> Instituto Educacional Luterano</span><span>Av. Herman Teles Ribeiro, 162 · Ferraz de Vasconcelos (SP)</span></div>
 </div></footer>
 
-<a class="btn btn-wa fab off" href="https://wa.me/5511991733538?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20informa%C3%A7%C3%B5es." target="_blank" rel="noopener" aria-label="Falar com a escola no WhatsApp"><svg class="ic" aria-hidden="true"><use href="#wa"/></svg> WhatsApp</a>
+<a class="btn btn-wa fab off" href="https://wa.me/5511991733538?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20informa%C3%A7%C3%B5es." data-en-href="https://wa.me/5511991733538?text=Hello!%20I%20found%20you%20through%20the%20website%20and%20would%20like%20some%20information." data-es-href="https://wa.me/5511991733538?text=%C2%A1Hola!%20Los%20encontr%C3%A9%20por%20el%20sitio%20web%20y%20me%20gustar%C3%ADa%20recibir%20informaci%C3%B3n." target="_blank" rel="noopener" aria-label="Falar com a escola no WhatsApp" data-en-aria-label="Chat with the school on WhatsApp" data-es-aria-label="Hablar con la escuela por WhatsApp"><svg class="ic" aria-hidden="true"><use href="#wa"/></svg> WhatsApp</a>
 
 <script>
+// Idioma atual; t('texto pt', 'text en', 'texto es') escolhe a versão certa nas mensagens geradas em JS
+let lang = 'pt';
+const t = (pt, en, es) => ({ pt, en, es })[lang];
+
 // Transporte: {bairro: [motoristas]}, motoristas: {nome: celular}
 const T = {"bairros": {"Cdhu Fazenda Itajuibe": ["Laécio Claudino", "Carlos Eduardo Offenstein", "Jonathan Paulo da Silva", "José Edgard Ramos"], "Chácara Descansolândia": ["José Edgard Ramos"], "Chácara Laguna": ["Laécio Claudino"], "Cidade Kemel": ["Laécio Claudino"], "Conjunto Residencial Itajuibe": ["Laécio Claudino"], "Conjunto Res. Presid. Castello Branco": ["Any Bademian"], "Jardim Alexandre": ["José Edgard Ramos"], "Jardim Alice": ["José Edgard Ramos"], "Jardim Amalfi": ["Laécio Claudino", "José Edgard Ramos"], "Jardim Anchieta": ["Laécio Claudino"], "Jardim Ayres": ["José Edgard Ramos"], "Jardim Barão": ["Laécio Claudino"], "Jardim Bela Vista": ["Laécio Claudino", "Sidney Ribeiro Marciano"], "Jardim Brígida": ["José Edgard Ramos"], "Jardim Cambiri": ["José Edgard Ramos"], "Jardim Dayse": ["Vagna Cravo Viana Domingos", "Any Bademian", "Sidney Ribeiro Marciano"], "Jardim do Castelo": ["Vagna Cravo Viana Domingos", "Carlos Eduardo Offenstein", "Jonathan Paulo da Silva", "José Edgard Ramos"], "Jardim do Papai": ["Grazi", "Vagna Cravo Viana Domingos", "Carlos Eduardo Offenstein", "Jonathan Paulo da Silva", "José Edgard Ramos"], "Jardim do Sol": ["Carlos Eduardo Offenstein"], "Jardim Figueiredo": ["Any Bademian"], "Jardim Freire": ["Laécio Claudino", "Jonathan Paulo da Silva", "José Edgard Ramos"], "Jardim Helena": ["Laécio Claudino"], "Jardim Ipanema": ["Grazi", "Laécio Claudino", "Vagna Cravo Viana Domingos"], "Jardim José Ferreira": ["Laécio Claudino", "Jonathan Paulo da Silva", "José Edgard Ramos"], "Jardim Juliana": ["Graciela / Sérgio", "Laécio Claudino", "Vagna Cravo Viana Domingos"], "Jardim Júlio de Carvalho": ["Any Bademian", "Carlos Eduardo Offenstein", "José Edgard Ramos"], "Jardim Leila": ["Sidney Ribeiro Marciano", "José Edgard Ramos"], "Jardim Luiz Mauro": ["Laécio Claudino"], "Jardim Malda": ["Laécio Claudino"], "Jardim Melilo": ["Graciela / Sérgio", "Vagna Cravo Viana Domingos", "Sidney Ribeiro Marciano"], "Jardim Mercedes": ["Laécio Claudino"], "Jardim Oseias Genuíno": ["Graciela / Sérgio", "Laécio Claudino", "Sidney Ribeiro Marciano"], "Jardim Primavera": ["Any Bademian"], "Jardim Recanto dos Pássaros": ["Jonathan Paulo da Silva", "José Edgard Ramos"], "Jardim Renata": ["Graciela / Sérgio"], "Jardim Rosana": ["Graciela / Sérgio"], "Jardim San Giovani": ["José Edgard Ramos"], "Jardim Santa Rosa": ["Carlos Eduardo Offenstein", "José Edgard Ramos"], "Jardim São Benedito": ["José Edgard Ramos"], "Jardim São Fernando": ["Laécio Claudino"], "Jardim São João": ["Laécio Claudino", "Vagna Cravo Viana Domingos"], "Jardim São Lázaro": ["Laécio Claudino"], "Jardim Soeiro": ["Laécio Claudino", "Carlos Eduardo Offenstein"], "Jardim Temporim": ["Laécio Claudino", "Vagna Cravo Viana Domingos"], "Jardim Tinoco": ["Laécio Claudino", "Sidney Ribeiro Marciano"], "Jardim Travessa": ["José Edgard Ramos"], "Jardim Vista Alegre": ["Laécio Claudino", "Sidney Ribeiro Marciano"], "Jardim Yone": ["Vagna Cravo Viana Domingos"], "Parque Dourado": ["Grazi", "Vagna Cravo Viana Domingos", "Any Bademian", "Jonathan Paulo da Silva"], "Parque Imperial": ["Jonathan Paulo da Silva", "José Edgard Ramos"], "Parque São Francisco": ["Grazi", "Vagna Cravo Viana Domingos", "Any Bademian", "José Edgard Ramos"], "Parque São Judas Tadeu": ["Carlos Eduardo Offenstein", "Jonathan Paulo da Silva", "José Edgard Ramos"], "Sítio Paredão": ["Laécio Claudino", "Vagna Cravo Viana Domingos"], "Sítio Sebastião Soares": ["Carlos Eduardo Offenstein", "José Edgard Ramos"], "Tanquinho": ["Laécio Claudino", "Vagna Cravo Viana Domingos", "Sidney Ribeiro Marciano"], "Vila Alayde": ["Sidney Ribeiro Marciano", "José Edgard Ramos"], "Vila Andeyara": ["Graciela / Sérgio", "Laécio Claudino", "Vagna Cravo Viana Domingos"], "Vila Arbame": ["Laécio Claudino"], "Vila Ayda": ["Sidney Ribeiro Marciano"], "Vila Bianchi": ["Jonathan Paulo da Silva"], "Vila Corrêa": ["Graciela / Sérgio", "Laécio Claudino", "Vagna Cravo Viana Domingos", "José Edgard Ramos"], "Vila Cristina": ["Carlos Eduardo Offenstein", "José Edgard Ramos"], "Vila das Nações": ["Laécio Claudino"], "Vila do Americano": ["Graciela / Sérgio", "Any Bademian", "Sidney Ribeiro Marciano"], "Vila Jamil": ["Jonathan Paulo da Silva", "José Edgard Ramos"], "Vila Joana D'arc": ["Jonathan Paulo da Silva"], "Vila Jurema": ["Laécio Claudino"], "Vila Leite": ["Sidney Ribeiro Marciano"], "Vila Panucce": ["Jonathan Paulo da Silva", "José Edgard Ramos"], "Vila Pery": ["José Edgard Ramos"], "Vila Romanopolis": ["Graciela / Sérgio", "Grazi", "Laécio Claudino", "Vagna Cravo Viana Domingos", "Any Bademian", "Sidney Ribeiro Marciano"], "Vila Santa Margarida": ["Laécio Claudino", "Carlos Eduardo Offenstein", "Jonathan Paulo da Silva", "José Edgard Ramos"], "Vila Santo Antônio": ["Vagna Cravo Viana Domingos", "Any Bademian", "Sidney Ribeiro Marciano"], "Vila São João": ["Laécio Claudino", "Jonathan Paulo da Silva", "José Edgard Ramos"], "Vila São Paulo": ["Vagna Cravo Viana Domingos"], "Vila Solar": ["José Edgard Ramos"], "Vila Zita": ["Sidney Ribeiro Marciano", "Jonathan Paulo da Silva", "José Edgard Ramos"], "Divisa de Ferraz/Poá": ["Graciela / Sérgio", "Jonathan Paulo da Silva", "José Edgard Ramos"], "Jardim Fanganiello (Guaianazes)": ["José Edgard Ramos"]}, "motoristas": {"Laécio Claudino": "973338537", "Carlos Eduardo Offenstein": "976969232", "Jonathan Paulo da Silva": "969279327", "José Edgard Ramos": "998921380", "Any Bademian": "973003678", "Sidney Ribeiro Marciano": "968022150", "Vagna Cravo Viana Domingos": "999579540", "Grazi": "952376389", "Graciela / Sérgio": "967297938"}};
 const bairros = Object.keys(T.bairros);
 const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
 document.getElementById('nb').textContent = bairros.length;
 document.getElementById('bairros').innerHTML = bairros.map(b => `<option value="${b}">`).join('');
-const res = document.getElementById('res');
-document.getElementById('q').addEventListener('input', e => {
-  const q = norm(e.target.value.trim());
-  if (q.length < 3) { res.innerHTML = ''; res.dataset.k = ''; return; }
-  const hits = bairros.filter(b => norm(b).includes(q)).slice(0, 4);
-  if (hits.join() === res.dataset.k) return; // evita piscar a cada tecla
-  res.dataset.k = hits.join();
+const res = document.getElementById('res'), qIn = document.getElementById('q');
+qIn.addEventListener('input', renderBairros);
+function renderBairros() {
+  const q = norm(qIn.value.trim());
+  if (q.length < 3) { res.innerHTML = q ? `<p class="muted">${t('Digite pelo menos 3 letras do bairro.', 'Type at least 3 letters of the neighborhood.', 'Escriba al menos 3 letras del barrio.')}</p>` : ''; res.dataset.k = ''; return; }
+  const all = bairros.filter(b => norm(b).includes(q)), hits = all.slice(0, 4), more = all.length - hits.length;
+  const k = (hits.join() || '-') + more; // '-' = nenhum resultado (diferente de campo vazio)
+  if (k === res.dataset.k) return; // evita piscar a cada tecla
+  res.dataset.k = k;
   res.innerHTML = hits.length ? hits.map(b => `<div><b>${b}</b>` + T.bairros[b].map(n => {
       const c = T.motoristas[n];
       return `<div class="driver"><span>${n}</span><span class="acts"><a class="chip" href="tel:+5511${c}">(11) ${c.slice(0,5)}-${c.slice(5)}</a><a class="chip wa" href="https://wa.me/5511${c}" target="_blank" rel="noopener">WhatsApp</a></span></div>`;
     }).join('') + '</div>').join('')
-    : '<p>Não encontramos esse bairro. Fale com a secretaria pelo <a href="https://wa.me/5511991733538?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20informa%C3%A7%C3%B5es." target="_blank" rel="noopener">WhatsApp</a> ou pelo <a href="tel:+551146781461">(11) 4678-1461</a>.</p>';
-});
+      + (more ? `<p class="muted">${t(`Mais ${more} bairros com esse nome. Continue digitando para achar o seu.`, `${more} more neighborhoods match. Keep typing to find yours.`, `${more} barrios más coinciden. Siga escribiendo para encontrar el suyo.`)}</p>` : '')
+    : t('<p>Não encontramos esse bairro. Fale com a secretaria pelo <a href="https://wa.me/5511991733538?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20informa%C3%A7%C3%B5es." target="_blank" rel="noopener">WhatsApp</a> ou pelo <a href="tel:+551146781461">(11) 4678-1461</a>.</p>',
+        '<p>We couldn’t find that neighborhood. Contact the front office on <a href="https://wa.me/5511991733538" target="_blank" rel="noopener">WhatsApp</a> or call <a href="tel:+551146781461">+55 11 4678-1461</a>.</p>',
+        '<p>No encontramos ese barrio. Contacte a la secretaría por <a href="https://wa.me/5511991733538" target="_blank" rel="noopener">WhatsApp</a> o llame al <a href="tel:+551146781461">+55 11 4678-1461</a>.</p>');
+}
 
 // Contato: abre o WhatsApp da escola com a mensagem já preenchida (sem backend)
 document.getElementById('form').addEventListener('submit', e => {
   e.preventDefault();
   const f = new FormData(e.target);
-  const txt = `Olá! Assunto: ${f.get('assunto')}\nNome: ${f.get('nome')}\nTelefone: ${f.get('tel')}\n\n${f.get('msg')}`.trim();
+  const tel = f.get('tel').trim();
+  const txt = t(`Olá! Assunto: ${f.get('assunto')}\nNome: ${f.get('nome')}${tel ? '\nTelefone: ' + tel : ''}`,
+                `Hello! Subject: ${f.get('assunto')}\nName: ${f.get('nome')}${tel ? '\nPhone: ' + tel : ''}`,
+                `¡Hola! Asunto: ${f.get('assunto')}\nNombre: ${f.get('nome')}${tel ? '\nTeléfono: ' + tel : ''}`) + `\n\n${f.get('msg')}`.trimEnd();
   window.open(`https://wa.me/5511991733538?text=${encodeURIComponent(txt)}`, '_blank', 'noopener');
+  e.target.querySelector('.form-ok').textContent = t('Abrimos o WhatsApp com a sua mensagem. É só tocar em enviar.', 'We opened WhatsApp with your message. Just tap send.', 'Abrimos WhatsApp con su mensaje. Solo toque en enviar.');
 });
 
 // Menu mobile
@@ -730,15 +865,24 @@ const nav = document.getElementById('nav'), mb = document.querySelector('.menu-b
 const closeNav = () => { nav.classList.remove('open'); mb.setAttribute('aria-expanded', false); };
 mb.addEventListener('click', () => mb.setAttribute('aria-expanded', nav.classList.toggle('open')));
 nav.addEventListener('click', e => { if (e.target.tagName === 'A') closeNav(); });
-addEventListener('keydown', e => { if (e.key === 'Escape') closeNav(); });
+addEventListener('keydown', e => { if (e.key === 'Escape' && nav.classList.contains('open')) { closeNav(); mb.focus(); } });
 document.addEventListener('click', e => { if (!e.target.closest('header')) closeNav(); });
+
+// Idioma/tema: no header; no celular, dentro do menu ☰ (move o mesmo elemento)
+const prefs = document.querySelector('.prefs'), navPrefs = nav.querySelector('.nav-prefs'), small = matchMedia('(max-width:720px)');
+const placePrefs = () => small.matches ? navPrefs.append(prefs) : nav.after(prefs);
+small.addEventListener('change', placePrefs); placePrefs();
 
 // Header ganha sombra ao rolar; botão "Ligar" só aparece depois do hero
 const header = document.querySelector('header'), fab = document.querySelector('.fab');
-new IntersectionObserver(([e]) => {
-  header.classList.toggle('scrolled', !e.isIntersecting);
-  fab.classList.toggle('off', e.isIntersecting);
-}, { rootMargin: '-80px 0px 0px' }).observe(document.querySelector('.hero'));
+new IntersectionObserver(([e]) => header.classList.toggle('scrolled', !e.isIntersecting), { rootMargin: '-80px 0px 0px' }).observe(document.querySelector('.hero'));
+// botão flutuante some onde atrapalharia: no hero, na busca de transporte (cobria os botões dos motoristas) e no contato (que já tem WhatsApp)
+const fabHide = new Set();
+const fabObs = new IntersectionObserver(es => {
+  es.forEach(e => e.isIntersecting ? fabHide.add(e.target) : fabHide.delete(e.target));
+  fab.classList.toggle('off', fabHide.size > 0);
+}, { rootMargin: '-80px 0px 0px' });
+['.hero', '#transporte', '#contato'].forEach(sel => fabObs.observe(document.querySelector(sel)));
 
 // Item do menu destacado conforme a seção visível
 const links = [...nav.querySelectorAll('a')];
@@ -755,28 +899,32 @@ const io = new IntersectionObserver(es => es.forEach(e => {
   // limpa depois, para o hover dos cards não herdar o atraso da cascata
   setTimeout(() => e.target.classList.remove('rv', 'in'), 1500);
 }), { rootMargin: '0px 0px -60px' });
-document.querySelectorAll('section:not(.hero) :is(.eyebrow, h2, .lead, .card, .news-card, .collage, .steps li, .timeline li, .gallery img), .stats, .hero .rv').forEach(el => el.classList.add('rv'));
+// um momento de entrada (hero) + a revelação da galeria; o resto da página já nasce visível
+document.querySelectorAll('.stats, .gallery img, #sobre .hl').forEach(el => el.classList.add('rv'));
 document.querySelectorAll('.rv').forEach(el => {
   el.style.setProperty('--i', [...el.parentElement.children].filter(c => c.matches('.rv')).indexOf(el));
   io.observe(el);
 });
 
 
-// Vídeo do hero: só em telas largas, sem economia de dados e sem "reduzir movimento"
-// ponytail: vídeo hospedado no S3 da escola (19 MB webm / 37 MB mp4); comprimir para ~5 MB se o carregamento pesar
+// Vídeo do hero (720p, 1,9 MB): não carrega com economia de dados nem com "reduzir movimento"
 const vid = document.querySelector('.hero-video'), vbtn = document.querySelector('.vid-btn');
-if (matchMedia('(min-width:768px)').matches && !matchMedia('(prefers-reduced-motion:reduce)').matches && !(navigator.connection && navigator.connection.saveData)) {
-  const S3 = 'https://s3-sa-east-1.amazonaws.com/ieluterano.com.br/ieluterano-home.';
-  vid.innerHTML = `<source src="${S3}webm" type="video/webm"><source src="${S3}mp4" type="video/mp4">`;
-  vid.addEventListener('playing', () => { vid.classList.add('on'); vbtn.classList.add('show'); }, { once: true });
+// o vídeo (1,9 MB) só entra depois da página carregada, e nunca com economia de dados ou rede lenta
+const conn = navigator.connection || {};
+if (!matchMedia('(prefers-reduced-motion:reduce)').matches && !conn.saveData && !/2g|3g/.test(conn.effectiveType || '')) addEventListener('load', () => {
+  vid.innerHTML = '<source src="video/hero.mp4" type="video/mp4">';
+  vid.addEventListener('playing', () => { vid.classList.add('on'); vbtn.classList.add('show'); vLabel(); }, { once: true });
   vid.load();
   vid.play().catch(() => {});
   const ICON_PAUSE = vbtn.innerHTML, ICON_PLAY = '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5v11a1 1 0 0 0 1.5.86l9-5.5a1 1 0 0 0 0-1.72l-9-5.5A1 1 0 0 0 4 2.5z"/></svg>';
   vbtn.addEventListener('click', () => {
     const p = vid.paused; p ? vid.play() : vid.pause();
     vbtn.innerHTML = p ? ICON_PAUSE : ICON_PLAY;
-    vbtn.setAttribute('aria-label', p ? 'Pausar vídeo de fundo' : 'Tocar vídeo de fundo');
+    vLabel();
   });
+});
+function vLabel() {
+  vbtn.setAttribute('aria-label', vid.paused ? t('Tocar vídeo de fundo', 'Play background video', 'Reproducir video de fondo') : t('Pausar vídeo de fundo', 'Pause background video', 'Pausar video de fondo'));
 }
 
 // Álbum de fotos das notícias
@@ -785,7 +933,7 @@ const step = dir => track.scrollBy({ left: dir * track.clientWidth, behavior: ma
 document.querySelectorAll('.news-card').forEach(card => card.addEventListener('click', () => {
   const k = card.dataset.album, n = +card.dataset.n;
   document.getElementById('album-t').textContent = card.querySelector('.t').textContent;
-  track.innerHTML = Array.from({ length: n }, (_, i) => `<img src="img/noticias/${k}-${i + 1}.jpg" alt="Foto ${i + 1} de ${n}" ${i ? 'loading="lazy"' : ''}>`).join('');
+  track.innerHTML = Array.from({ length: n }, (_, i) => `<img src="img/noticias/${k}-${i + 1}.jpg" alt="${t('Foto', 'Photo', 'Foto')} ${i + 1} ${t('de', 'of', 'de')} ${n}" ${i ? 'loading="lazy"' : ''}>`).join('');
   track.scrollLeft = 0; counter.textContent = `1 / ${n}`;
   album.showModal();
 }));
@@ -796,6 +944,33 @@ album.querySelector('.prev').addEventListener('click', () => step(-1));
 album.querySelector('.next').addEventListener('click', () => step(1));
 album.querySelector('[data-close]').addEventListener('click', () => album.close());
 album.addEventListener('click', e => { if (e.target === album) album.close(); }); // clique fora fecha
+// no toque, arrastar a foto para baixo fecha o álbum: segue o dedo 1:1 e um peteleco rápido basta
+let y0 = null, t0 = 0, dy = 0;
+track.addEventListener('pointerdown', e => { if (e.pointerType === 'touch') { y0 = e.clientY; t0 = e.timeStamp; dy = 0; } });
+track.addEventListener('pointermove', e => {
+  if (y0 === null) return;
+  const raw = e.clientY - y0;
+  if (Math.abs(raw) < 10 && !dy) return; // folga antes de assumir o gesto
+  dy = raw > 0 ? raw : raw * .2; // para cima resiste, como borracha
+  album.style.transition = 'none';
+  album.style.transform = `translateY(${dy}px)`;
+  album.style.opacity = 1 - Math.max(dy, 0) / 500;
+});
+const dragEnd = e => {
+  if (y0 === null) return;
+  const v = dy / Math.max(e.timeStamp - t0, 1); // px/ms
+  y0 = null;
+  album.style.transition = 'transform 220ms var(--ease-out), opacity 220ms ease';
+  if (dy > 120 || v > .5) { // continua descendo de onde o dedo soltou
+    album.style.transform = `translateY(${dy + 200}px)`; album.style.opacity = 0;
+    setTimeout(() => { album.close(); album.style.cssText = ''; }, 220);
+  } else {
+    album.style.transform = album.style.opacity = '';
+    setTimeout(() => album.style.transition = '', 220); // devolve a transição de abrir/fechar do CSS
+  }
+};
+track.addEventListener('pointerup', dragEnd);
+track.addEventListener('pointercancel', dragEnd);
 album.addEventListener('keydown', e => {
   // teclado: troca instantânea, sem animação
   if (e.key === 'ArrowRight') track.scrollBy({ left: track.clientWidth });
@@ -803,6 +978,72 @@ album.addEventListener('keydown', e => {
 });
 
 document.getElementById('y').textContent = new Date().getFullYear();
+
+// Preferências salvas no navegador (falha em silêncio no modo privado)
+const store = (k, v) => { try { return v === undefined ? localStorage.getItem(k) : localStorage.setItem(k, v); } catch (e) {} };
+const html = document.documentElement;
+
+// troca de tema/idioma com fade quando o navegador suporta (cliques rápidos cancelam o anterior sem erro)
+const fade = go => document.startViewTransition && !matchMedia('(prefers-reduced-motion:reduce)').matches ? document.startViewTransition(go).ready.catch(() => {}) : go();
+// Tema: segue o sistema até a pessoa escolher; troca com fade quando o navegador suporta
+const themeBtn = document.querySelector('.theme');
+const setTheme = th => { html.dataset.theme = th; themeBtn.setAttribute('aria-pressed', th === 'dark'); };
+setTheme(html.dataset.theme);
+themeBtn.addEventListener('click', () => {
+  const th = html.dataset.theme === 'dark' ? 'light' : 'dark';
+  store('theme', th);
+  fade(() => setTheme(th));
+});
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => { if (!store('theme')) setTheme(e.matches ? 'dark' : 'light'); });
+
+// Secretaria aberta agora? (horário de Brasília)
+// ponytail: ignora feriados; se precisar, uma lista de datas fechadas resolve
+function renderOpen() {
+  const sp = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Sao_Paulo' }));
+  const d = sp.getDay(), m = sp.getHours() * 60 + sp.getMinutes();
+  const open = d >= 1 && d <= 5 && m >= 8 * 60 && m < 17 * 60 + 30;
+  document.querySelectorAll('.open-now').forEach(el => {
+    el.className = 'open-now ' + (open ? 'yes' : 'no');
+    el.textContent = open ? t('Aberto agora', 'Open now', 'Abierto ahora') : reopens(d, m);
+  });
+}
+// fora do horário, diz quando a secretaria volta: quem escreve às 22h sabe quando esperar a resposta
+function reopens(d, m) {
+  if (d >= 1 && d <= 5 && m < 8 * 60) return t('Fechado · abre hoje às 8h', 'Closed · opens today at 8am', 'Cerrado · abre hoy a las 8:00');
+  if (d >= 0 && d <= 4) return t('Fechado · abre amanhã às 8h', 'Closed · opens tomorrow at 8am', 'Cerrado · abre mañana a las 8:00');
+  return t('Fechado · abre segunda às 8h', 'Closed · opens Monday at 8am', 'Cerrado · abre el lunes a las 8:00');
+}
+setInterval(renderOpen, 60000);
+
+// Idioma: inglês e espanhol moram no próprio elemento (data-en/data-es e data-en-<atributo>/data-es-<atributo>);
+// o português original é guardado em data-pt na primeira troca
+const I18N_ATTRS = ['aria-label', 'alt', 'placeholder', 'title', 'href'];
+function setLang(l) {
+  if (l !== lang) {
+    lang = l;
+    document.querySelectorAll('[data-en]').forEach(el => {
+      el.dataset.pt ??= el.innerHTML;
+      el.innerHTML = el.dataset[l];
+    });
+    I18N_ATTRS.forEach(a => document.querySelectorAll(`[data-en-${a}]`).forEach(el => {
+      if (!el.hasAttribute('data-pt-' + a)) el.setAttribute('data-pt-' + a, el.getAttribute(a));
+      el.setAttribute(a, el.getAttribute(`data-${l}-${a}`));
+    }));
+  }
+  html.lang = t('pt-BR', 'en', 'es');
+  document.title = t('Instituto Educacional Luterano | Ferraz de Vasconcelos', 'Instituto Educacional Luterano | Lutheran school in Ferraz de Vasconcelos, Brazil', 'Instituto Educacional Luterano | Escuela luterana en Ferraz de Vasconcelos, Brasil');
+  langBtns.forEach(b => b.setAttribute('aria-pressed', b.dataset.l === l));
+  document.getElementById('nb').textContent = bairros.length;
+  res.dataset.k = ''; renderBairros();
+  renderOpen(); vLabel();
+}
+const langBtns = document.querySelectorAll('[data-l]');
+langBtns.forEach(b => b.addEventListener('click', () => {
+  store('lang', b.dataset.l);
+  fade(() => setLang(b.dataset.l));
+}));
+const prefLangs = (navigator.languages || [navigator.language]).map(l => l.slice(0, 2).toLowerCase());
+setLang(store('lang') || (prefLangs.includes('pt') ? 'pt' : prefLangs.find(l => l === 'es' || l === 'en') || 'pt'));
 </script>
 </body>
 </html>
